@@ -4,7 +4,7 @@
 
 dir=~/dotfiles
 olddir=~/.dotfiles_old
-files="bashrc vimrc vim zshrc oh-my-zsh"
+files="xmonad vimrc vim zshrc oh-my-zsh"
 
 mkdir -p $olddir
 
