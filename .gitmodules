@@ -13,3 +13,12 @@
 [submodule ".vim/bundle/supertab"]
 	path = .vim/bundle/supertab
 	url = https://github.com/ervandew/supertab
+[submodule ".vim/bundle/atp_vim"]
+	path = .vim/bundle/atp_vim
+	url = https://github.com/coot/atp_vim
+[submodule ".vim/bundle/Vim-R-plugin"]
+	path = .vim/bundle/Vim-R-plugin
+	url = https://github.com/vim-scripts/Vim-R-plugin
+[submodule ".vim/bundle/neocomplcache.vim"]
+	path = .vim/bundle/neocomplcache.vim
+	url = https://github.com/Shougo/neocomplcache.vim

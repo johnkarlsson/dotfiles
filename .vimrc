@@ -3,6 +3,17 @@ colorscheme zenzike
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 
+" setlocal makeprg=pdflatex\ \-file\-line\-error\ \-interaction=nonstopmode\ $*\\\|\ grep\ \-E\ '\\w+:[0-9]{1,4}:\\\ ' 
+" setlocal errorformat=%f:%l:\ %m 
+" map <buffer> ,p :w<CR>:make %<<CR> 
+"map ,p :w<CR>:!pdflatex % &<CR> 
+au FileType tex map <silent> <expr> <leader>l system("pdflatex ".expand("%"))
+au BufWritePost *.tex silent call system("pdflatex ".expand("%"))
+
+
+" let b:tex_flavor = 'pdflatex' 
+" compiler tex 
+
 set background=dark
 
 set t_Co=256
@@ -13,6 +24,8 @@ set nocompatible
 set modelines=0
 set expandtab
 let mapleader = ","
+let maplocalleader = "\\"
+
 
 " Low delay in switching modes
 set ttimeoutlen=50
@@ -141,3 +154,10 @@ map <F12> :w<CR>:make %<<CR>
 set spelllang=sv
 set backup
 set backupdir=~/.vimswp
+
+" For vim-R plugin
+let vimrplugin_screenplugin = 0
+set completeopt-=preview
+
+" Neo
+let g:neocomplcache_enable_at_startup = 1
