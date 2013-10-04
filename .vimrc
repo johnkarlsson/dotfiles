@@ -50,7 +50,9 @@ let g:airline_powerline_fonts=0
 
 " Colorcolumn
 set textwidth=80
-set colorcolumn=81
+if version >= 703
+    set colorcolumn=81
+endif
 
 "Folding
 set foldmethod=indent   " fold based on indent
