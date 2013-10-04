@@ -22,3 +22,6 @@
 [submodule ".vim/bundle/neocomplcache.vim"]
 	path = .vim/bundle/neocomplcache.vim
 	url = https://github.com/Shougo/neocomplcache.vim
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic

@@ -161,3 +161,4 @@ set completeopt-=preview
 
 " Neo
 let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_ignore_case = 0
