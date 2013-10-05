@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, TypeSynonymInstances, FlexibleContexts, NoMonomorphismRestriction #-}
+
 import Control.Monad
 import Data.Monoid (All (All))
 import qualified Data.Map as M
@@ -9,35 +11,48 @@ import XMonad.Layout.NoBorders
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops
 
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.WindowNavigation
+import XMonad.Layout.BoringWindows
+import XMonad.Layout.Reflect
+import XMonad.Layout.Column
+
+-- myLayout = smartBorders $ layoutHook gnomeConfig
+myLayout = windowNavigation
+                $ smartBorders
+                $ boringWindows
+                $ subLayout [0,1,2] (Mirror $ Column 1) (layoutHook gnomeConfig)
+
+
 -- http://charlieharvey.org.uk/src/xmonad.hs.txt
---
 myManageHook = composeAll [
-    (className =? "Pidgin" <&&> (title =? "Pidgin" <||> title =? "Accounts")) --> doCenterFloat
-  , (className =? "Pidgin") --> doShift "3"
-  , (className =? "Gnome-panel" <&&> title =? "Run Application") --> doCenterFloat
-  , (className =? "Gcr-prompter") --> doCenterFloat
-  , (className =? "Xfce4-notifyd" -->  doIgnore)
-  , isFullscreen --> doFullFloat
-   ]
+      isFullscreen --> doFullFloat
+    ]
 
---myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
---    [
---        ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
---    ]
+myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+    [
+    ((modm .|. controlMask,   xK_h),       sendMessage $ pullGroup L)
+    , ((modm .|. controlMask, xK_l),       sendMessage $ pullGroup R)
+    , ((modm .|. controlMask, xK_k),       sendMessage $ pullGroup U)
+    , ((modm .|. controlMask, xK_j),       sendMessage $ pullGroup D)
+    , ((modm .|. controlMask, xK_m),       withFocused (sendMessage . MergeAll))
+    , ((modm .|. controlMask, xK_u),       withFocused (sendMessage . UnMerge))
+    , ((modm .|. controlMask, xK_period),  onGroup W.focusUp')
+    , ((modm .|. controlMask, xK_comma),   onGroup W.focusDown')
+--  , ((modm,                 xK_s),       submap $ defaultSublMap conf)
+    ]
 
---myKeys (XConfig {modMask = mod4Mask}) = M.fromList $
---    [ ((mod4Mask, xK_p), gnomeRun) ]
 
 main = xmonad $ gnomeConfig {
     modMask             = mod4Mask
-  , layoutHook          = smartBorders (layoutHook gnomeConfig)
+  , layoutHook          = myLayout
   , borderWidth         = 2
   , focusFollowsMouse   = False
 --, normalBorderColor   = "#cccccc"
 --, focusedBorderColor  = "#3300ff"
   , manageHook          = myManageHook <+> manageHook gnomeConfig
   , handleEventHook     = evHook
---, keys                = myKeys <+> keys gnomeConfig
+  , keys                = myKeys <+> keys gnomeConfig
   , startupHook         = ewmhDesktopsStartup >> setWMName "LG3D"
 --, startupHook         = setWMName "LG3D"
   }
