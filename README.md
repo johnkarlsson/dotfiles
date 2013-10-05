@@ -5,6 +5,7 @@ To get started:
 ```
     cd ~
     git clone git@github.com:johnkarlsson/dotfiles.git
+    cd ~/dotfiles/
     git submodule init
     git submodule update
     ./dotfiles/install.sh
