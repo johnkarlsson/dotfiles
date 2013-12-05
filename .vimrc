@@ -48,6 +48,10 @@ let g:airline_paste_symbol = '∥'
 let g:airline_theme='simple'
 let g:airline_powerline_fonts=0
 
+" Supertab
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+
 " Colorcolumn
 set textwidth=80
 if version >= 703
@@ -110,8 +114,12 @@ set incsearch
 set showmatch
 set hlsearch
 nnoremap <leader><space> :noh<cr>
-nnoremap <tab> %
-vnoremap <tab> %
+
+" nnoremap <tab> %
+" vnoremap <tab> %
+imap <tab> <c-n>
+imap <s-tab> <c-p>
+imap <c-tab> <c-x><c-l>
 
 nnoremap <up> <nop>
 nnoremap <down> <nop>
@@ -130,7 +138,7 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
-nnoremap ; :
+" nnoremap ; :
 
 set number
 set nowrap
@@ -164,3 +172,8 @@ set completeopt-=preview
 " Neo
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_ignore_case = 0
+
+" Syntastic / Clang++
+let g:syntastic_cpp_compiler = 'g++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11'
+" let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
