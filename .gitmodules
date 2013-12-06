@@ -25,3 +25,9 @@
 [submodule ".vim/bundle/syntastic"]
 	path = .vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic
+[submodule ".vim/bundle/taglist"]
+	path = .vim/bundle/taglist
+	url = https://github.com/vim-scripts/taglist.vim
+[submodule ".vim/bundle/AutoTag"]
+	path = .vim/bundle/AutoTag
+	url = https://github.com/vim-scripts/AutoTag
