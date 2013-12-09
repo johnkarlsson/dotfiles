@@ -5,6 +5,13 @@ import Data.Monoid (All (All))
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import XMonad
+
+import XMonad.Util.Run(spawnPipe)
+import XMonad.Hooks.DynamicLog
+
+import System.IO
+import System.Exit
+
 import XMonad.Config.Gnome
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.NoBorders
@@ -31,7 +38,7 @@ myManageHook = composeAll [
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [
-    ((modm .|. controlMask,   xK_h),       sendMessage $ pullGroup L)
+      ((modm .|. controlMask, xK_h),       sendMessage $ pullGroup L)
     , ((modm .|. controlMask, xK_l),       sendMessage $ pullGroup R)
     , ((modm .|. controlMask, xK_k),       sendMessage $ pullGroup U)
     , ((modm .|. controlMask, xK_j),       sendMessage $ pullGroup D)
@@ -40,22 +47,31 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask, xK_period),  onGroup W.focusUp')
     , ((modm .|. controlMask, xK_comma),   onGroup W.focusDown')
 --  , ((modm,                 xK_s),       submap $ defaultSublMap conf)
+    , ((modm .|. shiftMask, xK_q),         io (exitWith ExitSuccess))
+    , ((modm, xK_q),                       restart "xmonad" True)
     ]
 
 
-main = xmonad $ gnomeConfig {
-    modMask             = mod4Mask
-  , layoutHook          = myLayout
-  , borderWidth         = 2
-  , focusFollowsMouse   = False
---, normalBorderColor   = "#cccccc"
---, focusedBorderColor  = "#3300ff"
-  , manageHook          = myManageHook <+> manageHook gnomeConfig
-  , handleEventHook     = evHook
-  , keys                = myKeys <+> keys gnomeConfig
-  , startupHook         = ewmhDesktopsStartup >> setWMName "LG3D"
---, startupHook         = setWMName "LG3D"
-  }
+main = do
+    xmproc <- spawnPipe "xmobar ~/dotfiles/.xmonad/.xmobarrc"
+    xmonad $ gnomeConfig {
+        modMask             = mod4Mask
+      , terminal            = "xterm" 
+      , layoutHook          = myLayout
+      , borderWidth         = 1
+      , focusFollowsMouse   = False
+      , normalBorderColor   = "#000000"
+    --, focusedBorderColor  = "#3300ff"
+      , manageHook          = myManageHook <+> manageHook gnomeConfig
+      , handleEventHook     = evHook
+      , keys                = myKeys <+> keys gnomeConfig
+      , startupHook         = ewmhDesktopsStartup >> setWMName "LG3D"
+    --, startupHook         = setWMName "LG3D"
+      , logHook             = dynamicLogWithPP xmobarPP
+                              { ppOutput = hPutStrLn xmproc
+                              , ppTitle = xmobarColor "green" "" . shorten 50
+                              }
+    }
 
 -- Helper functions to fullscreen the window
 fullFloat, tileWin :: Window -> X ()
