@@ -9,6 +9,8 @@ import XMonad
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Hooks.DynamicLog
 
+import XMonad.Actions.Volume
+
 import System.IO
 import System.Exit
 
@@ -49,8 +51,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 --  , ((modm,                 xK_s),       submap $ defaultSublMap conf)
     , ((modm .|. shiftMask, xK_q),         io (exitWith ExitSuccess))
     , ((modm, xK_q),                       restart "xmonad" True)
+   -- multimedia keys
+    , ((0, 0x1008ff11),                    lowerVolume 3 >> return ())
+    , ((0, 0x1008ff13),                    raiseVolume 3 >> return ())
+    , ((0, 0x1008ff12),                    spawn "amixer set Master toggle;    \
+                                                \ amixer set Headphone unmute; \
+                                                \ amixer set Speaker unmute")
     ]
-
 
 main = do
     xmproc <- spawnPipe "xmobar ~/dotfiles/.xmonad/.xmobarrc"
