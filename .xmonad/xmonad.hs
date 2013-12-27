@@ -6,6 +6,9 @@ import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import XMonad
 
+import XMonad.Hooks.DynamicLog (dynamicLogXinerama, xmobar)
+import XMonad.Hooks.ManageDocks
+
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Hooks.DynamicLog
 
@@ -36,6 +39,10 @@ myLayout = windowNavigation
 -- http://charlieharvey.org.uk/src/xmonad.hs.txt
 myManageHook = composeAll [
       isFullscreen --> doFullFloat
+--    , appName =? "xmobar" -->
+--                 (ask >>=
+--                  \win -> liftX (withDisplay $ \dpy -> io $ raiseWindow dpy win) >>
+--                  idHook)
     ]
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
@@ -51,6 +58,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 --  , ((modm,                 xK_s),       submap $ defaultSublMap conf)
     , ((modm .|. shiftMask, xK_q),         io (exitWith ExitSuccess))
     , ((modm, xK_q),                       restart "xmonad" True)
+
    -- multimedia keys
     , ((0, 0x1008ff11),                    lowerVolume 3 >> return ())
     , ((0, 0x1008ff13),                    raiseVolume 3 >> return ())
@@ -59,25 +67,26 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
                                                 \ amixer set Speaker unmute")
     ]
 
-main = do
-    xmproc <- spawnPipe "xmobar ~/dotfiles/.xmonad/.xmobarrc"
-    xmonad $ gnomeConfig {
+main = -- do
+--    xmproc <- spawnPipe "xmobar ~/dotfiles/.xmonad/.xmobarrc"
+--    xmonad $ gnomeConfig {
+      xmonad =<< xmobar defaultConfig {
         modMask             = mod4Mask
       , terminal            = "xterm" 
-      , layoutHook          = myLayout
+      , layoutHook          = avoidStruts myLayout
       , borderWidth         = 1
       , focusFollowsMouse   = False
       , normalBorderColor   = "#000000"
-    --, focusedBorderColor  = "#3300ff"
+      , focusedBorderColor  = "#ff0000"
       , manageHook          = myManageHook <+> manageHook gnomeConfig
       , handleEventHook     = evHook
       , keys                = myKeys <+> keys gnomeConfig
       , startupHook         = ewmhDesktopsStartup >> setWMName "LG3D"
-    --, startupHook         = setWMName "LG3D"
-      , logHook             = dynamicLogWithPP xmobarPP
-                              { ppOutput = hPutStrLn xmproc
-                              , ppTitle = xmobarColor "green" "" . shorten 50
-                              }
+--    , startupHook         = setWMName "LG3D"
+--    , logHook             = dynamicLogWithPP xmobarPP
+--                            { ppOutput = hPutStrLn xmproc
+--                            , ppTitle = xmobarColor "green" "" . shorten 50
+--                            }
     }
 
 -- Helper functions to fullscreen the window
@@ -91,17 +100,12 @@ evHook (ClientMessageEvent _ _ _ dpy win typ dat) = do
   state <- getAtom "_NET_WM_STATE"
   fullsc <- getAtom "_NET_WM_STATE_FULLSCREEN"
   isFull <- runQuery isFullscreen win
-
   -- Constants for the _NET_WM_STATE protocol
   let remove = 0
       add = 1
       toggle = 2
-
-      -- The ATOM property type for changeProperty
-      ptype = 4 
-
+      ptype = 4 -- The ATOM property type for changeProperty
       action = head dat
-
   when (typ == state && (fromIntegral fullsc) `elem` tail dat) $ do
     when (action == add || (action == toggle && not isFull)) $ do
          io $ changeProperty32 dpy win state ptype propModeReplace [fromIntegral fullsc]
@@ -109,8 +113,6 @@ evHook (ClientMessageEvent _ _ _ dpy win typ dat) = do
     when (head dat == remove || (action == toggle && isFull)) $ do
          io $ changeProperty32 dpy win state ptype propModeReplace []
          tileWin win
-
   -- It shouldn't be necessary for xmonad to do anything more with this event
   return $ All False
-
 evHook _ = return $ All True
