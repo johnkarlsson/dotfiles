@@ -115,6 +115,10 @@ set showmatch
 set hlsearch
 nnoremap <leader><space> :noh<cr>
 
+inoremap <C-c> <Esc><Esc>
+vnoremap <C-c> <Esc><Esc>
+nnoremap <C-c> <Esc><Esc>
+
 " nnoremap <tab> %
 " vnoremap <tab> %
 imap <tab> <c-n>
