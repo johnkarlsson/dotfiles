@@ -6,16 +6,14 @@ Config { font = "-*-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
        , commands = [
                       Run MultiCpu ["-t","<total>%", "-L", "26", "-H", "51", "-l", "lightblue", "-n", "white", "-h", "red"] 10
                     , Run CoreTemp ["-t", "<core0>C <core1>C", "-L", "50", "-H", "60", "-l", "lightblue", "-n", "white", "-h", "red"] 50
-                    , Run Memory ["-t","<usedratio>%"] 10
+                    , Run Memory ["-t","<usedratio>%"] 50
                     , Run Swap [] 10
-                    , Run Wireless "wlan0" ["-t","<quality>%","-L","0","-H","32","--normal","red","--high","green"] 10
-                   -- , Run Battery ["-t","<left>%","-L","25","-H","75","--low","#FF0000","--normal","#F9FF00","--high","#00FF00"] 600
+                    , Run Wireless "wlan0" ["-t","<quality>%","-L","0","-H","32","--normal","red","--high","green"] 100
                     , Run Battery ["-t","<left>%","-L","10","-H","50","--low","#FF0000","--high","#00FF00","--","-c","energy_full"] 600
-                   -- , Run BatteryP ["BAT0"] ["--","-c","energy_full"] 600
-                    , Run DiskU [("/", "<usedp>%")] ["-L", "50", "-H", "97", "-m", "1", "-p", "3", "-h","red","-l","blue","-n","white"] 10
+                    , Run DiskU [("/", "<usedp>%")] ["-L", "50", "-H", "97", "-m", "1", "-p", "3", "-h","red","-l","blue","-n","white"] 600
                     , Run Com "$HOME/dotfiles/.xmonad/getvolume.sh" [] "myVolume" 10
-                    , Run Date "%a %b %_d" "date0" 10
-                    , Run Date "(w%W)" "date1" 10
+                    , Run Date "%a %b %_d" "date0" 600
+                    , Run Date "(w%W)" "date1" 600
                     , Run Date "%H:%M" "date2" 10
                     , Run StdinReader
                     ]
