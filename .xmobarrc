@@ -5,7 +5,7 @@ Config { font = "-*-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
        , position = TopW L 100
        , commands = [
                       Run MultiCpu ["-t","<total>%", "-L", "26", "-H", "51", "-l", "lightblue", "-n", "white", "-h", "red"] 10
-                    , Run CoreTemp ["-t", "<core0>C <core1>C", "-L", "50", "-H", "60", "-l", "lightblue", "-n", "white", "-h", "red"] 50
+                    , Run CoreTemp ["-t", "<core0>° <core1>°", "-L", "59", "-H", "60", "-l", "lightblue", "-n", "white", "-h", "red"] 50
                     , Run Memory ["-t","<usedratio>%"] 50
                     , Run Swap [] 10
                     , Run Wireless "wlan0" ["-t","<quality>%","-L","0","-H","32","--normal","red","--high","green"] 100
