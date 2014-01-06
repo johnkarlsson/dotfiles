@@ -1,7 +1,7 @@
 Config { font = "-*-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
        , bgColor = "black"
        , fgColor = "grey"
---      , lowerOnStart = False
+       , lowerOnStart = False
        , position = TopW L 100
        , commands = [
                       Run MultiCpu ["-t","<total>%", "-L", "26", "-H", "51", "-l", "lightblue", "-n", "white", "-h", "red"] 10
@@ -13,7 +13,7 @@ Config { font = "-*-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
                     , Run DiskU [("/", "<usedp>%")] ["-L", "50", "-H", "97", "-m", "1", "-p", "3", "-h","red","-l","blue","-n","white"] 600
                     , Run Com "$HOME/dotfiles/.xmonad/getvolume.sh" [] "myVolume" 10
                     , Run Date "%a %b %_d" "date0" 600
-                    , Run Date "(w%W)" "date1" 600
+                    , Run Date "(w%V)" "date1" 600
                     , Run Date "%H:%M" "date2" 10
                     , Run StdinReader
                     ]
