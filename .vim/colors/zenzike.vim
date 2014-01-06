@@ -68,8 +68,8 @@ let s:colors88 = [
   \ ["Number",        "67",   "",     "",     "",         ""],
   \ ["Float",         "67",   "",     "",     "",         ""],
   \ ["Identifier",    "56",   "",     "",     "",         ""],
-  \ ["Function",      "52",   "",     "",     "",         ""],
-  \ ["Statement",     "43",   "",     "",     "none",     ""],
+  \ ["Function",      "77",   "",     "",     "",         ""],
+  \ ["Statement",     "43",   "",     "bold",     "none",     ""],
   \ ["Conditional",   "26",   "",     "",     "",         ""],
   \ ["Operator",      "42",   "",     "",     "",         ""],
   \ ["Keyword",       "27",   "",     "",     "",         ""],
@@ -102,7 +102,8 @@ function! s:from88toRGB(n)
   let l:colors = []
   " ansi
   for i in [
-    \ 0x000000, 0xcc0000, 0x00cc00, 0xcccc00,
+    \ 0x000000, 0xcc0000, 0x00cc00, 0xeeee00,
+    "\ 0x000000, 0xcc0000, 0x00cc00, 0xcccc00,
     \ 0x0000cc, 0xcc00cc, 0x00cccc, 0xcccccc,
     \ 0x333333, 0xff0000, 0x00ff00, 0xffff00,
     \ 0x0000ff, 0xff00ff, 0x00ffff, 0xffffff ]
