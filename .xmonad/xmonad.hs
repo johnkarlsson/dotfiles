@@ -19,10 +19,11 @@ import System.Exit
 
 import XMonad.Config.Gnome
 import XMonad.Hooks.ManageHelpers
-import XMonad.Layout.NoBorders
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops
 
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Spacing
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.BoringWindows
@@ -58,6 +59,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 --  , ((modm,                 xK_s),       submap $ defaultSublMap conf)
     , ((modm .|. shiftMask, xK_q),         io (exitWith ExitSuccess))
     , ((modm, xK_q),                       restart "xmonad" True)
+    , ((modm .|. shiftMask, xK_s),         spawn "gnome-screensaver-command --lock && sudo $HOME/dotfiles/.xmonad/sleep.sh")
 
    -- multimedia keys
     , ((0, 0x1008ff11),                    lowerVolume 3 >> return ())
@@ -73,7 +75,7 @@ main = -- do
       xmonad =<< xmobar defaultConfig {
         modMask             = mod4Mask
       , terminal            = "xterm" 
-      , layoutHook          = avoidStruts myLayout
+      , layoutHook          = spacing 8 $ avoidStruts $ myLayout
       , borderWidth         = 1
       , focusFollowsMouse   = False
       , normalBorderColor   = "#000000"
