@@ -12,6 +12,8 @@ Config { font = "-*-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
                     , Run Battery ["-t","<left>%","-L","10","-H","50","--low","#FF0000","--high","#00FF00","--","-c","charge_full"] 600
                     , Run DiskU [("/", "<usedp>%")] ["-L", "50", "-H", "97", "-m", "1", "-p", "3", "-h","red","-l","blue","-n","white"] 600
                     , Run Com "$HOME/dotfiles/.xmonad/getvolume.sh" [] "myVolume" 10
+                    , Run Com "$HOME/dotfiles/.xmonad/mail_check.sh tartrate" [] "mail_tartrate" 600
+                    , Run Com "$HOME/dotfiles/.xmonad/mail_check.sh kajohn" [] "mail_kajohn" 600
                     , Run Date "%a %b %_d" "date0" 600
                     , Run Date "(w%V)" "date1" 600
                     , Run Date "%H:%M" "date2" 10
@@ -19,5 +21,5 @@ Config { font = "-*-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% } <fc=#ee9a00>CPU</fc> %multicpu% <fc=#ffffff>%coretemp%</fc> | <fc=#ee9a00>Mem</fc> %memory% (%swap%) | <fc=#ee9a00>Disk</fc>%disku% | <fc=#ee9a00>WLAN</fc> %wlan0wi% { <fc=#ee9a00>Batt</fc> %battery% | <fc=#ee9a00>Vol</fc> %myVolume% | <fc=#ee9a00>%date0%</fc> %date1% <fc=#ee9a00>%date2%</fc>"
+       , template = "%StdinReader% } <fc=#ee9a00>CPU</fc> %multicpu% <fc=#ffffff>%coretemp%</fc> | <fc=#ee9a00>Mem</fc> %memory% (%swap%) | <fc=#ee9a00>Disk</fc>%disku% | <fc=#ee9a00>WLAN</fc> %wlan0wi% { <fc=#ee9a00>Mail</fc> %mail_tartrate% %mail_kajohn% | <fc=#ee9a00>Batt</fc> %battery% | <fc=#ee9a00>Vol</fc> %myVolume% | <fc=#ee9a00>%date0%</fc> %date1% <fc=#ee9a00>%date2%</fc>"
        }
