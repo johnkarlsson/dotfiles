@@ -17,7 +17,7 @@ set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates
 
-set quit = ask-no
+# set quit = ask-no
 set sort = 'threads'
 set sort_aux = 'reverse-last-date-received'
 set imap_check_subscribed
@@ -121,3 +121,4 @@ macro index a "<limit>all\n" "show all messages (undo limit)"
 bind index N search-opposite
 bind index p recall-message
 
+bind index + toggle-new
