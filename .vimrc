@@ -176,6 +176,12 @@ set completeopt-=preview
 " Neo
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_ignore_case = 0
+"" Neo / Eclim
+let g:EclimCompletionMethod = 'omnifunc'
+if !exists('g:neocomplcache_force_omni_patterns')
+  let g:neocomplcache_force_omni_patterns = {}
+endif
+let g:neocomplcache_force_omni_patterns.java = '\k\.\k*'
 
 " Syntastic / Clang++
 let g:syntastic_cpp_compiler = 'g++'
