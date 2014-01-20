@@ -90,6 +90,8 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 
+set list listchars=tab:→\ ,trail:·
+
 set encoding=UTF-8
 "set encoding=iso-8859-1
 set scrolloff=3
