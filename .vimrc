@@ -138,6 +138,12 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
+" arrow keys -> window resize
+nnoremap <left> :vertical resize -5<cr>
+nnoremap <down> :resize +5<cr>
+nnoremap <up> :resize -5<cr>
+nnoremap <right> :vertical resize +5<cr>
+
 au FocusLost * :wa
 
 inoremap <F1> <ESC>
