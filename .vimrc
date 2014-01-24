@@ -194,11 +194,26 @@ if !exists('g:neocomplcache_force_omni_patterns')
   let g:neocomplcache_force_omni_patterns = {}
 endif
 let g:neocomplcache_force_omni_patterns.java = '\k\.\k*'
+"" Neo / clang_complete
+let g:neocomplcache_force_overwrite_completefunc = 1
+let g:neocomplcache_force_omni_patterns.c =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.cpp =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.objc =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.objcpp =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
 
-" Syntastic / Clang++
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
 " let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
-" Tags
-set tags=tags;
+let g:clang_complete_copen = 1
+let g:clang_complete_hl_errors = 1
+let g:clang_periodic_quickfix = 1
+let g:clang_trailing_placeholder = 1
+let g:clang_close_preview = 1
+let g:clang_snippets = 1
