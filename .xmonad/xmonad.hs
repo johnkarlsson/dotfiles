@@ -60,7 +60,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_q),         io (exitWith ExitSuccess))
     , ((modm, xK_q),                       restart "xmonad" True)
     , ((modm .|. shiftMask, xK_s),         spawn "gnome-screensaver-command --lock && sudo $HOME/dotfiles/.xmonad/sleep.sh")
-    , ((modm .|. shiftMask, xK_m),         spawn "xterm mutt")
+    , ((modm .|. shiftMask, xK_m),         spawn "xterm -e zsh -c mutt")
+    , ((modm .|. shiftMask, xK_w),         spawn "google-chrome")
 
    -- multimedia keys
     , ((0, 0x1008ff11),                    lowerVolume 3 >> return ())
