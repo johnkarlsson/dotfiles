@@ -30,6 +30,8 @@ let maplocalleader = "\\"
 " Low delay in switching modes
 set ttimeoutlen=50
 
+nnoremap <F5> "=strftime("%c")<CR>P
+inoremap <F5> <C-R>=strftime("%c")<CR>
 
 " unicode symbols
 let g:airline_left_sep = '»'
@@ -43,7 +45,6 @@ let g:airline_fugitive_prefix = '⎇  '
 let g:airline_paste_symbol = 'ρ'
 let g:airline_paste_symbol = 'Þ'
 let g:airline_paste_symbol = '∥'
-
 " TEST
 let g:airline_theme='simple'
 let g:airline_powerline_fonts=0
