@@ -139,6 +139,9 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
+nnoremap ' `
+nnoremap ` '
+
 " arrow keys -> window resize
 nnoremap <left> :vertical resize -5<cr>
 nnoremap <down> :resize +5<cr>
