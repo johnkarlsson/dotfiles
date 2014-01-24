@@ -45,13 +45,8 @@ let g:airline_fugitive_prefix = '⎇  '
 let g:airline_paste_symbol = 'ρ'
 let g:airline_paste_symbol = 'Þ'
 let g:airline_paste_symbol = '∥'
-" TEST
 let g:airline_theme='simple'
 let g:airline_powerline_fonts=0
-
-" Supertab
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 
 " Colorcolumn
 set textwidth=80
@@ -217,3 +212,8 @@ let g:clang_periodic_quickfix = 1
 let g:clang_trailing_placeholder = 1
 let g:clang_close_preview = 1
 let g:clang_snippets = 1
+let g:clang_conceal_snippets=1
+set conceallevel=2
+set concealcursor=vin
+" set completeopt=menu,menuone
+let g:SuperTabDefaultCompletionType='<c-x><c-u><c-p>'
