@@ -2,6 +2,7 @@ set mbox_type=Maildir
 set folder=$HOME/.mail
 
 set move = no
+set copy = yes
 source ~/.mutt/accounts/sourceme
 
 set noconfirmappend
@@ -36,15 +37,21 @@ color header green black ^From
 color header green black ^Subject
 color body yellow black [_a-z\.\$A-Z0-9-]+@[a-zA-Z0-9\./\-]+
 color body yellow black (http|ftp)://[_a-zA-Z0-9\?\=\&\@\%\#\:\,\./~\-]+
-color quoted green black
+# color quoted green black
+color quoted  color1     default
+color quoted1 color4     default
+color quoted2 color2     default
+color quoted3 color6     default
 color signature cyan black
 color attachment yellow black
 color tree red black
 color indicator black cyan
 color status yellow black
 color tilde blue black
-color normal white black
+color normal color15 black
 color index green black ~N
+
+set attribution='On %{%a, %d %b %Y %H:%M} %f wrote:\n'
 
 # Sidebar Patch --------------------------------------
 set sidebar_delim   = '  │'
@@ -103,7 +110,9 @@ set menu_scroll            # scroll in menus
 set tilde                  # show tildes like in vim
 unset markers              # no ugly plus signs
 
-set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+# set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+# set quote_regexp="^([ \t]*[|>:}#])+"
+set quote_regexp="^([ \t]*[>])+"
 alternative_order text/plain text/enriched text/html
 
 # Pager Key Bindings ---------------------------------
