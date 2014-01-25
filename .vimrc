@@ -217,3 +217,4 @@ set conceallevel=2
 set concealcursor=vin
 " set completeopt=menu,menuone
 let g:SuperTabDefaultCompletionType='<c-x><c-u><c-p>'
+nmap <leader>c :call g:ClangUpdateQuickFix()<CR>
