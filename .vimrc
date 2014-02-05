@@ -162,6 +162,7 @@ nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
 
+autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 
 let b:tex_flavor = 'pdflatex'
 compiler tex
