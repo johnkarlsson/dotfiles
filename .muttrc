@@ -53,6 +53,8 @@ color index green black ~N
 
 set attribution='On %{%a, %d %b %Y %H:%M} %f wrote:\n'
 
+auto_view text/html
+
 # Sidebar Patch --------------------------------------
 set sidebar_delim   = '  │'
 set sidebar_visible = yes
