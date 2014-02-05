@@ -16,6 +16,7 @@ import XMonad.Actions.Volume
 
 import System.IO
 import System.Exit
+import XMonad.Util.Dmenu
 
 import XMonad.Config.Gnome
 import XMonad.Hooks.ManageHelpers
@@ -23,7 +24,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops
 
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Spacing
+-- import XMonad.Layout.Spacing
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.BoringWindows
@@ -46,6 +47,12 @@ myManageHook = composeAll [
 --                  idHook)
     ]
 
+quitWithWarning :: X ()
+quitWithWarning = do
+    let m = "confirm quit"
+    s <- dmenu [m]
+    when (m == s) (io (exitWith ExitSuccess))
+
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [
       ((modm .|. controlMask, xK_h),       sendMessage $ pullGroup L)
@@ -57,7 +64,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask, xK_period),  onGroup W.focusUp')
     , ((modm .|. controlMask, xK_comma),   onGroup W.focusDown')
 --  , ((modm,                 xK_s),       submap $ defaultSublMap conf)
-    , ((modm .|. shiftMask, xK_q),         io (exitWith ExitSuccess))
+    , ((modm .|. shiftMask, xK_q),         quitWithWarning)
     , ((modm, xK_q),                       restart "xmonad" True)
     , ((modm .|. shiftMask, xK_s),         spawn "gnome-screensaver-command --lock && sudo $HOME/dotfiles/.xmonad/sleep.sh")
     , ((modm .|. shiftMask, xK_m),         spawn "xterm -e zsh -c mutt")
@@ -77,7 +84,8 @@ main = -- do
       xmonad =<< xmobar defaultConfig {
         modMask             = mod4Mask
       , terminal            = "xterm" 
-      , layoutHook          = spacing 8 $ avoidStruts $ myLayout
+      , layoutHook          = avoidStruts $ myLayout
+      -- , layoutHook          = spacing 0 $ avoidStruts $ myLayout
       , borderWidth         = 1
       , focusFollowsMouse   = False
       , normalBorderColor   = "#000000"
