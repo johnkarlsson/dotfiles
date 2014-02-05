@@ -209,6 +209,8 @@ let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
 " let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
+let g:clang_library_path = '/usr/lib/'
+let g:clang_use_library = 1
 let g:clang_complete_copen = 1
 let g:clang_complete_hl_errors = 1
 let g:clang_periodic_quickfix = 1
