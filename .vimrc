@@ -218,8 +218,12 @@ let g:clang_trailing_placeholder = 1
 let g:clang_close_preview = 1
 let g:clang_snippets = 1
 let g:clang_conceal_snippets=1
+
 set conceallevel=2
-set concealcursor=vin
+set concealcursor=
+hi Conceal cterm=NONE ctermbg=NONE ctermfg=yellow
+let g:tex_conceal="adgm"
+
 " set completeopt=menu,menuone
 let g:SuperTabDefaultCompletionType='<c-x><c-u><c-p>'
 nmap <leader>c :call g:ClangUpdateQuickFix()<CR>
