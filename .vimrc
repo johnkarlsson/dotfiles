@@ -82,6 +82,8 @@ endfunction
 au BufNewFile,BufRead *.as set filetype=javascript
 au BufNewFile,BufRead *.ck setf ck  
 
+set splitright
+
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
