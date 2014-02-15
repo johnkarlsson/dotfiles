@@ -81,10 +81,10 @@ set foldlevel=1
 " Close all nonlocal folds
 nnoremap <leader>z mzzMzvzz15<c-e>`z
 
-" Source the vimrc file after saving it
-if has("autocmd")
-	autocmd bufwritepost .vimrc source $MYVIMRC
-endif
+" " Source the vimrc file after saving it
+" if has("autocmd")
+" 	autocmd bufwritepost .vimrc source $MYVIMRC
+" endif
 nmap <leader>v :tabedit $MYVIMRC<CR>
 
 " Toggle mouse with <leader>m
