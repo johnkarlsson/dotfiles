@@ -39,6 +39,11 @@ set expandtab
 let mapleader = ","
 let maplocalleader = "\\"
 
+" <C-q> to gqip and return to position
+" Catch <C-q> and <C-s>
+silent !stty -ixon > /dev/null 2>/dev/null
+nnoremap <C-q> mfgqip`f
+inoremap <C-q> <esc>gqipgi
 
 " Low delay in switching modes
 set ttimeoutlen=50
