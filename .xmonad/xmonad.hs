@@ -13,6 +13,7 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Hooks.DynamicLog
 
 import XMonad.Actions.Volume
+import XMonad.Actions.CycleWS
 
 import System.IO
 import System.Exit
@@ -69,6 +70,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_s),         spawn "gnome-screensaver-command --lock && sudo $HOME/dotfiles/.xmonad/sleep.sh")
     , ((modm .|. shiftMask, xK_m),         spawn "xterm -e zsh -c mutt")
     , ((modm .|. shiftMask, xK_w),         spawn "google-chrome")
+
+    -- CycleWS
+    , ((modm,               xK_z),     toggleWS)
 
    -- multimedia keys
     , ((0, 0x1008ff11),                    lowerVolume 3 >> return ())
