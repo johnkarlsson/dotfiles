@@ -164,6 +164,23 @@ nnoremap <right> :vertical resize +5<cr>
 
 au FocusLost * :wa
 
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Same when jumping around
+nnoremap g; g;zz
+nnoremap g, g,zz
+nnoremap ]] ]]zt
+nnoremap [[ [[zt
+nnoremap <c-o> <c-o>zz
+nnoremap <c-i> <c-i>zz
+nnoremap <c-t> <c-t>zt
+
+" Don't move on * #
+nnoremap * *<c-o>
+nnoremap # #<c-o>
+
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
