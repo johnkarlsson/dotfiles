@@ -98,10 +98,6 @@ function! ToggleMouse()
         echo "Mouse usage enabled"
     endif
 endfunction
- 
-" Delete?
-au BufNewFile,BufRead *.as set filetype=javascript
-au BufNewFile,BufRead *.ck setf ck  
 
 set splitright
 
