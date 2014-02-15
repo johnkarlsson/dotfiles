@@ -70,6 +70,7 @@ let g:airline_powerline_fonts=0
 set textwidth=80
 if version >= 703
     set colorcolumn=81
+    highlight ColorColumn ctermbg=red ctermfg=black
 endif
 
 "Folding
