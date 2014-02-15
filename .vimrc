@@ -12,6 +12,18 @@ au BufWritePost *.tex silent call system("pdflatex ".expand("%"))
 
 au VimResized * exe "normal! \<c-w>="
 
+augroup 
+
+" Make sure Vim returns to the same line when you reopen a file.
+" From https://www.youtube.com/watch?v=xZuy4gBghho
+augroup line_return
+    au!
+    au BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \     execute 'normal! g`"zvzz' |
+        \ endif
+augroup END
+
 " let b:tex_flavor = 'pdflatex' 
 " compiler tex 
 
