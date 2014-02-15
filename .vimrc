@@ -78,6 +78,8 @@ set foldmethod=syntax
 set foldnestmax=10      " deepest fold is 10 levels
 set nofoldenable          " dont fold by default
 set foldlevel=1
+" Close all nonlocal folds
+nnoremap <leader>z mzzMzvzz15<c-e>`z
 
 " Source the vimrc file after saving it
 if has("autocmd")
