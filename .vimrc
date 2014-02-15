@@ -10,6 +10,7 @@ call pathogen#infect()
 au FileType tex map <silent> <expr> <leader>l system("pdflatex ".expand("%"))
 au BufWritePost *.tex silent call system("pdflatex ".expand("%"))
 
+au VimResized * exe "normal! \<c-w>="
 
 " let b:tex_flavor = 'pdflatex' 
 " compiler tex 
