@@ -14,6 +14,7 @@ import XMonad.Hooks.DynamicLog
 
 import XMonad.Actions.Volume
 import XMonad.Actions.CycleWS
+import XMonad.Actions.CycleWindows
 
 import System.IO
 import System.Exit
@@ -72,7 +73,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_w),         spawn "google-chrome")
 
     -- CycleWS
-    , ((modm,               xK_z),     toggleWS)
+    , ((modm, xK_z),                       toggleWS)
+    -- CycleWindows
+    , ((mod1Mask, xK_Tab),                 cycleRecentWindows [xK_Alt_L] xK_Tab xK_Tab)
 
    -- multimedia keys
     , ((0, 0x1008ff11),                    lowerVolume 3 >> return ())
