@@ -1,18 +1,33 @@
+filetype off
+set nocompatible
+" git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+" Plugin 'Valloric/YouCompleteMe'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'klen/python-mode' " Note: disable rope to avoid conflicts with jedi-vim
+Plugin 'ervandew/supertab'
+Plugin 'Shougo/neocomplcache.vim'
+Plugin 'airblade/vim-gitgutter'
+" Plugin 'scrooloose/syntastic'
+" Plugin 'bling/vim-airline'
+call vundle#end()
+filetype plugin indent on
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+
 colorscheme zenzike
-
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-
-" setlocal makeprg=pdflatex\ \-file\-line\-error\ \-interaction=nonstopmode\ $*\\\|\ grep\ \-E\ '\\w+:[0-9]{1,4}:\\\ ' 
-" setlocal errorformat=%f:%l:\ %m 
-" map <buffer> ,p :w<CR>:make %<<CR> 
-"map ,p :w<CR>:!pdflatex % &<CR> 
-au FileType tex map <silent> <expr> <leader>l system("pdflatex ".expand("%"))
-au BufWritePost *.tex silent call system("pdflatex ".expand("%"))
+set background=dark
 
 au VimResized * exe "normal! \<c-w>="
 
-augroup 
+" augroup 
 
 " Make sure Vim returns to the same line when you reopen a file.
 " From https://www.youtube.com/watch?v=xZuy4gBghho
@@ -24,26 +39,122 @@ augroup line_return
         \ endif
 augroup END
 
-" let b:tex_flavor = 'pdflatex' 
-" compiler tex 
-
-set background=dark
-
 set t_Co=256
-filetype off
 syntax on
-filetype plugin indent on
-set nocompatible
 set modelines=0
 set expandtab
 let mapleader = ","
 let maplocalleader = "\\"
 
-" <C-q> to gqip and return to position
+set tabpagemax=100
+
+" NERDTree
+nnoremap <leader>T :NERDTreeToggle<CR>
+let g:NERDTreeMinimalUI=1
+let g:NERDTreeDirArrows=0
+let g:NERDTreeMapOpenSplit='s'
+let g:NERDTreeMapOpenVSplit='v'
+
+" Neo
+let g:neocomplcache_enable_at_startup = 0
+let g:neocomplcache_enable_ignore_case = 0
+
+" Supertab
+set completeopt=longest,menu,menuone
+set completeopt-=preview
+" let g:SuperTabDefaultCompletionType='<c-x><c-u><c-p>'
+let g:SuperTabDefaultCompletionType='context'
+let g:SuperTabContextDefaultCompletionType = "<c-p>"
+
+" jedi-vim
+let g:jedi#auto_initialization = 1
+let g:jedi#use_splits_not_buffers = "left"
+let g:jedi#goto_assignments_command = "<leader>a"
+let g:jedi#goto_definitions_command = "<leader>d"
+let g:jedi#documentation_command = ""
+let g:jedi#usages_command = "<leader>g"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#show_call_signatures = "0"
+let g:jedi#popup_select_first = 0
+
+" Python-mode
+let g:pymode = 1
+" " K             Show python docs
+" " <Ctrl-Space>  Rope autocomplete
+" " <Ctrl-c>g     Rope goto definition
+" " <Ctrl-c>d     Rope show documentation
+" " <Ctrl-c>f     Rope find occurrences
+" " <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
+" " [[            Jump on previous class or function (normal, visual, operator modes)
+" " ]]            Jump on next class or function (normal, visual, operator modes)
+" " [M            Jump on previous class or method (normal, visual, operator modes)
+" " ]M            Jump on next class or method (normal, visual, operator modes)
+let g:pymode_rope = 0 " Note: disable rope to avoid conflicts with jedi-vim
+let g:pymode_doc = 1
+let g:pymode_run = 0
+let g:pymode_doc_key = 'K'
+let g:pymode_lint = 1
+let g:pymode_lint_checkers = ["pep8","pyflakes"]
+let g:pymode_lint_write = 1 " Auto check on save
+au BufWriteCmd *.py write || :PymodeLint  " Since the above intermittently stops working
+let g:pymode_virtualenv = 1
+let g:pymode_breakpoint = 0
+" let g:pymode_breakpoint_key = '<leader>b'
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+" let g:pymode_syntax_builtin_types = g:pymode_syntax_all
+let g:pymode_syntax_highlight_self = g:pymode_syntax_all
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+let g:pymode_folding = 0
+let g:pymode_lint_ignore="" " Required for :PymodeLintAuto etc. to work
+let g:pymode_indent = 1
+let g:pymode_motion = 1
+let g:pymode_doc = 1
+" let g:pymode_run_bind =
+" let g:pymode_doc_bind = "K"
+
+" " YouCompleteMe
+" nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" " Syntastic
+" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['java', 'python'] }
+" let g:syntastic_check_on_open=1
+" let g:syntastic_enable_signs=1
+
+" gitgutter
+let g:gitgutter_enabled = 1
+let g:gitgutter_highlight_lines = 0
+highlight clear SignColumn
+highlight clear GitGutterAdd
+highlight clear GitGutterChange
+highlight clear GitGutterDelete
+highlight clear GitGutterChangeDelete
+highlight GitGutterAdd ctermfg=2
+highlight GitGutterChange ctermfg=4
+highlight GitGutterDelete ctermfg=1
+highlight GitGutterChangeDelete ctermfg=1
+
+
+
+au BufNewFile,BufRead *.conf set filetype=python
+
+" <C-q> to gq} and return to position
 " Catch <C-q> and <C-s>
 silent !stty -ixon > /dev/null 2>/dev/null
-nnoremap <C-q> mfgqip`f
-inoremap <C-q> <esc>gqipgi
+nnoremap <C-q> mfgq}`f
+inoremap <C-q> <esc>gq}gi
+
+nnoremap <C-w><C-c> <nop>
+nnoremap <C-w>c <nop>
+
+" nmap <leader>s :so mysession.vim<CR>
+" nmap <leader>S :mksession! mysession.vim<CR>
+
+command W windo w
+
+nnoremap <space> @q
 
 " Low delay in switching modes
 set ttimeoutlen=50
@@ -51,27 +162,21 @@ set ttimeoutlen=50
 nnoremap <F5> "=strftime("%c")<CR>P
 inoremap <F5> <C-R>=strftime("%c")<CR>
 
-" unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_linecolumn_prefix = '␊ '
-let g:airline_linecolumn_prefix = '␤ '
-let g:airline_linecolumn_prefix = '¶ '
-let g:airline_fugitive_prefix = '⎇  '
-let g:airline_paste_symbol = 'ρ'
-let g:airline_paste_symbol = 'Þ'
-let g:airline_paste_symbol = '∥'
-let g:airline_theme='simple'
-let g:airline_powerline_fonts=0
-
 " Colorcolumn
-set textwidth=80
+set textwidth=79
 if version >= 703
-    set colorcolumn=81
-    highlight ColorColumn ctermbg=red ctermfg=black
+    set colorcolumn=80
+    highlight ColorColumn ctermbg=darkgray ctermfg=black
 endif
+
+" set cursorline
+" cul for active window only
+" hi CursorLine ctermbg=0
+augroup BgHighlight
+    autocmd!
+    autocmd WinEnter * set cul
+    autocmd WinLeave * set nocul
+augroup END
 
 "Folding
 set foldmethod=syntax
@@ -87,6 +192,7 @@ nnoremap <leader>z mzzMzvzz15<c-e>`z
 " endif
 nmap <leader>v :tabedit $MYVIMRC<CR>
 
+set mouse=a " Default mouse on
 " Toggle mouse with <leader>m
 nnoremap <leader>m :call ToggleMouse()<CR>
 function! ToggleMouse()
@@ -111,6 +217,7 @@ set encoding=UTF-8
 "set encoding=iso-8859-1
 set scrolloff=3
 set autoindent
+set smartindent
 set showmode
 set showcmd
 set hidden
@@ -125,8 +232,8 @@ set laststatus=2
 
 nnoremap / /\v
 vnoremap / /\v
-set ignorecase
-set smartcase
+" set ignorecase
+" set smartcase
 set incsearch
 set showmatch
 set hlsearch
@@ -164,22 +271,23 @@ nnoremap <right> :vertical resize +5<cr>
 
 au FocusLost * :wa
 
-" Keep search matches in the middle of the window.
-nnoremap n nzzzv
-nnoremap N Nzzzv
-
-" Same when jumping around
-nnoremap g; g;zz
-nnoremap g, g,zz
-nnoremap ]] ]]zt
-nnoremap [[ [[zt
-nnoremap <c-o> <c-o>zz
-nnoremap <c-i> <c-i>zz
-nnoremap <c-t> <c-t>zt
+" <leader>t to jump to previously active tab
+let g:lasttab = 1
+nmap <leader>t :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
 
 " Don't move on * #
 nnoremap * *<c-o>
 nnoremap # #<c-o>
+
+" cp{motion} - change and paste.
+" Mainly helps when you want to d{motion}c{motion}C-r",
+"  which would otherwise just paste whatever was (c)hanged instead of (d)eleted.
+nmap <silent> cp :set opfunc=ChangePaste<CR>g@
+function! ChangePaste(type, ...)
+    silent exe "normal! `[v`]\"_c"
+    silent exe "normal! p"
+endfunction
 
 " <leader>[1-6] to highlight words
 function! HiInterestingWord(n) " {{{
@@ -197,23 +305,32 @@ hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
 hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
 hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
 hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
+hi def InterestingWord7 guifg=#000000 ctermfg=16 guibg=#ff0000 ctermbg=200
+hi def InterestingWord8 guifg=#000000 ctermfg=16 guibg=#ffff00 ctermbg=140
+hi def InterestingWord9 guifg=#000000 ctermfg=16 guibg=#00ffff ctermbg=185
+hi def InterestingWord0 guifg=#000000 ctermfg=16 guibg=#ffffff ctermbg=240
 nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
 nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
 nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
 nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
 nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
 nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+nnoremap <silent> <leader>7 :call HiInterestingWord(7)<cr>
+nnoremap <silent> <leader>8 :call HiInterestingWord(8)<cr>
+nnoremap <silent> <leader>9 :call HiInterestingWord(9)<cr>
+nnoremap <silent> <leader>0 :call HiInterestingWord(0)<cr>
 
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
+map <ScrollWheelUp> <C-Y>
+map <ScrollWheelDown> <C-E>
+
 " nnoremap ; :
 
 set number
 set nowrap
-
-nmap <leader>R :RainbowParenthesesToggle<CR>
 
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
@@ -221,107 +338,88 @@ set showmode
 
 autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 
-let b:tex_flavor = 'pdflatex'
-compiler tex
-set makeprg=pdflatex\ \-file\-line\-error\ \-interaction=nonstopmode
-set errorformat=%f:%l:\ %m
-
-map <F11> :!xpdf %<.pdf &<CR>
-map <F12> :w<CR>:make %<<CR>
 "map <F9> :cprev<CR>
 "map <F10> :cnext<CR>
 "map <F11> :clist<CR>
 
-set spelllang=sv
+"set spelllang=sv
 set backup
 set backupdir=~/.vimswp
+set directory=$HOME/.vimswp//
 
-" For vim-R plugin
-let vimrplugin_screenplugin = 0
-set completeopt-=preview
+" Ctrl-P
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildignore+=*.png,*.jpg,*.jpeg,*.gif,*.bmp
+set wildignore+=*/.git/*
+nnoremap <leader>p :CtrlP<CR>
+nnoremap <leader>b :CtrlPBuffer<CR>
 
-" Neo
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_ignore_case = 0
-"" Neo / Eclim
-let g:EclimCompletionMethod = 'omnifunc'
-if !exists('g:neocomplcache_force_omni_patterns')
-  let g:neocomplcache_force_omni_patterns = {}
-endif
-let g:neocomplcache_force_omni_patterns.java = '\k\.\k*'
-"" Neo / clang_complete
-let g:neocomplcache_force_overwrite_completefunc = 1
-let g:neocomplcache_force_omni_patterns.c =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_force_omni_patterns.cpp =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplcache_force_omni_patterns.objc =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_force_omni_patterns.objcpp =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:clang_complete_auto = 0
-let g:clang_auto_select = 0
-
-let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11'
-" let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-
-let g:clang_library_path = '/usr/lib/'
-let g:clang_use_library = 1
-let g:clang_complete_copen = 1
-let g:clang_complete_hl_errors = 1
-let g:clang_periodic_quickfix = 1
-let g:clang_trailing_placeholder = 1
-let g:clang_close_preview = 1
-let g:clang_snippets = 1
-let g:clang_conceal_snippets=1
-
-set conceallevel=2
-set concealcursor=
-hi Conceal cterm=NONE ctermbg=NONE ctermfg=yellow
-let g:tex_conceal="adgm"
-
-" set completeopt=menu,menuone
-let g:SuperTabDefaultCompletionType='<c-x><c-u><c-p>'
-nmap <leader>c :call g:ClangUpdateQuickFix()<CR>
-
-
-
-
-
-
-" Ack motions {{{
-
-" Motions to Ack for things.  Works with pretty much everything, including:
-"
-"   w, W, e, E, b, B, t*, f*, i*, a*, and custom text objects
-"
-" Awesome.
-"
-" Note: If the text covered by a motion contains a newline it won't work.  Ack
-" searches line-by-line.
-
-nnoremap <silent> <leader>a :set opfunc=<SID>AckMotion<CR>g@
-xnoremap <silent> <leader>a :<C-U>call <SID>AckMotion(visualmode())<CR>
-
-nnoremap <bs> :Ack! '\b<c-r><c-w>\b'<cr>
-xnoremap <silent> <bs> :<C-U>call <SID>AckMotion(visualmode())<CR>
-
-function! s:CopyMotionForType(type)
-    if a:type ==# 'v'
-        silent execute "normal! `<" . a:type . "`>y"
-    elseif a:type ==# 'char'
-        silent execute "normal! `[v`]y"
+" Let gq know PEP8 docstring textwidth (72 chars). Far from perfect. From
+" http://stackoverflow.com/questions/4027222/vim-use-shorter-textwidth-in-comments-and-docstrings
+function! GetPythonTextWidth()
+    if !exists('g:python_normal_text_width')
+        let normal_text_width = 79
+    else
+        let normal_text_width = g:python_normal_text_width
     endif
+    if !exists('g:python_comment_text_width')
+        let comment_text_width = 72
+    else
+        let comment_text_width = g:python_comment_text_width
+    endif
+    let cur_syntax = synIDattr(synIDtrans(synID(line("."), col("."), 0)), "name")
+    if cur_syntax == "Comment"
+        return comment_text_width
+    elseif cur_syntax == "String"
+        " Check to see if we're in a docstring
+        let lnum = line(".")
+        while lnum >= 1 && (synIDattr(synIDtrans(synID(lnum, col([lnum, "$"]) - 1, 0)), "name") == "String" || match(getline(lnum), '\v^\s*$') > -1)
+            if match(getline(lnum), "\\('''\\|\"\"\"\\)") > -1
+                " Assume that any longstring is a docstring
+                return comment_text_width
+            endif
+            let lnum -= 1
+        endwhile
+    endif
+    return normal_text_width
 endfunction
+augroup pep8
+    au!
+    autocmd CursorMoved,CursorMovedI * :if &ft == 'python' | :exe 'setlocal textwidth='.GetPythonTextWidth() | :endif
+augroup END
 
-function! s:AckMotion(type) abort
-    let reg_save = @@
-    call s:CopyMotionForType(a:type)
-    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
-    " execute "normal! :Ack! --type=" . &filetype . " --literal " . shellescape(@@) . "\<cr>"
-    let @@ = reg_save
-endfunction
-
-" }}}
-
+"    "" Neo / clang_complete
+"    let g:neocomplcache_force_overwrite_completefunc = 1
+"    let g:neocomplcache_force_omni_patterns.c =
+"          \ '[^.[:digit:] *\t]\%(\.\|->\)'
+"    let g:neocomplcache_force_omni_patterns.cpp =
+"          \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"    let g:neocomplcache_force_omni_patterns.objc =
+"          \ '[^.[:digit:] *\t]\%(\.\|->\)'
+"    let g:neocomplcache_force_omni_patterns.objcpp =
+"          \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"    let g:clang_complete_auto = 0
+"    let g:clang_auto_select = 0
+"    
+"    let g:syntastic_cpp_compiler = 'g++'
+"    let g:syntastic_cpp_compiler_options = ' -std=c++11'
+"    " let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+"    
+"    let g:clang_library_path = '/usr/lib/'
+"    let g:clang_use_library = 1
+"    let g:clang_complete_copen = 1
+"    let g:clang_complete_hl_errors = 1
+"    let g:clang_periodic_quickfix = 1
+"    let g:clang_trailing_placeholder = 1
+"    let g:clang_close_preview = 1
+"    let g:clang_snippets = 1
+"    let g:clang_conceal_snippets=1
+"    
+"    set conceallevel=2
+"    set concealcursor=
+"    hi Conceal cterm=NONE ctermbg=NONE ctermfg=yellow
+"    let g:tex_conceal="adgm"
+"    
+"    " set completeopt=menu,menuone
+"    let g:SuperTabDefaultCompletionType='<c-x><c-u><c-p>'
+"    nmap <leader>c :w<CR>:call g:ClangUpdateQuickFix()<CR>
