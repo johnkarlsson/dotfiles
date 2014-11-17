@@ -1,3 +1,4 @@
 *.pyc
 src
 .netrwhist
+.vim/bundle
