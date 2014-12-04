@@ -25,7 +25,10 @@ filetype plugin indent on
 colorscheme zenzike
 set background=dark
 
-au VimResized * exe "normal! \<c-w>="
+augroup vim_resized
+    au!
+    au VimResized * exe "normal! \<c-w>="
+augroup END
 
 " augroup 
 
@@ -97,7 +100,10 @@ let g:pymode_doc_key = 'K'
 let g:pymode_lint = 1
 let g:pymode_lint_checkers = ["pep8","pyflakes"]
 let g:pymode_lint_write = 1 " Auto check on save
-au BufWriteCmd *.py write || :PymodeLint  " Since the above intermittently stops working
+augroup pymode_lint
+    au!
+    au BufWriteCmd *.py write || :PymodeLint  " Since the above intermittently stops working
+augroup END
 let g:pymode_virtualenv = 1
 let g:pymode_breakpoint = 0
 " let g:pymode_breakpoint_key = '<leader>b'
@@ -112,6 +118,7 @@ let g:pymode_lint_ignore="" " Required for :PymodeLintAuto etc. to work
 let g:pymode_indent = 1
 let g:pymode_motion = 1
 let g:pymode_doc = 1
+let g:pymode_options_max_line_length = 79
 " let g:pymode_run_bind =
 " let g:pymode_doc_bind = "K"
 
@@ -138,7 +145,10 @@ highlight GitGutterChangeDelete ctermfg=1
 
 
 
-au BufNewFile,BufRead *.conf set filetype=python
+augroup filetype_conf_python
+    au!
+    au BufNewFile,BufRead *.conf set filetype=python
+augroup END
 
 " <C-q> to gq} and return to position
 " Catch <C-q> and <C-s>
@@ -152,7 +162,7 @@ nnoremap <C-w>c <nop>
 " nmap <leader>s :so mysession.vim<CR>
 " nmap <leader>S :mksession! mysession.vim<CR>
 
-command W windo w
+command! W windo w
 
 nnoremap <space> @q
 
@@ -192,7 +202,6 @@ nnoremap <leader>z mzzMzvzz15<c-e>`z
 " endif
 nmap <leader>v :tabedit $MYVIMRC<CR>
 
-set mouse=a " Default mouse on
 " Toggle mouse with <leader>m
 nnoremap <leader>m :call ToggleMouse()<CR>
 function! ToggleMouse()
@@ -243,6 +252,12 @@ inoremap <C-c> <Esc><Esc>
 vnoremap <C-c> <Esc><Esc>
 nnoremap <C-c> <Esc><Esc>
 
+" Avoid closing windows. Not sure why the above doesn't cover this.
+nnoremap <C-w><C-c> <Esc><Esc>
+
+nnoremap ]e <C-w><C-w>j<cr>
+nnoremap [e <C-w><C-w>k<cr>
+
 " nnoremap <tab> %
 " vnoremap <tab> %
 imap <tab> <c-n>
@@ -269,12 +284,14 @@ nnoremap <down> :resize +5<cr>
 nnoremap <up> :resize -5<cr>
 nnoremap <right> :vertical resize +5<cr>
 
-au FocusLost * :wa
-
 " <leader>t to jump to previously active tab
 let g:lasttab = 1
 nmap <leader>t :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
+augroup tab_leave
+    au!
+    au TabLeave * let g:lasttab = tabpagenr()
+augroup END
+
 
 " Don't move on * #
 nnoremap * *<c-o>
@@ -336,7 +353,10 @@ nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
 
-autocmd BufWritePost * if &diff == 1 | diffupdate | endif
+augroup diff_update
+    au!
+    autocmd BufWritePost * if &diff == 1 | diffupdate | endif
+augroup END
 
 "map <F9> :cprev<CR>
 "map <F10> :cnext<CR>
@@ -351,8 +371,15 @@ set directory=$HOME/.vimswp//
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=*.png,*.jpg,*.jpeg,*.gif,*.bmp
 set wildignore+=*/.git/*
-nnoremap <leader>p :CtrlP<CR>
+nnoremap <leader>p :call Control_P()<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
+function! Control_P()
+    if expand('%:p') =~ "tajitsu"
+        :CtrlP ~/src/tajitsu
+    else
+        :CtrlP
+    endif
+endfunction
 
 " Let gq know PEP8 docstring textwidth (72 chars). Far from perfect. From
 " http://stackoverflow.com/questions/4027222/vim-use-shorter-textwidth-in-comments-and-docstrings
