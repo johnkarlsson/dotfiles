@@ -2,8 +2,9 @@
 
 mkdir -p ~/dotfiles/src/vim
 git clone https://github.com/b4winckler/vim ~/dotfiles/src/vim
+sudo apt-get install libncurses5-dev
 cd ~/dotfiles/src/vim
 make distclean
 ./configure --with-features=huge
 make
-ln -s ~/dotfiles/bin/vim ~/bin/vim
+sudo ln -s ~/dotfiles/bin/vim /usr/local/bin/vim
