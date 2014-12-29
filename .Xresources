@@ -1,0 +1,55 @@
+xterm*locale: true
+xterm*utf8: 1
+
+XTerm.VT100.renderFont: true
+XTerm.VT100.faceName: terminus
+XTerm.VT100.faceSize:  12
+XTerm.VT100.faceSize1: 10
+XTerm.VT100.faceSize2: 12
+XTerm.VT100.faceSize3: 14
+XTerm.VT100.faceSize4: 16
+XTerm.VT100.faceSize5: 18
+XTerm.VT100.faceSize6: 20
+
+xterm*termName: xterm-256color
+XTerm*locale: true
+xterm*toolBar: false
+xterm*scrollBar: false
+xterm*rightScrollBar: false
+
+XTerm.vt100.metaSendsEscape: true
+
+*xterm*background: #050505
+*xterm*foreground: #dddddd
+
+!black
+*color0: #050505
+*color8: #404040
+
+!red
+*color1: #E84F4F
+*color9: #d23D3D
+
+!green
+*color2: #B7CE42
+*color10: #BDE077
+
+!yellow
+*color3: #FEA63C
+*color11: #FFE863
+
+!blue
+*color4: #66AABB
+*color12: #AACCBB
+
+!cyan
+*color6: #5E7175
+*color14: #A3BABF
+
+!white
+*color7: #DDEEDD
+*color15: #EEFFFF
+
+!magenta
+*color5: #B8002E
+*color13: #FF3366
