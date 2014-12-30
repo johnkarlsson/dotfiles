@@ -1,0 +1,80 @@
+// Based on Svorak A5 from http://aoeu.info
+// Switches alt and cmd on Mac
+// Replaces CAPS with Return
+// Group1 is identical to se(dvorak), so this could be refactored.
+
+// Place this file or a symlink in /usr/share/X11/xkb/symbols
+
+// While editing, run:
+// $ sudo dpkg-reconfigure xkb-data; setxkbmap 'se2(dvorak)'
+
+// For additional key definitions, see /usr/include/X11/keysymdef.h
+
+// Swedish Dvorak
+partial alphanumeric_keys 
+xkb_symbols "dvorak" {
+
+    name[Group1]="Swedish (Dvorak)";
+    name[Group2]="Programming keys";
+
+    include "se(basic)"
+
+    key <AD01> { [     aring,      Aring,    braceleft               ]	};
+    key <AD02> { [adiaeresis, Adiaeresis,   braceright               ]	};
+    key <AD03> { [odiaeresis, Odiaeresis,  bracketleft               ]	};
+    key <AD04> { [         p,          P, bracketright               ]	};
+    key <AD05> { [         y,          Y,       dollar               ]	};
+    key <AD06> { [         f,          F                             ]	};
+    key <AD07> { [         g,          G,     question               ]	};
+    key <AD08> { [         c,          C,    ampersand               ]	};
+    key <AD09> { [         r,          R,         less               ]	};
+    key <AD10> { [         l,          L,      greater               ]	};
+    key <AD11> { [     comma                                         ]	};
+    key <AD12> { [ semicolon                                         ]	};
+    // key <AD12> { [ dead_diaeresis, dead_circumflex, dead_tilde,	asciicircum	]	};
+
+    key <AC01> { [         a,          A,    semicolon,    semicolon ]	};
+    key <AC02> { [         o,          O,        slash               ]	};
+    key <AC03> { [         e,          E,    parenleft               ]	};
+    key <AC04> { [         u,          U,   parenright               ]	};
+    key <AC05> { [         i,          I,          bar               ]	};
+    key <AC06> { [         d,          D                             ]	};
+    key <AC07> { [         h,          H,  asciicircum               ]	};
+    key <AC08> { [         t,          T,   numbersign               ]	};
+    key <AC09> { [         n,          N,     quotedbl               ]	};
+    key <AC10> { [         s,          S,   asciitilde               ]	};
+    key <AC11> { [     minus, underscore, dead_belowdot, dead_abovedot ] };
+
+    key <AB01> { [    period,      colon,        colon               ]	};
+    key <AB02> { [         q,          Q,        equal               ]	};
+    key <AB03> { [         j,          J,           at               ]	};
+    key <AB04> { [         k,          K,       exclam               ]	};
+    key <AB05> { [         x,          X,    backslash               ]	};
+    key <AB06> { [         b,          B,      percent               ]	};
+    key <AB07> { [         m,          M,         plus               ]	};
+    key <AB08> { [         w,          W                             ]	};
+    key <AB09> { [         v,          V                             ]	};
+    key <AB10> { [         z,          Z                             ]	};
+
+    key <RWIN> {
+        type[Group1]="ONE_LEVEL",
+        symbols[Group1] = [ ISO_Level3_Shift ]
+    };
+
+    key <LWIN> {
+        type[Group1]="ONE_LEVEL",
+        symbols[Group1] = [ Alt_L ]
+    };
+
+    key <LALT> {
+        type[Group1]="ONE_LEVEL",
+        symbols[Group1] = [ Super_R ]
+    };
+
+    key <RALT> {
+        type[Group1]="ONE_LEVEL",
+        symbols[Group1] = [ Super_R ]
+    };
+
+    replace key <CAPS> { [ Return ] };
+};
