@@ -46,7 +46,7 @@ export EDITOR=vim
 export LC_ALL=sv_SE.utf8
 export LANG=sv_SE.utf8
 
-# export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
+export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
 
 plugins=(git zsh-syntax-highlighting history-substring-search)
 
