@@ -12,7 +12,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Hooks.DynamicLog
 
-import XMonad.Actions.Volume
+-- import XMonad.Actions.Volume
 import XMonad.Actions.CycleWS
 import XMonad.Actions.CycleWindows
 
@@ -78,12 +78,16 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((mod1Mask, xK_Tab),                 cycleRecentWindows [xK_Alt_L] xK_Tab xK_Tab)
 
    -- multimedia keys
-    , ((0, 0x1008ff11),                    lowerVolume 3 >> return ())
-    , ((0, 0x1008ff13),                    raiseVolume 3 >> return ())
-    , ((0, 0x1008ff12),                    spawn "amixer set Master toggle;    \
-                                                \ amixer set Headphone unmute; \
-                                                \ amixer set Speaker unmute")
+   --, ((0, 0x1008ff11),                    lowerVolume 3 >> return ())
+   --, ((0, 0x1008ff13),                    raiseVolume 3 >> return ())
+     , ((0, 0x1008ff12),                    spawn "amixer -c 1 set Master toggle;    \
+                                                 \ amixer -c 1 set Headphone unmute; \
+                                                 \ amixer -c 1 set Speaker unmute")
     ]
+
+startup = do
+    ewmhDesktopsStartup >> setWMName "LG3D"
+--  setWMName "LG3D"
 
 main = -- do
 --    xmproc <- spawnPipe "xmobar ~/dotfiles/.xmonad/.xmobarrc"
@@ -100,8 +104,7 @@ main = -- do
       , manageHook          = myManageHook <+> manageHook gnomeConfig
       , handleEventHook     = evHook
       , keys                = myKeys <+> keys gnomeConfig
-      , startupHook         = ewmhDesktopsStartup >> setWMName "LG3D"
---    , startupHook         = setWMName "LG3D"
+      , startupHook         = startup
 --    , logHook             = dynamicLogWithPP xmobarPP
 --                            { ppOutput = hPutStrLn xmproc
 --                            , ppTitle = xmobarColor "green" "" . shorten 50
