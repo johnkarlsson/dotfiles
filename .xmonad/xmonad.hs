@@ -80,6 +80,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
    -- multimedia keys
    --, ((0, 0x1008ff11),                    lowerVolume 3 >> return ())
    --, ((0, 0x1008ff13),                    raiseVolume 3 >> return ())
+     , ((0, 0x1008ff03),                    spawn "xbacklight -dec 10")
+     , ((0, 0x1008ff02),                    spawn "xbacklight -inc 10")
      , ((0, 0x1008ff12),                    spawn "amixer -c 1 set Master toggle;    \
                                                  \ amixer -c 1 set Headphone unmute; \
                                                  \ amixer -c 1 set 'Bass Speaker' unmute; \
