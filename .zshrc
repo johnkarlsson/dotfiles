@@ -44,7 +44,7 @@ export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export EDITOR=vim
 
 export LC_ALL=sv_SE.utf8
-export LANG=sv_SE.utf8
+# export LANG=sv_SE.utf8
 
 export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
 
@@ -107,3 +107,4 @@ _g() {
 }
 
 source ~/.zshrc_extras
+alias vi=vim
