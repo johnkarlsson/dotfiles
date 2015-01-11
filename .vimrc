@@ -133,6 +133,7 @@ let g:pymode_options_max_line_length = 79
 " gitgutter
 let g:gitgutter_enabled = 1
 let g:gitgutter_highlight_lines = 0
+let g:gitgutter_max_signs = 1000
 highlight clear SignColumn
 highlight clear GitGutterAdd
 highlight clear GitGutterChange
@@ -374,7 +375,7 @@ set wildignore+=*/.git/*
 nnoremap <leader>p :call Control_P()<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
 function! Control_P()
-    if expand('%:p') =~ "tajitsu"
+    if expand('%:p') =~ "tajitsu" || $PWD =~ "tajitsu"
         :CtrlP ~/src/tajitsu
     else
         :CtrlP
