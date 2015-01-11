@@ -19,7 +19,7 @@ ${HOME}/dotfiles/.mail/export_x_info.sh
 # nm-applet &
 
 # redshift -l 57.708549:11.975098&
-# dropbox start
+dropbox start
 
 # feh --bg-fill "${HOME}/bg.png"
 # nautilus -n &
