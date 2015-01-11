@@ -4,11 +4,11 @@ xterm*utf8: 1
 XTerm.VT100.renderFont: true
 XTerm.VT100.faceName: terminus
 XTerm.VT100.faceSize:  12
-XTerm.VT100.faceSize1: 10
-XTerm.VT100.faceSize2: 12
-XTerm.VT100.faceSize3: 14
-XTerm.VT100.faceSize4: 16
-XTerm.VT100.faceSize5: 18
+XTerm.VT100.faceSize1: 9
+XTerm.VT100.faceSize2: 10
+XTerm.VT100.faceSize3: 12
+XTerm.VT100.faceSize4: 14
+XTerm.VT100.faceSize5: 16
 XTerm.VT100.faceSize6: 20
 
 xterm*termName: xterm-256color
@@ -18,6 +18,18 @@ xterm*scrollBar: false
 xterm*rightScrollBar: false
 
 XTerm.vt100.metaSendsEscape: true
+
+!change font size with <meta/super>-<+/->
+XTerm.VT100.translations: #override \
+Meta <Key> minus: smaller-vt-font() \n\
+Meta <Key> plus: larger-vt-font() \n\
+Meta <Key> KP_Subtract: smaller-vt-font() \n\
+Meta <Key> KP_Add: larger-vt-font() \n\
+Super <Key> minus: smaller-vt-font() \n\
+Super <Key> plus: larger-vt-font() \n\
+Super <Key> KP_Subtract: smaller-vt-font() \n\
+Super <Key> KP_Add: larger-vt-font() \n
+
 
 *xterm*background: #050505
 *xterm*foreground: #dddddd
