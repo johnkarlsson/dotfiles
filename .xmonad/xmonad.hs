@@ -70,7 +70,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm, xK_q),                       restart "xmonad" True)
     , ((modm .|. shiftMask, xK_s),         spawn "gnome-screensaver-command --lock && sudo $HOME/dotfiles/.xmonad/sleep.sh")
     , ((modm .|. shiftMask, xK_m),         spawn "xterm -e zsh -c mutt")
-    , ((modm .|. shiftMask, xK_w),         spawn "google-chrome")
+    , ((modm .|. shiftMask, xK_b),         spawn "google-chrome")
 
     -- CycleWS
     , ((modm, xK_z),                       toggleWS)
