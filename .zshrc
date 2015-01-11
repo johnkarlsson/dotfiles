@@ -76,7 +76,7 @@ alias ll='ls -alF'
 setopt nohup
 alias g++='g++ -std=c++11'
 alias netris='netris -i 0.122 -k "hkl jspf^ln"'
-alias grep='grep -P'
+export GREP_OPTIONS='-P --color=auto'
 alias cls='for i in `seq 1 1000`; do echo ""; done'
 
 alias ack='ack-grep'
