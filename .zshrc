@@ -62,6 +62,7 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 bindkey -M viins '^k' history-substring-search-up
 bindkey -M viins '^j' history-substring-search-down
+bindkey '^r' history-incremental-search-backward
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
@@ -89,7 +90,7 @@ dt() {
         then
             git difftool $1
         else
-            git difftool $(git whatchanged | grep "\t$1" | head -n 1 | awk '{print $3,$4}' | sed 's/\.//g')
+            git difftool --no-ext-diff $(git whatchanged | grep "\t$1" | head -n 1 | awk '{print $3,$4}' | sed 's/\.//g')
         fi
     else
         for var; do dt $var; done;
@@ -108,3 +109,5 @@ _g() {
 
 source ~/.zshrc_extras
 alias vi=vim
+alias vimdiff='vim -d'
+alias gcal=gcalcli
