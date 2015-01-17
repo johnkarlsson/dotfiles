@@ -26,4 +26,6 @@ dropbox start
 
 setxkbmap 'se2(dvorak)'
 
+${HOME}/dotfiles/synclient_mbp.sh
+
 exec xmonad
