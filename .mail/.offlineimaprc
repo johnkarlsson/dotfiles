@@ -1,0 +1,106 @@
+[general]
+pythonfile = ~/dotfiles/.mail/Keyring.py
+accounts = tartrate,kajohn,t
+ui = ttyui
+maxsyncaccounts = 4
+socktimeout = 10
+fsync = false
+
+[Account tartrate]
+localrepository = local-tartrate
+remoterepository = remote-tartrate
+
+[Account kajohn]
+localrepository = local-kajohn
+remoterepository = remote-kajohn
+
+[Account t]
+localrepository = local-t
+remoterepository = remote-t
+
+[Repository local-tartrate]
+type = Maildir
+localfolders = ~/.mail/tartrate
+nametrans = lambda folder: {'drafts':  '[Gmail]/Drafts',
+                            'sent':    '[Gmail]/Sent Mail',
+                            'flagged': '[Gmail]/Starred',
+                            'trash':   '[Gmail]/Trash',
+                            'archive': '[Gmail]/All Mail'
+                            }.get(folder, folder)
+
+
+
+[Repository remote-tartrate]
+type = Gmail
+remotehosteval = get_credential("mailbox_1", "imap", "server")
+remoteusereval = get_credential("mailbox_1", "imap", "user")
+remotepasseval = get_credential("mailbox_1", "imap", "password")
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+realdelete = yes
+nametrans = lambda folder: {'[Gmail]/Drafts':    'drafts',
+                            '[Gmail]/Sent Mail': 'sent',
+                            '[Gmail]/Starred':   'flagged',
+                            '[Gmail]/Trash':     'trash',
+                            '[Gmail]/All Mail':  'archive'
+                            }.get(folder, folder)
+folderfilter = lambda folder: folder in ['[Gmail]/Drafts', '[Gmail]/Sent Mail',
+                                         '[Gmail]/Starred', '[Gmail]/All Mail',
+                                         '[Gmail]/Trash', 'INBOX']
+
+[Repository local-kajohn]
+type = Maildir
+localfolders = ~/.mail/kajohn
+nametrans = lambda folder: {'drafts':  'Drafts',
+                            'sent':    'Sent Items',
+                            'trash':   'Deleted Items'
+                            }.get(folder, folder)
+
+[Repository remote-kajohn]
+type = IMAP
+remoteport = 993
+remotehosteval = get_credential("mailbox_2", "imap", "server")
+remoteusereval = get_credential("mailbox_2", "imap", "user")
+remotepasseval = get_credential("mailbox_2", "imap", "password")
+realdelete = yes
+ssl = yes
+# cert_fingerprint=d2b9e196c009ebc7c207188b265081f72bf3e6ef
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+nametrans = lambda folder: {  'Drafts':       'drafts',
+                              'Sent Items':   'sent',  
+                              'Deleted Items':'trash' 
+                            }.get(folder, folder)
+folderfilter = lambda folder: folder in ['Drafts', 'Sent Items', 'Deleted Items',
+                                      'INBOX']
+
+
+[Repository local-t]
+type = Maildir
+localfolders = ~/.mail/t
+nametrans = lambda folder: {'drafts':  '[Gmail]/Drafts',
+                            'sent':    '[Gmail]/Sent Mail',
+                            'flagged': '[Gmail]/Starred',
+                            'trash':   '[Gmail]/Trash',
+                            'archive': '[Gmail]/All Mail'
+                            }.get(folder, folder)
+
+
+
+[Repository remote-t]
+type = Gmail
+remotehosteval = get_credential("mailbox_3", "imap", "server")
+remoteusereval = get_credential("mailbox_3", "imap", "user")
+remotepasseval = get_credential("mailbox_3", "imap", "password")
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+realdelete = yes
+nametrans = lambda folder: {'[Gmail]/Drafts':    'drafts',
+                            '[Gmail]/Sent Mail': 'sent',
+                            '[Gmail]/Starred':   'flagged',
+                            '[Gmail]/Trash':     'trash',
+                            '[Gmail]/All Mail':  'archive'
+                            }.get(folder, folder)
+
+folderfilter = lambda folder: folder in ['[Gmail]/Drafts', '[Gmail]/Sent Mail',
+                                         '[Gmail]/Starred', '[Gmail]/Trash',
+                                         '[Gmail]/All Mail', 'INBOX']
