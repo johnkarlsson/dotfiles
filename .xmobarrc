@@ -13,10 +13,10 @@ Config { font = "xft:terminus:size=12:normal:antialias=false"
                     , Run Battery ["-t","<left>%","-L","10","-H","50","--low","#d23D3D","--high","#00FF00"] 600
                     , Run DiskU [("/", "<usedp>%")] ["-L", "50", "-H", "97", "-m", "1", "-p", "3", "-h","red","-l","white","-n","white"] 600
                     , Run Com "/home/john/dotfiles/.xmonad/getvolume.sh" [] "myVolume" 10
-                    -- , Run Com "/home/john/dotfiles/.xmonad/mail_check.sh tartrate" [] "mail_tartrate" 600
-                    , Run Com "/bin/bash" ["-c", "~/dotfiles/.xmonad/mail_check.sh tartrate"] "mail_tartrate" 600
-                    , Run Com "/bin/bash" ["-c", "~/dotfiles/.xmonad/mail_check.sh kajohn"] "mail_kajohn" 600
-                    , Run Com "/bin/bash" ["-c", "~/dotfiles/.xmonad/mail_check.sh st"] "mail_st" 600
+                    -- , Run Com "/home/john/dotfiles/.xmonad/mail_check.sh tartrate" [] "mail_tartrate" 300
+                    , Run Com "/bin/bash" ["-c", "~/dotfiles/.xmonad/mail_check.sh tartrate"] "mail_tartrate" 300
+                    , Run Com "/bin/bash" ["-c", "~/dotfiles/.xmonad/mail_check.sh kajohn"] "mail_kajohn" 300
+                    , Run Com "/bin/bash" ["-c", "~/dotfiles/.xmonad/mail_check.sh t"] "mail_st" 300
                     , Run Date "%a %b %_d" "date0" 600
                     , Run Date "(w%V)" "date1" 600
                     , Run Date "%H:%M" "date2" 10
