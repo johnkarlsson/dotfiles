@@ -3,3 +3,4 @@ src
 .netrwhist
 .vim/bundle
 .vim/spell
+.mail/.msmtprc
