@@ -1,0 +1,25 @@
+source ~/.mutt/accounts/tartrate
+
+set spoolfile=+"tartrate/INBOX"
+macro index <f1> "<change-folder>+tartrate/INBOX<enter>"
+macro index <f2> "<change-folder>+kajohn/INBOX<enter>"
+macro index <f3> "<change-folder>+t/INBOX<enter>"
+mailboxes +"tartrate/INBOX" \
+          +"tartrate/sent" \
+          +"tartrate/drafts" \
+          +"tartrate/flagged" \
+          +"tartrate/archive" \
+          +"tartrate/trash" \
+          +"kajohn/INBOX" \
+          +"kajohn/sent" \
+          +"kajohn/drafts" \
+          +"kajohn/trash" \
+          +"t/INBOX" \
+          +"t/sent" \
+          +"t/drafts" \
+          +"t/flagged" \
+          +"t/archive" \
+          +"t/trash" 
+folder-hook "^tartrate/.*" source ~/.mutt/accounts/tartrate
+folder-hook "^kajohn/.*"   source ~/.mutt/accounts/kajohn
+folder-hook "^t/.*"        source ~/.mutt/accounts/t

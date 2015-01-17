@@ -1,0 +1,13 @@
+set from          = $from
+set realname      = "John Karlsson"
+set sendmail      = "/usr/bin/msmtp -a $account_name"
+set sendmail_wait = 0
+unset record
+set mbox          = "+$account_name/INBOX"
+set postponed     = "+$account_name/drafts"
+set record        = "+$account_name/sent"
+
+color status green default
+
+# macro index d \
+#     "<save-message>+$account_name/trash<enter>"
