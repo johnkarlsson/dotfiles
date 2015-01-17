@@ -3,17 +3,22 @@ set nocompatible
 " git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
+" Plugin 'scrooloose/syntastic'
 " Plugin 'Valloric/YouCompleteMe'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'kien/ctrlp.vim'
+Plugin 'ervandew/supertab'
 Plugin 'scrooloose/nerdtree'
+"
+" Python
 Plugin 'davidhalter/jedi-vim'
 Plugin 'klen/python-mode' " Note: disable rope to avoid conflicts with jedi-vim
-Plugin 'ervandew/supertab'
 Plugin 'Shougo/neocomplcache.vim'
-Plugin 'airblade/vim-gitgutter'
-" Plugin 'scrooloose/syntastic'
-" Plugin 'bling/vim-airline'
+"
+" C/C++
+Bundle 'Rip-Rip/clang_complete'
+"
 call vundle#end()
 filetype plugin indent on
 " Brief help
@@ -190,10 +195,10 @@ augroup BgHighlight
 augroup END
 
 "Folding
-set foldmethod=syntax
-set foldnestmax=10      " deepest fold is 10 levels
-set nofoldenable          " dont fold by default
-set foldlevel=1
+set foldmethod=indent
+set foldnestmax=3
+" set nofoldenable          " don't fold by default
+set foldlevel=3
 " Close all nonlocal folds
 nnoremap <leader>z mzzMzvzz15<c-e>`z
 
@@ -378,7 +383,7 @@ function! Control_P()
     if expand('%:p') =~ "tajitsu" || $PWD =~ "tajitsu"
         :CtrlP ~/src/tajitsu
     else
-        :CtrlP
+        :CtrlP $pwd
     endif
 endfunction
 
@@ -428,26 +433,23 @@ augroup END
 "          \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 "    let g:clang_complete_auto = 0
 "    let g:clang_auto_select = 0
-"    
+
 "    let g:syntastic_cpp_compiler = 'g++'
 "    let g:syntastic_cpp_compiler_options = ' -std=c++11'
 "    " let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-"    
-"    let g:clang_library_path = '/usr/lib/'
-"    let g:clang_use_library = 1
-"    let g:clang_complete_copen = 1
-"    let g:clang_complete_hl_errors = 1
-"    let g:clang_periodic_quickfix = 1
-"    let g:clang_trailing_placeholder = 1
-"    let g:clang_close_preview = 1
-"    let g:clang_snippets = 1
-"    let g:clang_conceal_snippets=1
-"    
-"    set conceallevel=2
-"    set concealcursor=
-"    hi Conceal cterm=NONE ctermbg=NONE ctermfg=yellow
-"    let g:tex_conceal="adgm"
-"    
-"    " set completeopt=menu,menuone
-"    let g:SuperTabDefaultCompletionType='<c-x><c-u><c-p>'
-"    nmap <leader>c :w<CR>:call g:ClangUpdateQuickFix()<CR>
+
+" clang_complete
+let g:clang_library_path = '/usr/lib/'
+let g:clang_use_library = 1
+let g:clang_complete_copen = 1
+let g:clang_complete_hl_errors = 1
+let g:clang_periodic_quickfix = 1
+let g:clang_trailing_placeholder = 1
+let g:clang_close_preview = 1
+let g:clang_snippets = 1
+let g:clang_conceal_snippets=1
+nmap <leader>c :w<CR>:call g:ClangUpdateQuickFix()<CR>
+augroup clangupdatequickfix
+    au!
+    au BufWritePost *.cc call g:ClangUpdateQuickFix()
+augroup END
