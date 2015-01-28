@@ -4,6 +4,7 @@ set folder=$HOME/.mail
 set move = no
 set copy = yes
 source ~/.mutt/accounts/sourceme
+source ~/.muttrc_aliases
 
 set noconfirmappend
 
