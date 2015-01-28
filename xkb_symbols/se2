@@ -38,7 +38,7 @@ xkb_symbols "dvorak" {
     key <AC03> { [         e,          E,    parenleft               ]	};
     key <AC04> { [         u,          U,   parenright               ]	};
     key <AC05> { [         i,          I,          bar               ]	};
-    key <AC06> { [         d,          D                             ]	};
+    key <AC06> { [         d,          D,      percent               ]	};
     key <AC07> { [         h,          H,  asciicircum               ]	};
     key <AC08> { [         t,          T,   numbersign               ]	};
     key <AC09> { [         n,          N,     quotedbl               ]	};
