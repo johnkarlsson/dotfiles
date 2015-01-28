@@ -14,10 +14,18 @@ Plugin 'scrooloose/nerdtree'
 " Python
 Plugin 'davidhalter/jedi-vim'
 Plugin 'klen/python-mode' " Note: disable rope to avoid conflicts with jedi-vim
-Plugin 'Shougo/neocomplcache.vim'
+" Plugin 'Shougo/neocomplcache.vim'
 "
 " C/C++
 Bundle 'Rip-Rip/clang_complete'
+" BUG: clang_complete in combination with supertab inserts
+"      "HandlePossibleSelectionEnter" on Enter in insert mode. No known fix (?)
+"      according to https://github.com/Rip-Rip/clang_complete/issues/431
+"      Temporary fix: Checkout clang_complete-version from Oct 24:
+"          https://github.com/Rip-Rip/clang_complete/commit/6a7ad8249a209ad90b9f95e4611e911fb1339a32
+"      i.e:
+"          $ cd ~/dotfiles/.vim/bundle/clang_complete
+"          $ git checkout 6a7ad8249a209ad90b9f95e4611e911fb1339a32
 "
 call vundle#end()
 filetype plugin indent on
@@ -64,15 +72,18 @@ let g:NERDTreeMapOpenSplit='s'
 let g:NERDTreeMapOpenVSplit='v'
 
 " Neo
-let g:neocomplcache_enable_at_startup = 0
-let g:neocomplcache_enable_ignore_case = 0
+" let g:neocomplcache_enable_at_startup = 0
+" let g:neocomplcache_enable_ignore_case = 0
 
 " Supertab
 set completeopt=longest,menu,menuone
 set completeopt-=preview
-" let g:SuperTabDefaultCompletionType='<c-x><c-u><c-p>'
-let g:SuperTabDefaultCompletionType='context'
-let g:SuperTabContextDefaultCompletionType = "<c-p>"
+" let g:SuperTabDefaultCompletionType='<c-p>'
+" let g:SuperTabContextDefaultCompletionType = ''
+" let g:SuperTabDefaultCompletionType='context'
+let g:SuperTabMappingForward = '<nul>'
+let g:SuperTabMappingBackward = '<s-nul>'
+let g:SuperTabDefaultCompletionType = '<c-x><c-u>'
 
 " jedi-vim
 let g:jedi#auto_initialization = 1
@@ -118,8 +129,10 @@ let g:pymode_syntax_all = 1
 let g:pymode_syntax_highlight_self = g:pymode_syntax_all
 let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
-let g:pymode_folding = 0
-let g:pymode_lint_ignore="" " Required for :PymodeLintAuto etc. to work
+let g:pymode_folding = 1
+let g:pymode_lint_ignore="E114,E116" " For :PymodeLintAuto etc. to work, this must be defined even if it is an empty string.
+" E114 indentation is not a multiple of four (comment) [pep8]
+" E116 unexpected indentation (comment) [pep8]
 let g:pymode_indent = 1
 let g:pymode_motion = 1
 let g:pymode_doc = 1
@@ -153,7 +166,7 @@ highlight GitGutterChangeDelete ctermfg=1
 
 augroup filetype_conf_python
     au!
-    au BufNewFile,BufRead *.conf set filetype=python
+    au BufNewFile,BufRead *.conf set syntax=python
 augroup END
 
 " <C-q> to gq} and return to position
@@ -451,5 +464,10 @@ let g:clang_conceal_snippets=1
 nmap <leader>c :w<CR>:call g:ClangUpdateQuickFix()<CR>
 augroup clangupdatequickfix
     au!
-    au BufWritePost *.cc call g:ClangUpdateQuickFix()
+    au BufWritePost * if (&ft == 'c' || &ft == 'cpp') | call g:ClangUpdateQuickFix() | endif
+augroup END
+
+augroup supertabchain
+    au!
+    autocmd BufEnter * call SuperTabChain(&omnifunc, "<c-p>")
 augroup END
