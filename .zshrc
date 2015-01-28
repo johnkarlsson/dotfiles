@@ -109,5 +109,7 @@ _g() {
 
 source ~/.zshrc_extras
 alias vi=vim
-alias vimdiff='vim -d'
+alias vimdiff='vim -d -R'
 alias gcal=gcalcli
+alias trim="sed -r -e 's/^\s+//' -e 's/\s+/ /g'"
+alias gl='git log --graph --decorate --stat'
