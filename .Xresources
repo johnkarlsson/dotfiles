@@ -1,8 +1,33 @@
 xterm*locale: true
 xterm*utf8: 1
 
+URxvt.scrollBar: false
+
+! URxvt.font:     xft:courier new:size=12:antialias=false
+! URxvt.boldFont: xft:courier new:bold:size=12:antialias=false
+URxvt.font:     xft:dejavu sans mono:size=12:antialias=false
+URxvt.boldFont: xft:dejavu sans mono:bold:size=12:antialias=false
+
+URxvt.font-size.step: 3
+
+URxvt.keysym.M-plus:    perl:font-size:increase
+URxvt.keysym.M-minus:   perl:font-size:decrease
+URxvt.keysym.M-S-plus:  perl:font-size:incglobal
+URxvt.keysym.M-S-minus: perl:font-size:decglobal
+
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+!$ wget https://raw.githubusercontent.com/majutsushi/urxvt-font-size/master/font-size -O ~/.urxvt/ext/font-size
+URxvt.perl-ext-common: default,matcher,font-size
+
+URxvt.colorUL: #66AABB
+URxvt.url-launcher: /usr/bin/google-chrome
+URxvt.matcher.button: 1
+
 XTerm.VT100.renderFont: true
-XTerm.VT100.faceName: terminus
+XTerm.VT100.faceName: eutouhot
+! XTerm.VT100.faceName: bitstream vera sans mono
 XTerm.VT100.faceSize:  12
 XTerm.VT100.faceSize1: 9
 XTerm.VT100.faceSize2: 10
@@ -19,20 +44,21 @@ xterm*rightScrollBar: false
 
 XTerm.vt100.metaSendsEscape: true
 
-!change font size with <meta/super>-<+/->
+!change font size with <meta>-<+/->
 XTerm.VT100.translations: #override \
 Meta <Key> minus: smaller-vt-font() \n\
 Meta <Key> plus: larger-vt-font() \n\
 Meta <Key> KP_Subtract: smaller-vt-font() \n\
 Meta <Key> KP_Add: larger-vt-font() \n\
-Super <Key> minus: smaller-vt-font() \n\
-Super <Key> plus: larger-vt-font() \n\
-Super <Key> KP_Subtract: smaller-vt-font() \n\
-Super <Key> KP_Add: larger-vt-font() \n
+
+! Super <Key> minus: smaller-vt-font() \n\
+! Super <Key> plus: larger-vt-font() \n\
+! Super <Key> KP_Subtract: smaller-vt-font() \n\
+! Super <Key> KP_Add: larger-vt-font() \n
 
 
-*xterm*background: #050505
-*xterm*foreground: #dddddd
+*background: #050505
+*foreground: #dddddd
 
 !black
 *color0: #050505

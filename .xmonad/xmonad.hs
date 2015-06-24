@@ -69,7 +69,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_q),         quitWithWarning)
     , ((modm, xK_q),                       restart "xmonad" True)
     , ((modm .|. shiftMask, xK_s),         spawn "gnome-screensaver-command --lock && sudo $HOME/dotfiles/.xmonad/sleep.sh")
-    , ((modm .|. shiftMask, xK_m),         spawn "xterm -e zsh -c mutt")
+    , ((modm .|. shiftMask, xK_m),         spawn "urxvt -e mutt")
     , ((modm .|. shiftMask, xK_b),         spawn "google-chrome")
 
     -- CycleWS
@@ -97,7 +97,7 @@ main = -- do
 --    xmonad $ gnomeConfig {
       xmonad =<< xmobar defaultConfig {
         modMask             = mod4Mask
-      , terminal            = "xterm" 
+      , terminal            = "urxvt -e tmux"
       , layoutHook          = avoidStruts $ myLayout
       -- , layoutHook          = spacing 0 $ avoidStruts $ myLayout
       , borderWidth         = 1

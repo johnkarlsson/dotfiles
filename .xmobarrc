@@ -1,5 +1,5 @@
 -- Config { font = "-*-terminus-28-*-*-*-28-*-*-*-*-*-*-*"
-Config { font = "xft:terminus:size=12:normal:antialias=false"
+Config { font = "xft:dejavu sans mono:size=12:normal:antialias=false"
        , bgColor = "black"
        , fgColor = "grey"
        , lowerOnStart = False
