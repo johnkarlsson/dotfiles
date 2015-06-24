@@ -110,7 +110,9 @@ let g:pymode = 1
 " " [M            Jump on previous class or method (normal, visual, operator modes)
 " " ]M            Jump on next class or method (normal, visual, operator modes)
 let g:pymode_rope = 0 " Note: disable rope to avoid conflicts with jedi-vim
-let g:pymode_doc = 1
+let g:pymode_rope_lookup_project = 0
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_doc = 0
 let g:pymode_run = 0
 let g:pymode_doc_key = 'K'
 let g:pymode_lint = 1
