@@ -95,7 +95,7 @@ startup = do
 main = -- do
 --    xmproc <- spawnPipe "xmobar ~/dotfiles/.xmonad/.xmobarrc"
 --    xmonad $ gnomeConfig {
-      xmonad =<< xmobar defaultConfig {
+      xmonad =<< xmobar (ewmh $ defaultConfig {
         modMask             = mod4Mask
       , terminal            = "urxvt -e tmux"
       , layoutHook          = avoidStruts $ myLayout
@@ -112,7 +112,7 @@ main = -- do
 --                            { ppOutput = hPutStrLn xmproc
 --                            , ppTitle = xmobarColor "green" "" . shorten 50
 --                            }
-    }
+    })
 
 -- Helper functions to fullscreen the window
 fullFloat, tileWin :: Window -> X ()
