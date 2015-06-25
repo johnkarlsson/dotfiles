@@ -108,10 +108,9 @@ main = -- do
       , handleEventHook     = evHook
       , keys                = myKeys <+> keys gnomeConfig
       , startupHook         = startup
---    , logHook             = dynamicLogWithPP xmobarPP
---                            { ppOutput = hPutStrLn xmproc
---                            , ppTitle = xmobarColor "green" "" . shorten 50
---                            }
+      , logHook             = do
+                                    ewmhDesktopsLogHook
+                                    setWMName "LG3D"
     })
 
 -- Helper functions to fullscreen the window
