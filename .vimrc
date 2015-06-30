@@ -35,7 +35,8 @@ filetype plugin indent on
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 
-colorscheme zenzike
+colorscheme jellybeans  " https://github.com/nanotech/jellybeans.vim
+" colorscheme zenzike
 set background=dark
 
 augroup vim_resized
