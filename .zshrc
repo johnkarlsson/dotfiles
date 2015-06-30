@@ -73,10 +73,10 @@ alias nipython='ipython notebook --pylab inline'
 alias qipython='ipython qtconsole --pylab=inline --colors=linux'
 alias nipython3='ipython3 notebook --pylab inline'
 alias qipython3='ipython3 qtconsole --pylab=inline --colors=linux'
-alias ll='ls -alF'
+alias ls='ls --color=tty --group-directories-first'
 setopt nohup
 alias g++='g++ -std=c++11'
-alias netris='netris -i 0.122 -k "hkl jspf^ln"'
+# alias netris='netris -i 0.122 -k "hkl jspf^ln"'
 export GREP_OPTIONS='-P --color=auto'
 alias cls='for i in `seq 1 1000`; do echo ""; done'
 
@@ -90,7 +90,7 @@ dt() {
         then
             git difftool $1
         else
-            git difftool --no-ext-diff $(git whatchanged | grep "\t$1" | head -n 1 | awk '{print $3,$4}' | sed 's/\.//g')
+            git difftool $(git whatchanged | grep "\t$1" | head -n 1 | awk '{print $3,$4}' | sed 's/\.//g')
         fi
     else
         for var; do dt $var; done;
@@ -103,7 +103,7 @@ _g() {
         git status
     else
         foo=$PWD;
-        ls **/.git | grep '.git:' | sed 's/.git://' | while read line; do echo " "; echo $line; cd $line; git status -s; cd $foo; done
+        ls */.git | grep '.git:' | sed 's/.git://' | while read line; do echo " "; echo $line; cd $line; git status -sb; cd $foo; done
     fi
 }
 
@@ -113,3 +113,4 @@ alias vimdiff='vim -d -R'
 alias gcal=gcalcli
 alias trim="sed -r -e 's/^\s+//' -e 's/\s+/ /g'"
 alias gl='git log --graph --decorate --stat'
+alias gg='git log --graph --decorate --oneline --all'
