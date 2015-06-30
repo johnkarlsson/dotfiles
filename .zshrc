@@ -114,3 +114,7 @@ alias gcal=gcalcli
 alias trim="sed -r -e 's/^\s+//' -e 's/\s+/ /g'"
 alias gl='git log --graph --decorate --stat'
 alias gg='git log --graph --decorate --oneline --all'
+alias nowrap='cut -b 1-$COLUMNS'
+
+# Kill all local unused sessions
+tmux ls | grep -v '(attached)' | grep -o '^[^:]+' | xargs -I{} tmux kill-session -t {}
