@@ -418,7 +418,8 @@ function! GetPythonTextWidth()
     endif
     let cur_syntax = synIDattr(synIDtrans(synID(line("."), col("."), 0)), "name")
     if cur_syntax == "Comment"
-        return comment_text_width
+        return normal_text_width  " allow comments to be wide for now
+        " return comment_text_width
     elseif cur_syntax == "String"
         " Check to see if we're in a docstring
         let lnum = line(".")
