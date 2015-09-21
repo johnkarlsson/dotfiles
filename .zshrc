@@ -115,6 +115,10 @@ alias trim="sed -r -e 's/^\s+//' -e 's/\s+/ /g'"
 alias gl='git log --graph --decorate --stat'
 alias gg='git log --graph --decorate --oneline --all'
 alias nowrap='cut -b 1-$COLUMNS'
+alias scut='cut -d " "'
+alias ccut='cut -d ","'
+alias acut='cut -d ""'
+alias mm='awk "{ if (!min || \$0 < min) { min = \$0; }; if (\$0 > max) { max = \$0; }; } END { print min; print max; }"'
 
 # Kill all local unused sessions
 tmux ls | grep -v '(attached)' | grep -o '^[^:]+' | xargs -I{} tmux kill-session -t {}
