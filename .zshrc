@@ -133,3 +133,7 @@ alias mm='awk "{ if (!min || \$0 < min) { min = \$0; }; if (\$0 > max) { max = \
 
 # Kill all local unused sessions
 tmux ls | grep -v '(attached)' | grep -o '^[^:]+' | xargs -I{} tmux kill-session -t {}
+
+alias hoogle='hoogle --color'
+
+function ssh() { /usr/bin/ssh -t "$@" "tmux a -t foo || tmux new -s foo" }
