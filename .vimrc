@@ -29,22 +29,15 @@ Bundle 'Rip-Rip/clang_complete'
 "
 call vundle#end()
 filetype plugin indent on
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 
-colorscheme jellybeans  " https://github.com/nanotech/jellybeans.vim
 " colorscheme zenzike
 set background=dark
+colorscheme jellybeans  " https://github.com/nanotech/jellybeans.vim
 
 augroup vim_resized
     au!
     au VimResized * exe "normal! \<c-w>="
 augroup END
-
-" augroup 
 
 " Make sure Vim returns to the same line when you reopen a file.
 " From https://www.youtube.com/watch?v=xZuy4gBghho
@@ -71,6 +64,7 @@ let g:NERDTreeMinimalUI=1
 let g:NERDTreeDirArrows=0
 let g:NERDTreeMapOpenSplit='s'
 let g:NERDTreeMapOpenVSplit='v'
+let g:NERDTreeIgnore = ['\.pyc$']
 
 " Neo
 " let g:neocomplcache_enable_at_startup = 0
@@ -84,7 +78,7 @@ set completeopt-=preview
 " let g:SuperTabDefaultCompletionType='context'
 let g:SuperTabMappingForward = '<nul>'
 let g:SuperTabMappingBackward = '<s-nul>'
-let g:SuperTabDefaultCompletionType = '<c-x><c-u>'
+let g:SuperTabDefaultCompletionType = '<c-x><c-u>'  " Probably <c-o>
 
 " jedi-vim
 let g:jedi#auto_initialization = 1
@@ -93,13 +87,18 @@ let g:jedi#goto_assignments_command = "<leader>a"
 let g:jedi#goto_definitions_command = "<leader>d"
 let g:jedi#documentation_command = ""
 let g:jedi#usages_command = "<leader>g"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#show_call_signatures = "0"
+let g:jedi#completions_command = ""   " inoremap <c-space> instead to get <c-x><c-o> behaviour
+let g:jedi#completions_enabled = 1
+let g:jedi#rename_command = ""
+let g:jedi#show_call_signatures = "1"
 let g:jedi#popup_select_first = 0
+let g:jedi#popup_on_dot = 0  " If this doesn't work in some contexts, patch jedi#do_popup_on_dot_in_highlight() in jedi.vim to always return 0
 
 " Python-mode
+" checkout master branch if pymode is slow
+let g:pymode_rope = 0 " Note: disable rope to avoid conflicts with jedi-vim
 let g:pymode = 1
+
 " " K             Show python docs
 " " <Ctrl-Space>  Rope autocomplete
 " " <Ctrl-c>g     Rope goto definition
@@ -110,7 +109,6 @@ let g:pymode = 1
 " " ]]            Jump on next class or function (normal, visual, operator modes)
 " " [M            Jump on previous class or method (normal, visual, operator modes)
 " " ]M            Jump on next class or method (normal, visual, operator modes)
-let g:pymode_rope = 0 " Note: disable rope to avoid conflicts with jedi-vim
 let g:pymode_rope_lookup_project = 0
 let g:pymode_rope_complete_on_dot = 0
 let g:pymode_doc = 0
@@ -152,6 +150,7 @@ let g:pymode_options_max_line_length = 79
 " let g:syntastic_enable_signs=1
 
 " gitgutter
+let g:gitgutter_live_mode = 1
 let g:gitgutter_enabled = 1
 let g:gitgutter_highlight_lines = 0
 let g:gitgutter_max_signs = 1000
@@ -164,7 +163,6 @@ highlight GitGutterAdd ctermfg=2
 highlight GitGutterChange ctermfg=4
 highlight GitGutterDelete ctermfg=1
 highlight GitGutterChangeDelete ctermfg=1
-
 
 
 augroup filetype_conf_python
@@ -181,12 +179,13 @@ inoremap <C-q> <esc>gq}gi
 nnoremap <C-w><C-c> <nop>
 nnoremap <C-w>c <nop>
 
-" nmap <leader>s :so mysession.vim<CR>
-" nmap <leader>S :mksession! mysession.vim<CR>
+" Swap adjacent words
+nnoremap <silent> gE mf:set hls!<CR>"_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>:exe ":silent! normal /$.^\r"<CR>:set hls!<CR><c-o><c-l>`f
+nnoremap <silent> gW mf:set hls!<CR>"_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR>:exe ":silent! normal /^.$\r"<CR>:set hls!<CR><c-l>`f
 
 command! W windo w
 
-nnoremap <space> @q
+" nnoremap <space> @q
 
 " Low delay in switching modes
 set ttimeoutlen=50
@@ -225,6 +224,7 @@ nnoremap <leader>z mzzMzvzz15<c-e>`z
 nmap <leader>v :tabedit $MYVIMRC<CR>
 
 " Toggle mouse with <leader>m
+set mouse=  " Default disabled
 nnoremap <leader>m :call ToggleMouse()<CR>
 function! ToggleMouse()
     if &mouse == 'a'
@@ -248,11 +248,12 @@ set encoding=UTF-8
 "set encoding=iso-8859-1
 set scrolloff=3
 set autoindent
-set smartindent
+" set smartindent
 set showmode
 set showcmd
 set hidden
 set wildmenu
+set lazyredraw
 set wildmode=list:longest
 set ttyfast
 set ruler
@@ -282,9 +283,12 @@ nnoremap [e <C-w><C-w>k<cr>
 
 " nnoremap <tab> %
 " vnoremap <tab> %
-imap <tab> <c-n>
-imap <s-tab> <c-p>
-imap <c-tab> <c-x><c-l>
+" imap <tab> <c-n>
+" imap <tab> <c-x><c-o>
+" imap <s-tab> <c-p>
+" imap <c-tab> <c-x><c-o>
+inoremap <c-space> <c-x><c-o>
+inoremap <c-@> <c-x><c-o>
 
 nnoremap <up> <nop>
 nnoremap <down> <nop>
@@ -297,8 +301,8 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
-nnoremap ' `
-nnoremap ` '
+" nnoremap ' `
+" nnoremap ` '
 
 " arrow keys -> window resize
 nnoremap <left> :vertical resize -5<cr>
@@ -317,6 +321,7 @@ augroup END
 
 " Don't move on * #
 nnoremap * *<c-o>
+nnoremap * maMmb`a*<c-o>`bzz`a
 nnoremap # #<c-o>
 
 " cp{motion} - change and paste.
@@ -379,6 +384,8 @@ augroup diff_update
     au!
     autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 augroup END
+
+nnoremap <c-l> :call gitgutter#all()<CR>
 
 "map <F9> :cprev<CR>
 "map <F10> :cnext<CR>
