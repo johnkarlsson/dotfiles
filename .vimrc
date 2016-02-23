@@ -1,33 +1,38 @@
 filetype off
 set nocompatible
-" git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" Plugin 'scrooloose/syntastic'
-" Plugin 'Valloric/YouCompleteMe'
-Plugin 'gmarik/Vundle.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'kien/ctrlp.vim'
-Plugin 'ervandew/supertab'
-Plugin 'scrooloose/nerdtree'
-"
+call plug#begin('~/.vim/plugged')
+" curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" Plug 'scrooloose/syntastic'
+Plug 'benekastah/neomake'
+Plug 'Shougo/deoplete.nvim'
+" Plug 'Valloric/YouCompleteMe'
+Plug 'airblade/vim-gitgutter'
+Plug 'kien/ctrlp.vim'
+" Plug 'ervandew/supertab'
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+
 " Python
-Plugin 'davidhalter/jedi-vim'
-Plugin 'klen/python-mode' " Note: disable rope to avoid conflicts with jedi-vim
-" Plugin 'Shougo/neocomplcache.vim'
-"
+Plug 'davidhalter/jedi-vim', {'for': 'python'}
+Plug 'klen/python-mode', {'for': 'python'} " Note: disable rope to avoid conflicts with jedi-vim
+" Plug 'Shougo/neocomplcache.vim'
+
 " C/C++
-Bundle 'Rip-Rip/clang_complete'
-" BUG: clang_complete in combination with supertab inserts
-"      "HandlePossibleSelectionEnter" on Enter in insert mode. No known fix (?)
-"      according to https://github.com/Rip-Rip/clang_complete/issues/431
-"      Temporary fix: Checkout clang_complete-version from Oct 24:
-"          https://github.com/Rip-Rip/clang_complete/commit/6a7ad8249a209ad90b9f95e4611e911fb1339a32
-"      i.e:
-"          $ cd ~/dotfiles/.vim/bundle/clang_complete
-"          $ git checkout 6a7ad8249a209ad90b9f95e4611e911fb1339a32
-"
-call vundle#end()
+" BUG: clang_complete in combination with supertab inserts "HandlePossibleSelectionEnter" on Enter in insert mode.
+"      No known fix (?) according to https://github.com/Rip-Rip/clang_complete/issues/431
+"      Temporary fix: Checkout clang_complete-version from Oct 24: https://github.com/Rip-Rip/clang_complete/commit/6a7ad8249a209ad90b9f95e4611e911fb1339a32
+Plug 'Rip-Rip/clang_complete', {'for': 'cpp', 'commit': '6a7ad8249a209ad90b9f95e4611e911fb1339a32'}
+
+" Scala
+" Plug 'derekwyatt/vim-scala'
+
+" Haskell
+Plug 'eagletmt/neco-ghc', {'for': ['haskell', 'cabal']}
+Plug 'neovimhaskell/haskell-vim', {'for': ['haskell', 'cabal']}
+
+" Tmux
+Plug 'jpalardy/vim-slime'
+call plug#end()
+
 filetype plugin indent on
 
 " colorscheme zenzike
@@ -66,7 +71,17 @@ let g:NERDTreeMapOpenSplit='s'
 let g:NERDTreeMapOpenVSplit='v'
 let g:NERDTreeIgnore = ['\.pyc$']
 
-" Neo
+" Neomake
+let g:neomake_open_list = 2
+
+" vim-slime
+let g:slime_target = "tmux"
+let g:slime_no_mappings = 1
+let g:slime_python_ipython = 1
+nmap <leader><CR> <Plug>SlimeParagraphSend
+xmap <leader><CR> <Plug>SlimeRegionSend
+
+" Neocomplcache
 " let g:neocomplcache_enable_at_startup = 0
 " let g:neocomplcache_enable_ignore_case = 0
 
@@ -478,7 +493,21 @@ augroup clangupdatequickfix
     au BufWritePost * if (&ft == 'c' || &ft == 'cpp') | call g:ClangUpdateQuickFix() | endif
 augroup END
 
-augroup supertabchain
+" augroup supertabchain
+"     au!
+"     autocmd BufEnter * call SuperTabChain(&omnifunc, "<c-p>")
+" augroup END
+
+" Haskell
+let g:haskell_enable_quantification = 1
+let g:haskell_enable_recursivedo = 1
+let g:haskell_enable_arrowsyntax = 1
+let g:haskell_enable_pattern_synonyms = 1
+let g:haskell_enable_typeroles = 1
+let g:haskell_enable_static_pointers = 1
+let g:haskell_indent_where = 6
+au FileType haskell setlocal omnifunc=necoghc#omnifunc
+augroup haskell_neomake
     au!
-    autocmd BufEnter * call SuperTabChain(&omnifunc, "<c-p>")
+    au BufWritePost *.hs Neomake
 augroup END

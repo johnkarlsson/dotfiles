@@ -40,7 +40,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-export EDITOR=vim
+export EDITOR=nvim
 
 export LC_ALL=sv_SE.utf8
 # export LANG=sv_SE.utf8
@@ -115,8 +115,9 @@ _g() {
 }
 
 source ~/.zshrc_extras
-alias vi=vim
-alias vimdiff='vim -d -R'
+alias vi=nvim
+alias vim=nvim
+alias vimdiff='nvim -d -R'
 alias gcal=gcalcli
 alias trim="sed -r -e 's/^\s+//' -e 's/\s+/ /g'"
 alias gg="git log --graph --oneline --format='%C(yellow)%h%Creset%C(auto)%d%Creset %s %C(cyan)(%an, %ar)%Creset' --all"
