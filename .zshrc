@@ -102,7 +102,15 @@ _g() {
         git status
     else
         foo=$PWD;
-        ls */.git | grep '.git:' | sed 's/.git://' | while read line; do echo " "; echo $line; cd $line; git status -sb; cd $foo; done
+        for subdir in *; do
+            if [ -d "$subdir/.git" ]; then
+                echo " "
+                echo $subdir
+                cd $subdir
+                git status -sb
+                cd $foo
+            fi
+        done
     fi
 }
 
@@ -111,8 +119,11 @@ alias vi=vim
 alias vimdiff='vim -d -R'
 alias gcal=gcalcli
 alias trim="sed -r -e 's/^\s+//' -e 's/\s+/ /g'"
-alias gl='git log --graph --decorate --stat'
-alias gg='git log --graph --decorate --oneline --all'
+alias gg="git log --graph --oneline --format='%C(yellow)%h%Creset%C(auto)%d%Creset %s %C(cyan)(%an, %ar)%Creset' --all"
+alias gm="git log --graph --merges --format='%C(yellow)%h%Creset%C(auto)%d%Creset %C(cyan)%ar%Creset %b' --first-parent origin/master"
+alias gl='gg --stat'
+# alias gg='git log --graph --decorate --oneline --all'
+
 alias nowrap='cut -b 1-$COLUMNS'
 alias scut='cut -d " "'
 alias ccut='cut -d ","'
