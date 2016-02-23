@@ -364,7 +364,9 @@ call s:X("NonText","606060",g:jellybeans_background_color,"",s:termBlack,"")
 
 call s:X("SpecialKey","444444","1c1c1c","",s:termBlack,"")
 
-call s:X("Search","f0a0c0","302028","underline","Magenta","")
+" call s:X("Search","f0a0c0","302028","underline","Magenta","")
+" call s:X("Search","403c41","ffffff","bold","White","Black")
+call s:X("Search","403c41","fad07a","bold","Yellow","Black")
 
 call s:X("Directory","dad085","","","Yellow","")
 call s:X("ErrorMsg","","902020","","","DarkRed")
