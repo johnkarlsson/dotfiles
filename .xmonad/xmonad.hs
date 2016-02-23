@@ -16,6 +16,8 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Actions.CycleWS
 import XMonad.Actions.CycleWindows
 
+import XMonad.Actions.Warp
+
 import System.IO
 import System.Exit
 import XMonad.Util.Dmenu
@@ -61,6 +63,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask, xK_l),       sendMessage $ pullGroup R)
     , ((modm .|. controlMask, xK_k),       sendMessage $ pullGroup U)
     , ((modm .|. controlMask, xK_j),       sendMessage $ pullGroup D)
+    , ((modm, xK_g),                       warpToScreen 0 0.25 0)
     , ((modm .|. controlMask, xK_m),       withFocused (sendMessage . MergeAll))
     , ((modm .|. controlMask, xK_u),       withFocused (sendMessage . UnMerge))
     , ((modm .|. controlMask, xK_period),  onGroup W.focusUp')
@@ -70,7 +73,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm, xK_q),                       restart "xmonad" True)
     , ((modm .|. shiftMask, xK_s),         spawn "gnome-screensaver-command --lock && sudo $HOME/dotfiles/.xmonad/sleep.sh")
     , ((modm .|. shiftMask, xK_m),         spawn "urxvt -e mutt")
-    , ((modm .|. shiftMask, xK_b),         spawn "google-chrome")
+    , ((modm .|. shiftMask, xK_b),         spawn "google-chrome --blacklist-accelerated-composting")
+
 
     -- CycleWS
     , ((modm, xK_z),                       toggleWS)
