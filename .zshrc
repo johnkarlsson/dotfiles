@@ -136,4 +136,8 @@ tmux ls | grep -v '(attached)' | grep -o '^[^:]+' | xargs -I{} tmux kill-session
 
 alias hoogle='hoogle --color'
 
-function ssh() { /usr/bin/ssh -t "$@" "tmux a -t foo || tmux new -s foo" }
+function ssh { /usr/bin/ssh -t "$@" "tmux a -t foo || tmux new -s foo" }
+function scp_tmux_conf {
+    scp =(grep -vh 'tmux.reset.conf' ~/dotfiles/.tmux{.reset,}.conf) \
+        $1:.tmux.conf
+}
