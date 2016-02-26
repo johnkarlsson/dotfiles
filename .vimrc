@@ -7,7 +7,7 @@ Plug 'benekastah/neomake'
 Plug 'Shougo/deoplete.nvim'
 " Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 
@@ -105,7 +105,7 @@ let g:jedi#usages_command = "<leader>g"
 let g:jedi#completions_command = ""   " inoremap <c-space> instead to get <c-x><c-o> behaviour
 let g:jedi#completions_enabled = 1
 let g:jedi#rename_command = ""
-let g:jedi#show_call_signatures = "1"
+let g:jedi#show_call_signatures = "0"
 let g:jedi#popup_select_first = 0
 let g:jedi#popup_on_dot = 0  " If this doesn't work in some contexts, patch jedi#do_popup_on_dot_in_highlight() in jedi.vim to always return 0
 
@@ -415,6 +415,13 @@ set directory=$HOME/.vimswp//
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=*.png,*.jpg,*.jpeg,*.gif,*.bmp
 set wildignore+=*/.git/*
+set wildignore+=*.pyc
+" Ignore a bunch of junk folders with lots of files to make ctrlp super snappy
+" find . | grep -Po '\./[^/]+(\/){0,1}' | sort | uniq -c | sort -gk1 | tail
+set wildignore+=*/Downloads/*,*/Dropbox/*,*/.vagrant.d/,*/.dropbox-dist/
+set wildignore+=*/.oh-my-zsh/,*/.cargo/*,*/.virtualenvs/,*/.cache/,*/.mail/
+set wildignore+=*/ebs/*,*/local_files/*,*/local_files2/*,*/.steam/,*/.config/
+
 nnoremap <leader>p :call Control_P()<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
 function! Control_P()
