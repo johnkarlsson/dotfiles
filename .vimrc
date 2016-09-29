@@ -197,11 +197,13 @@ augroup filetype_conf_python
     au BufNewFile,BufRead *.conf set syntax=python
 augroup END
 
-" <C-q> to gq} and return to position
 " Catch <C-q> and <C-s>
 silent !stty -ixon > /dev/null 2>/dev/null
-nnoremap <C-q> mfgq}`f
-inoremap <C-q> <esc>gq}gi
+
+" <C-q> to gq} and return to position
+" Disabled, use gw} instead
+" nnoremap <C-q> mfgq}`f
+" inoremap <C-q> <esc>gq}gi
 
 nnoremap <C-w><C-c> <nop>
 nnoremap <C-w>c <nop>
@@ -444,40 +446,45 @@ function! Control_P()
     endif
 endfunction
 
-" Let gq know PEP8 docstring textwidth (72 chars). Far from perfect. From
-" http://stackoverflow.com/questions/4027222/vim-use-shorter-textwidth-in-comments-and-docstrings
-function! GetPythonTextWidth()
-    if !exists('g:python_normal_text_width')
-        let normal_text_width = 79
-    else
-        let normal_text_width = g:python_normal_text_width
-    endif
-    if !exists('g:python_comment_text_width')
-        let comment_text_width = 72
-    else
-        let comment_text_width = g:python_comment_text_width
-    endif
-    let cur_syntax = synIDattr(synIDtrans(synID(line("."), col("."), 0)), "name")
-    if cur_syntax == "Comment"
-        return normal_text_width  " allow comments to be wide for now
-        " return comment_text_width
-    elseif cur_syntax == "String"
-        " Check to see if we're in a docstring
-        let lnum = line(".")
-        while lnum >= 1 && (synIDattr(synIDtrans(synID(lnum, col([lnum, "$"]) - 1, 0)), "name") == "String" || match(getline(lnum), '\v^\s*$') > -1)
-            if match(getline(lnum), "\\('''\\|\"\"\"\\)") > -1
-                " Assume that any longstring is a docstring
-                return comment_text_width
-            endif
-            let lnum -= 1
-        endwhile
-    endif
-    return normal_text_width
-endfunction
-augroup pep8
-    au!
-    autocmd CursorMoved,CursorMovedI * :if &ft == 'python' | :exe 'setlocal textwidth='.GetPythonTextWidth() | :endif
-augroup END
+" " Let gq know PEP8 docstring textwidth (72 chars). Far from perfect. From
+" " http://stackoverflow.com/questions/4027222/vim-use-shorter-textwidth-in-comments-and-docstrings
+" function! GetPythonTextWidth()
+"     if !exists('g:python_normal_text_width')
+"         let normal_text_width = 79
+"     else
+"         let normal_text_width = g:python_normal_text_width
+"     endif
+"     if !exists('g:python_comment_text_width')
+"         let comment_text_width = 72
+"     else
+"         let comment_text_width = g:python_comment_text_width
+"     endif
+"     let cur_syntax = synIDattr(synIDtrans(synID(line("."), col("."), 0)), "name")
+"     if cur_syntax == "Comment"
+"         return normal_text_width  " allow comments to be wide for now
+"         " return comment_text_width
+"     elseif cur_syntax == "String"
+"         " Check to see if we're in a docstring
+"         let lnum = line(".")
+"         while lnum >= 1 && (synIDattr(synIDtrans(synID(lnum, col([lnum, "$"]) - 1, 0)), "name") == "String" || match(getline(lnum), '\v^\s*$') > -1)
+"             if match(getline(lnum), "\\('''\\|\"\"\"\\)") > -1
+"                 " Assume that any longstring is a docstring
+"                 return comment_text_width
+"             endif
+"             let lnum -= 1
+"         endwhile
+"     endif
+"     return normal_text_width
+" endfunction
+" augroup pep8
+"     au!
+"     autocmd CursorMoved,CursorMovedI * :if &ft == 'python' | :exe 'setlocal textwidth='.GetPythonTextWidth() | :endif
+" augroup END
+
+au FileType python setlocal formatprg=autopep8\ -\ --aggressive\ --ignore\ W391
+" java\ -jar\ ~/Projects/scalariform/cli/target/scala-2.11/cli-assembly-0.2.0-SNAPSHOT.jar\ -f\ -q\ +compactControlReadability\ +alignParameters\ +alignSingleLineCaseStatements\ +doubleIndentClassDeclaration\ +rewriteArrowSymbols\ +preserveSpaceBeforeArguments\ --stdin\ --stdout
+" https://github.com/scala-ide/scalariform/wiki/Command-line-tool
+au FileType scala  setlocal formatprg=format_scala.sh
 
 "    "" Neo / clang_complete
 "    let g:neocomplcache_force_overwrite_completefunc = 1
@@ -530,3 +537,4 @@ augroup haskell_neomake
     au!
     au BufWritePost *.hs Neomake
 augroup END
+let g:necoghc_enable_detailed_browse = 1
