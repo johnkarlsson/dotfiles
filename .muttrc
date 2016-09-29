@@ -20,8 +20,6 @@ set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates
 
 # set quit = ask-no
-set sort = 'threads'
-set sort_aux = 'reverse-last-date-received'
 set imap_check_subscribed
 
 ignore "Authentication-Results:"
@@ -74,9 +72,15 @@ hdr_order from: to: cc: date: subject:  # and in this order
 
 # Index View Options ---------------------------------
 set date_format = "%m/%d"
-set index_format = "[%Z]  %D  %-20.20F  %s"
-set sort = threads                         # like gmail
-set sort_aux = reverse-last-date-received  # like gmail
+set index_format = "[%Z] %{%b %d %R} %-17.15F %s"
+
+# set sort = threads
+# set sort_aux = reverse-last-date-received
+# Sort by thread, but threads are internally reverse-sorted (arrows will point
+# upwards)
+set sort = reverse-threads
+set sort_aux = last-date-received
+
 set uncollapse_jump                        # don't collapse on an unread message
 set sort_re                                # thread based on regex
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
