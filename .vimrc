@@ -8,6 +8,13 @@ Plug 'Shougo/deoplete.nvim'
 " Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+
+" surround-vim
+map gs ys
+
 " Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 
@@ -23,7 +30,7 @@ Plug 'klen/python-mode', {'for': 'python'} " Note: disable rope to avoid conflic
 Plug 'Rip-Rip/clang_complete', {'for': 'cpp', 'commit': '6a7ad8249a209ad90b9f95e4611e911fb1339a32'}
 
 " Scala
-" Plug 'derekwyatt/vim-scala'
+Plug 'derekwyatt/vim-scala'
 
 " Haskell
 Plug 'eagletmt/neco-ghc', {'for': ['haskell', 'cabal']}
@@ -43,6 +50,11 @@ augroup vim_resized
     au!
     au VimResized * exe "normal! \<c-w>="
 augroup END
+
+map <Leader>; <Plug>(easymotion-next)
+let g:EasyMotion_do_mapping = 0
+nmap gf <Plug>(easymotion-overwin-f2)
+let g:EasyMotion_smartcase = 0
 
 " Make sure Vim returns to the same line when you reopen a file.
 " From https://www.youtube.com/watch?v=xZuy4gBghho
@@ -282,7 +294,7 @@ vnoremap / /\v
 " set ignorecase
 " set smartcase
 set incsearch
-set showmatch
+" set showmatch
 set hlsearch
 nnoremap <leader><space> :noh<cr>
 
@@ -336,7 +348,7 @@ augroup END
 
 " Don't move on * #
 nnoremap * *<c-o>
-nnoremap * maMmb`a*<c-o>`bzz`a
+nnoremap * mfMmy`f*<c-o>`yzz`f
 nnoremap # #<c-o>
 
 " cp{motion} - change and paste.
