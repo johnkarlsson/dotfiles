@@ -10,7 +10,7 @@ Config { font = "xft:dejavu sans mono:size=12:normal:antialias=false"
                     , Run Memory ["-t","<usedratio>%"] 50
                     -- , Run Swap [] 10
                     , Run Wireless "wlan0" ["-t","<quality>%","-L","0","-H","32","--normal","red","--high","green"] 100
-                    , Run Battery ["-t","<left>%","-L","10","-H","50","--low","#d23D3D","--high","#00FF00"] 600
+                    , Run Battery ["-t","<left>%","-L","20","-H","50","--low","#d23D3D","--high","#00FF00"] 600
                     , Run DiskU [("/", "<usedp>%")] ["-L", "50", "-H", "97", "-m", "1", "-p", "3", "-h","red","-l","white","-n","white"] 600
                     , Run Com "/home/john/dotfiles/.xmonad/getvolume.sh" [] "myVolume" 10
                     -- , Run Com "/home/john/dotfiles/.xmonad/mail_check.sh tartrate" [] "mail_tartrate" 300
