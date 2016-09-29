@@ -121,16 +121,25 @@ alias vim=nvim
 alias vimdiff='nvim -d -R'
 alias gcal=gcalcli
 alias trim="sed -r -e 's/^\s+//' -e 's/\s+/ /g'"
-alias gg="git log --graph --oneline --format='%C(yellow)%h%Creset%C(auto)%d%Creset %s %C(cyan)(%an, %ar)%Creset' --all"
-alias gm="git log --graph --merges --format='%C(yellow)%h%Creset%C(auto)%d%Creset %C(cyan)%ar%Creset %b' --first-parent origin/master"
+alias ggb="git log --graph --oneline --format='%C(yellow)%h%Creset%C(auto)%d%Creset %s %C(cyan)(%an, %ar)%Creset'"
+alias gg="ggb --all"
+alias ggm="git log --graph --format='%C(yellow)%h%Creset%C(auto)%d%Creset %C(cyan)%ar%Creset %b' --first-parent origin/master"
+alias gn="ggb origin/master --no-merges"
+alias gm="ggm --merges"
 alias gl='gg --stat'
+alias gf='git fetch -p'
+alias gff='git fetch -p && git merge origin/master --ff-only'
 # alias gg='git log --graph --decorate --oneline --all'
+alias bw='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
 
 alias nowrap='cut -b 1-$COLUMNS'
 alias scut='cut -d " "'
 alias ccut='cut -d ","'
 alias acut='cut -d ""'
 alias mm='awk "{ if (!min || \$0 < min) { min = \$0; }; if (\$0 > max) { max = \$0; }; } END { print min; print max; }"'
+alias tree='tree -C'
+
+alias cursorkill='echo "Click on window to kill"; xprop | grep PID | grep -Po "\d+" | xargs kill'
 
 # Kill all local unused sessions
 tmux ls | grep -v '(attached)' | grep -o '^[^:]+' | xargs -I{} tmux kill-session -t {}
@@ -139,6 +148,9 @@ alias hoogle='hoogle --color'
 
 function ssh { /usr/bin/ssh -t "$@" "tmux a -t foo || tmux new -s foo" }
 function scp_tmux_conf {
-    scp =(grep -vh 'tmux.reset.conf' ~/dotfiles/.tmux{.reset,}.conf) \
-        $1:.tmux.conf
+    host=$1
+    shift
+    scp "$@" =(grep -vh 'tmux.reset.conf' ~/dotfiles/.tmux{.reset,}.conf) \
+        $host:.tmux.conf
+    /usr/bin/ssh "$@" $host "tmux source-file .tmux.conf"
 }
