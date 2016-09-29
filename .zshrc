@@ -55,6 +55,7 @@ source $ZSH/oh-my-zsh.sh
 
 bindkey -v
 # source ~/.oh-my-zsh/custom/plugins/zle_vi_visual/zle_vi_visual.zsh
+source /home/john/Projects/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # bind k and j for VI mode
 bindkey -M vicmd 'k' history-substring-search-up
