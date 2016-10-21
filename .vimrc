@@ -30,11 +30,12 @@ Plug 'klen/python-mode', {'for': 'python'} " Note: disable rope to avoid conflic
 Plug 'Rip-Rip/clang_complete', {'for': 'cpp', 'commit': '6a7ad8249a209ad90b9f95e4611e911fb1339a32'}
 
 " Scala
-Plug 'derekwyatt/vim-scala'
+Plug 'derekwyatt/vim-scala', {'for': ['scala']}
 
 " Haskell
-Plug 'eagletmt/neco-ghc', {'for': ['haskell', 'cabal']}
-Plug 'neovimhaskell/haskell-vim', {'for': ['haskell', 'cabal']}
+Plug 'eagletmt/neco-ghc', {'for': ['haskell', 'cabal']}  " completion
+Plug 'neovimhaskell/haskell-vim', {'for': ['haskell', 'cabal']}  " syntax
+Plug 'bitc/vim-hdevtools', {'for': ['haskell', 'cabal']}  " type checking
 
 " Tmux
 Plug 'jpalardy/vim-slime'
@@ -538,3 +539,18 @@ augroup haskell_neomake
     au BufWritePost *.hs Neomake
 augroup END
 let g:necoghc_enable_detailed_browse = 1
+augroup haskell_hdevtoolstype
+    " map K to toggle between :HdevtoolsType and :HdevtoolsClear
+    au!
+    au FileType haskell nnoremap <buffer> K :call ToggleHdevtools()<CR>
+    let g:hdevtools_toggle = 1
+    function! ToggleHdevtools()
+        if g:hdevtools_toggle == 1
+            let g:hdevtools_toggle = 0
+            :HdevtoolsType
+        else
+            let g:hdevtools_toggle = 1
+            :HdevtoolsClear
+        endif
+    endfunction
+augroup END
