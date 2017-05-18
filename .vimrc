@@ -3,8 +3,8 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 " curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " Plug 'scrooloose/syntastic'
-Plug 'benekastah/neomake'
-Plug 'Shougo/deoplete.nvim'
+Plug 'benekastah/neomake', {'for': ['haskell']}
+Plug 'Shougo/deoplete.nvim', {'for': ['haskell'], 'do': ':UpdateRemotePlugins' }
 " Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -66,6 +66,8 @@ augroup line_return
         \     execute 'normal! g`"zvzz' |
         \ endif
 augroup END
+
+set termguicolors
 
 set t_Co=256
 syntax on
@@ -159,7 +161,7 @@ let g:pymode_syntax_highlight_self = g:pymode_syntax_all
 let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
 let g:pymode_folding = 1
-let g:pymode_lint_ignore="E114,E116" " For :PymodeLintAuto etc. to work, this must be defined even if it is an empty string.
+let g:pymode_lint_ignore="E114,E116,E123" " For :PymodeLintAuto etc. to work, this must be defined even if it is an empty string.
 " E114 indentation is not a multiple of four (comment) [pep8]
 " E116 unexpected indentation (comment) [pep8]
 let g:pymode_indent = 1
@@ -227,12 +229,13 @@ inoremap <F5> <C-R>=strftime("%c")<CR>
 set textwidth=79
 if version >= 703
     set colorcolumn=80
-    highlight ColorColumn ctermbg=darkgray ctermfg=black
+    highlight ColorColumn guibg=#202020 ctermbg=darkgray ctermfg=black
 endif
 
 " set cursorline
 " cul for active window only
 " hi CursorLine ctermbg=0
+set cul
 augroup BgHighlight
     autocmd!
     autocmd WinEnter * set cul
@@ -534,23 +537,25 @@ let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
 let g:haskell_indent_where = 6
 au FileType haskell setlocal omnifunc=necoghc#omnifunc
-augroup haskell_neomake
-    au!
-    au BufWritePost *.hs Neomake
-augroup END
+" augroup haskell_neomake
+"     au!
+"     au BufWritePost *.hs Neomake
+" augroup END
 let g:necoghc_enable_detailed_browse = 1
-augroup haskell_hdevtoolstype
-    " map K to toggle between :HdevtoolsType and :HdevtoolsClear
-    au!
-    au FileType haskell nnoremap <buffer> K :call ToggleHdevtools()<CR>
-    let g:hdevtools_toggle = 1
-    function! ToggleHdevtools()
-        if g:hdevtools_toggle == 1
-            let g:hdevtools_toggle = 0
-            :HdevtoolsType
-        else
-            let g:hdevtools_toggle = 1
-            :HdevtoolsClear
-        endif
-    endfunction
-augroup END
+" augroup haskell_hdevtoolstype
+"     " map K to toggle between :HdevtoolsType and :HdevtoolsClear
+"     au!
+"     au FileType haskell nnoremap <buffer> K :call ToggleHdevtools()<CR>
+"     let g:hdevtools_toggle = 1
+"     function! ToggleHdevtools()
+"         if g:hdevtools_toggle == 1
+"             let g:hdevtools_toggle = 0
+"             :HdevtoolsType
+"         else
+"             let g:hdevtools_toggle = 1
+"             :HdevtoolsClear
+"         endif
+"     endfunction
+" augroup END
+
+let g:deoplete#enable_at_startup = 1

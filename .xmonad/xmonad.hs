@@ -74,6 +74,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_s),         spawn "gnome-screensaver-command --lock && sudo $HOME/dotfiles/.xmonad/sleep.sh")
     , ((modm .|. shiftMask, xK_m),         spawn "urxvt -e mutt")
     , ((modm .|. shiftMask, xK_b),         spawn "google-chrome --blacklist-accelerated-composting")
+    , ((modm .|. shiftMask, xK_a),         spawn "/usr/bin/emacsclient-snapshot -c || (emacs-snapshot --daemon && emacs-snapshot)")
 
 
     -- CycleWS

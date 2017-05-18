@@ -1,6 +1,6 @@
-source ~/.mutt/accounts/tartrate
+source ~/.mutt/accounts/t
 
-set spoolfile=+"tartrate/INBOX"
+set spoolfile=+"t/INBOX"
 macro index <f1> "<change-folder>+tartrate/INBOX<enter>"
 macro index <f2> "<change-folder>+kajohn/INBOX<enter>"
 macro index <f3> "<change-folder>+t/INBOX<enter>"

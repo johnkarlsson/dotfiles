@@ -109,9 +109,13 @@ _g() {
                 echo $subdir
                 cd $subdir
                 git status -sb
+                found=1;
                 cd $foo
             fi
         done
+        if [ "$found" -ne 1 ]; then
+            git status
+        fi
     fi
 }
 
@@ -146,7 +150,7 @@ tmux ls | grep -v '(attached)' | grep -o '^[^:]+' | xargs -I{} tmux kill-session
 
 alias hoogle='hoogle --color'
 
-function ssh { /usr/bin/ssh -t "$@" "tmux a -t foo || tmux new -s foo" }
+function ssh { /usr/bin/ssh -t "$@" "tmux a -t $1 || tmux new -s $1" }
 function scp_tmux_conf {
     host=$1
     shift
@@ -154,3 +158,5 @@ function scp_tmux_conf {
         $host:.tmux.conf
     /usr/bin/ssh "$@" $host "tmux source-file .tmux.conf"
 }
+
+alias ghc='ghc -Wall -fforce-recomp'
