@@ -42,7 +42,8 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 export EDITOR=nvim
 
-export LC_ALL=sv_SE.utf8
+export LANG=sv_SE.utf8
+export LC_ALL=C
 # export LANG=sv_SE.utf8
 
 export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
@@ -77,7 +78,7 @@ alias ls='ls --color=tty --group-directories-first'
 setopt nohup
 alias g++='g++ -std=c++11'
 # alias netris='netris -i 0.122 -k "hkl jspf^ln"'
-export GREP_OPTIONS='-P --color=auto'
+alias grep='grep -P --color=auto'
 alias cls='for i in `seq 1 1000`; do echo ""; done'
 
 alias ack='ack-grep'
