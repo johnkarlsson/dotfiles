@@ -537,6 +537,7 @@ let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
 let g:haskell_indent_where = 6
 au FileType haskell setlocal omnifunc=necoghc#omnifunc
+au FileType haskell set kp=hoogle
 " augroup haskell_neomake
 "     au!
 "     au BufWritePost *.hs Neomake
