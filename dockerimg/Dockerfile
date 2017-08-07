@@ -18,6 +18,8 @@ RUN apt-get update && apt-get install -y \
 ENV LC_ALL=C
 RUN pip install --upgrade pip
 RUN pip install neovim autopep8
+RUN pip3 install --upgrade pip
+RUN pip3 install neovim
 RUN mkdir -p ~/.config/nvim
 RUN ln -s ~/dotfiles/.vimrc ~/.config/nvim/init.vim
 RUN ln -s ~/dotfiles/.vim/colors ~/.config/nvim/colors
@@ -28,7 +30,8 @@ RUN nvim -c "PlugInstall" -c "qa!" --headless
 # Haskell
 RUN curl -sSL https://get.haskellstack.org/ | sh
 RUN stack setup --install-ghc
-# # TODO: Add to PATH: /root/.local/bin
+RUN stack install hdevtools ghc-mod
+RUN echo 'PATH=$PATH:~/.local/bin' >> ~/.zshenv
 
 # zsh
 RUN apt-get update && apt-get install -y zsh
@@ -44,3 +47,11 @@ RUN git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-z
 RUN apt-get update && apt-get install -y tmux
 RUN ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
 RUN ln -s ~/dotfiles/.tmux.reset.conf ~/.tmux.reset.conf
+
+# Locales
+RUN apt-get update && apt-get install -y \
+        locales
+RUN dpkg-reconfigure locales && \
+    locale-gen sv_SE.UTF-8 && \
+    update-locale LANG=sv_SE.UTF-8
+ENV LANG sv_SE.UTF-8
