@@ -3,8 +3,6 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 " curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " Plug 'scrooloose/syntastic'
-Plug 'benekastah/neomake', {'for': ['haskell']}
-Plug 'Shougo/deoplete.nvim', {'for': ['haskell'], 'do': ':UpdateRemotePlugins' }
 " Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -27,15 +25,19 @@ Plug 'klen/python-mode', {'for': 'python'} " Note: disable rope to avoid conflic
 " BUG: clang_complete in combination with supertab inserts "HandlePossibleSelectionEnter" on Enter in insert mode.
 "      No known fix (?) according to https://github.com/Rip-Rip/clang_complete/issues/431
 "      Temporary fix: Checkout clang_complete-version from Oct 24: https://github.com/Rip-Rip/clang_complete/commit/6a7ad8249a209ad90b9f95e4611e911fb1339a32
-Plug 'Rip-Rip/clang_complete', {'for': 'cpp', 'commit': '6a7ad8249a209ad90b9f95e4611e911fb1339a32'}
+" Plug 'Rip-Rip/clang_complete', {'for': 'cpp', 'commit': '6a7ad8249a209ad90b9f95e4611e911fb1339a32'}
 
 " Scala
-Plug 'derekwyatt/vim-scala', {'for': ['scala']}
+" Plug 'derekwyatt/vim-scala', {'for': ['scala']}
 
 " Haskell
+Plug 'benekastah/neomake', {'for': ['haskell']}
+Plug 'Shougo/deoplete.nvim', {'for': ['haskell'], 'do': ':UpdateRemotePlugins' }
 Plug 'eagletmt/neco-ghc', {'for': ['haskell', 'cabal']}  " completion
 Plug 'neovimhaskell/haskell-vim', {'for': ['haskell', 'cabal']}  " syntax
 Plug 'bitc/vim-hdevtools', {'for': ['haskell', 'cabal']}  " type checking
+Plug 'alx741/vim-hindent', {'for': ['haskell']}  " indentation
+
 
 " Tmux
 Plug 'jpalardy/vim-slime'
@@ -488,7 +490,7 @@ endfunction
 au FileType python setlocal formatprg=autopep8\ -\ --aggressive\ --ignore\ W391
 " java\ -jar\ ~/Projects/scalariform/cli/target/scala-2.11/cli-assembly-0.2.0-SNAPSHOT.jar\ -f\ -q\ +compactControlReadability\ +alignParameters\ +alignSingleLineCaseStatements\ +doubleIndentClassDeclaration\ +rewriteArrowSymbols\ +preserveSpaceBeforeArguments\ --stdin\ --stdout
 " https://github.com/scala-ide/scalariform/wiki/Command-line-tool
-au FileType scala  setlocal formatprg=format_scala.sh
+" au FileType scala  setlocal formatprg=format_scala.sh
 
 "    "" Neo / clang_complete
 "    let g:neocomplcache_force_overwrite_completefunc = 1
@@ -507,21 +509,21 @@ au FileType scala  setlocal formatprg=format_scala.sh
 "    let g:syntastic_cpp_compiler_options = ' -std=c++11'
 "    " let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
-" clang_complete
-let g:clang_library_path = '/usr/lib/'
-let g:clang_use_library = 1
-let g:clang_complete_copen = 1
-let g:clang_complete_hl_errors = 1
-let g:clang_periodic_quickfix = 1
-let g:clang_trailing_placeholder = 1
-let g:clang_close_preview = 1
-let g:clang_snippets = 1
-let g:clang_conceal_snippets=1
-nmap <leader>c :w<CR>:call g:ClangUpdateQuickFix()<CR>
-augroup clangupdatequickfix
-    au!
-    au BufWritePost * if (&ft == 'c' || &ft == 'cpp') | call g:ClangUpdateQuickFix() | endif
-augroup END
+" " clang_complete
+" let g:clang_library_path = '/usr/lib/'
+" let g:clang_use_library = 1
+" let g:clang_complete_copen = 1
+" let g:clang_complete_hl_errors = 1
+" let g:clang_periodic_quickfix = 1
+" let g:clang_trailing_placeholder = 1
+" let g:clang_close_preview = 1
+" let g:clang_snippets = 1
+" let g:clang_conceal_snippets=1
+" nmap <leader>c :w<CR>:call g:ClangUpdateQuickFix()<CR>
+" augroup clangupdatequickfix
+"     au!
+"     au BufWritePost * if (&ft == 'c' || &ft == 'cpp') | call g:ClangUpdateQuickFix() | endif
+" augroup END
 
 " augroup supertabchain
 "     au!
@@ -567,3 +569,6 @@ function! JumpHaskellFunction(reverse)
 endfunction
 au FileType haskell nnoremap <buffer><silent> ]] :call JumpHaskellFunction(0)<CR>
 au FileType haskell nnoremap <buffer><silent> [[ :call JumpHaskellFunction(1)<CR>
+let g:hindent_on_save = 1
+let g:hindent_line_length = 80
+let g:hindent_indent_size = 2
