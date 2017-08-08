@@ -324,7 +324,7 @@ if version >= 700
   call s:X("PmenuSel","101010","eeeeee","",s:termBlack,"White")
 endif
 
-call s:X("Visual","","404040","","",s:termBlack)
+" call s:X("Visual","","404040","","",s:termBlack)
 call s:X("Cursor",g:jellybeans_background_color,"b0d0f0","","","")
 
 call s:X("LineNr","605958",g:jellybeans_background_color,"none",s:termBlack,"")
@@ -340,7 +340,8 @@ call s:X("WildMenu","f0a0c0","302028","","Magenta","")
 call s:X("Folded","a0a8b0","384048","italic",s:termBlack,"")
 call s:X("FoldColumn","535D66","1f1f1f","","",s:termBlack)
 call s:X("SignColumn","777777","333333","","",s:termBlack)
-call s:X("ColorColumn","","000000","","",s:termBlack)
+" call s:X("ColorColumn","","000000","","",s:termBlack)
+call s:X("ColorColumn","888888","","italic","Grey","")
 
 call s:X("Title","70b950","","bold","Green","")
 
@@ -366,7 +367,9 @@ call s:X("SpecialKey","444444","1c1c1c","",s:termBlack,"")
 
 " call s:X("Search","f0a0c0","302028","underline","Magenta","")
 " call s:X("Search","403c41","ffffff","bold","White","Black")
-call s:X("Search","403c41","fad07a","bold","Yellow","Black")
+" call s:X("Search","403c41","fad07a","bold","Yellow","Black")
+hi def Search guifg=#000000 ctermfg=16 guibg=#ffff00 ctermbg=140
+hi! link Visual Search
 
 call s:X("Directory","dad085","","","Yellow","")
 call s:X("ErrorMsg","","902020","","","DarkRed")

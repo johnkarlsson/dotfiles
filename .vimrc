@@ -31,8 +31,10 @@ Plug 'klen/python-mode', {'for': 'python'} " Note: disable rope to avoid conflic
 " Plug 'derekwyatt/vim-scala', {'for': ['scala']}
 
 " Haskell
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'benekastah/neomake', {'for': ['haskell']}
 Plug 'Shougo/deoplete.nvim', {'for': ['haskell'], 'do': ':UpdateRemotePlugins' }
+Plug 'eagletmt/ghcmod-vim', {'for': ['haskell']}
 Plug 'eagletmt/neco-ghc', {'for': ['haskell', 'cabal']}  " completion
 Plug 'neovimhaskell/haskell-vim', {'for': ['haskell', 'cabal']}  " syntax
 Plug 'bitc/vim-hdevtools', {'for': ['haskell', 'cabal']}  " type checking
@@ -70,8 +72,8 @@ augroup line_return
 augroup END
 
 set termguicolors
-
 set t_Co=256
+
 syntax on
 set modelines=0
 set expandtab
@@ -572,3 +574,8 @@ au FileType haskell nnoremap <buffer><silent> [[ :call JumpHaskellFunction(1)<CR
 let g:hindent_on_save = 1
 let g:hindent_line_length = 80
 let g:hindent_indent_size = 2
+au FileType haskell nnoremap <silent><buffer> gmi :GhcModTypeInsert<CR>
+au FileType haskell nnoremap <silent><buffer> gmf :GhcModSplitFunCase<CR>
+au FileType haskell nnoremap <silent><buffer> gmt :GhcModType<CR>
+au FileType haskell nnoremap <leader><space> :noh<CR>:GhcModTypeClear<CR>
+let g:ghcmod_type_highlight = 'InterestingWord8'
