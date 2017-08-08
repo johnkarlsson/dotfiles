@@ -537,7 +537,7 @@ let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
 let g:haskell_indent_where = 6
 au FileType haskell setlocal omnifunc=necoghc#omnifunc
-au FileType haskell set kp=hoogle
+au FileType haskell set kp=hoogle\ --info
 " augroup haskell_neomake
 "     au!
 "     au BufWritePost *.hs Neomake
@@ -560,3 +560,10 @@ let g:necoghc_enable_detailed_browse = 1
 " augroup END
 
 let g:deoplete#enable_at_startup = 1
+
+" [[ and ]] for jumping between functions
+function! JumpHaskellFunction(reverse)
+    call search('\C[[:alnum:]]*\s*::', a:reverse ? 'bW' : 'W')
+endfunction
+au FileType haskell nnoremap <buffer><silent> ]] :call JumpHaskellFunction(0)<CR>
+au FileType haskell nnoremap <buffer><silent> [[ :call JumpHaskellFunction(1)<CR>
