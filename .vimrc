@@ -542,10 +542,10 @@ let g:haskell_enable_static_pointers = 1
 let g:haskell_indent_where = 6
 au FileType haskell setlocal omnifunc=necoghc#omnifunc
 au FileType haskell set kp=hoogle\ --info
-" augroup haskell_neomake
-"     au!
-"     au BufWritePost *.hs Neomake
-" augroup END
+augroup haskell_ghcmodcheck
+    au!
+    au BufWritePost *.hs silent GhcModCheck
+augroup END
 let g:necoghc_enable_detailed_browse = 1
 " augroup haskell_hdevtoolstype
 "     " map K to toggle between :HdevtoolsType and :HdevtoolsClear
