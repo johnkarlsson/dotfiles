@@ -542,9 +542,12 @@ let g:haskell_enable_static_pointers = 1
 let g:haskell_indent_where = 6
 au FileType haskell setlocal omnifunc=necoghc#omnifunc
 au FileType haskell set kp=hoogle\ --info
+let g:ghcmod_ghc_options = ['-Wall', '-Wincomplete-uni-patterns',
+                            \'-Wincomplete-record-updates',
+                            \'-Wmissing-import-lists']
 augroup haskell_ghcmodcheck
     au!
-    au BufWritePost *.hs silent GhcModCheck
+    au BufWritePost *.hs silent GhcModCheckAndLintAsync
 augroup END
 let g:necoghc_enable_detailed_browse = 1
 " augroup haskell_hdevtoolstype
