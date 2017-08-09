@@ -27,12 +27,6 @@ RUN ln -s ~/dotfiles/.vim/colors ~/.config/nvim/colors
 RUN curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN nvim -c "PlugInstall" -c "qa!" --headless
 
-# Haskell
-RUN curl -sSL https://get.haskellstack.org/ | sh
-RUN stack setup --install-ghc
-RUN stack install hdevtools ghc-mod
-RUN echo 'PATH=$PATH:~/.local/bin' >> ~/.zshenv
-
 # zsh
 RUN apt-get update && apt-get install -y zsh
 ENV TERM xterm
@@ -55,3 +49,10 @@ RUN dpkg-reconfigure locales && \
     locale-gen sv_SE.UTF-8 && \
     update-locale LANG=sv_SE.UTF-8
 ENV LANG sv_SE.UTF-8
+
+# Haskell
+RUN curl -sSL https://get.haskellstack.org/ | sh
+RUN stack setup --install-ghc
+RUN stack install hdevtools ghc-mod hoogle hindent
+RUN echo 'PATH=$PATH:~/.local/bin' >> ~/.zshenv
+RUN stack exec -- hoogle generate
