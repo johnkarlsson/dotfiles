@@ -41,6 +41,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 export EDITOR=nvim
+export TERM=screen-256color
 
 export LANG=sv_SE.utf8
 export LC_ALL=C
