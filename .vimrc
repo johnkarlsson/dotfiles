@@ -309,6 +309,8 @@ set incsearch
 set hlsearch
 nnoremap <leader><space> :noh<cr>
 
+tnoremap <Esc> <C-\><C-n>
+
 inoremap <C-c> <Esc><Esc>
 vnoremap <C-c> <Esc><Esc>
 nnoremap <C-c> <Esc><Esc>
