@@ -38,7 +38,7 @@ Plug 'Shougo/deoplete.nvim', {'for': ['haskell'], 'do': ':UpdateRemotePlugins' }
 Plug 'eagletmt/ghcmod-vim', {'for': ['haskell']}  " error checking
 Plug 'eagletmt/neco-ghc', {'for': ['haskell', 'cabal']}  " completion
 Plug 'neovimhaskell/haskell-vim', {'for': ['haskell', 'cabal']}  " syntax highlighting & indentation
-Plug 'bitc/vim-hdevtools', {'for': ['haskell', 'cabal']}  " type checking
+" Plug 'bitc/vim-hdevtools', {'for': ['haskell', 'cabal']}  " type checking
 Plug 'alx741/vim-hindent', {'for': ['haskell']}  " indentation
 
 
