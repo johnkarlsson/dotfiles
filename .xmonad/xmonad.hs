@@ -68,12 +68,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. controlMask, xK_u),       withFocused (sendMessage . UnMerge))
     , ((modm .|. controlMask, xK_period),  onGroup W.focusUp')
     , ((modm .|. controlMask, xK_comma),   onGroup W.focusDown')
---  , ((modm,                 xK_s),       submap $ defaultSublMap conf)
+    -- , ((modm,                 xK_s),       submap $ defaultSublMap conf)
     , ((modm .|. shiftMask, xK_q),         quitWithWarning)
     , ((modm, xK_q),                       restart "xmonad" True)
-    , ((modm .|. shiftMask, xK_s),         spawn "gnome-screensaver-command --lock && sudo $HOME/dotfiles/.xmonad/sleep.sh")
+    -- , ((modm .|. shiftMask, xK_s),         spawn "gnome-screensaver-command --lock && sudo $HOME/dotfiles/.xmonad/sleep.sh")
     , ((modm .|. shiftMask, xK_m),         spawn "urxvt -e mutt")
-    , ((modm .|. shiftMask, xK_b),         spawn "google-chrome --blacklist-accelerated-composting")
+    , ((modm .|. shiftMask, xK_b),         spawn "google-chrome-stable --blacklist-accelerated-composting")
     , ((modm .|. shiftMask, xK_a),         spawn "/usr/bin/emacsclient-snapshot -c || (emacs-snapshot --daemon && emacs-snapshot)")
 
 
@@ -83,14 +83,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((mod1Mask, xK_Tab),                 cycleRecentWindows [xK_Alt_L] xK_Tab xK_Tab)
 
    -- multimedia keys
-     , ((0, 0x1008ff11),                    spawn "amixer -c 1 -q sset Master 3%-")
-     , ((0, 0x1008ff13),                    spawn "amixer -c 1 -q sset Master 3%+")
+     , ((0, 0x1008ff11),                    spawn "amixer -c 0 -q sset Master 3%-")
+     , ((0, 0x1008ff13),                    spawn "amixer -c 0 -q sset Master 3%+")
      , ((0, 0x1008ff03),                    spawn "xbacklight -dec 10")
      , ((0, 0x1008ff02),                    spawn "xbacklight -inc 10")
-     , ((0, 0x1008ff12),                    spawn "amixer -c 1 set Master toggle;    \
-                                                 \ amixer -c 1 set Headphone unmute; \
-                                                 \ amixer -c 1 set 'Bass Speaker' unmute; \
-                                                 \ amixer -c 1 set Speaker unmute")
+     , ((0, 0x1008ff12),                    spawn "amixer -c 0 set Master toggle;    \
+                                                 \ amixer -c 0 set Headphone unmute; \
+                                                 \ amixer -c 0 set 'Bass Speaker' unmute; \
+                                                 \ amixer -c 0 set Speaker unmute")
     ]
 
 startup = do

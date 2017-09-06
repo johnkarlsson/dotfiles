@@ -40,11 +40,11 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
+[[ -z "$TMUX" ]] && exec tmux
 export EDITOR=nvim
 export TERM=screen-256color
 
-export LANG=sv_SE.utf8
-export LC_ALL=C
+export LANG=en_US.utf8
 # export LANG=sv_SE.utf8
 
 export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
@@ -148,7 +148,7 @@ alias tree='tree -C'
 alias cursorkill='echo "Click on window to kill"; xprop | grep PID | grep -Po "\d+" | xargs kill'
 
 # Kill all local unused sessions
-tmux ls | grep -v '(attached)' | grep -o '^[^:]+' | xargs -I{} tmux kill-session -t {}
+tmux ls 2>/dev/null | grep -v '(attached)' | grep -o '^[^:]+' | xargs -I{} tmux kill-session -t {}
 
 alias hoogle='hoogle --color'
 
@@ -162,3 +162,5 @@ function scp_tmux_conf {
 }
 
 alias ghc='ghc -Wall -fforce-recomp'
+
+source ~/.zshenv

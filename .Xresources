@@ -5,10 +5,10 @@ URxvt.scrollBar: false
 
 ! URxvt.font:     xft:courier new:size=12:antialias=false
 ! URxvt.boldFont: xft:courier new:bold:size=12:antialias=false
-URxvt.font:     xft:dejavu sans mono:size=12:antialias=false
-URxvt.boldFont: xft:dejavu sans mono:bold:size=12:antialias=false
+URxvt.font:     xft:courier new:size=9:antialias=false
+URxvt.boldFont: xft:courier new:bold:size=9:antialias=false
 
-URxvt.font-size.step: 3
+URxvt.font-size.step: 1
 
 URxvt.keysym.M-plus:    perl:font-size:increase
 URxvt.keysym.M-minus:   perl:font-size:decrease
