@@ -49,17 +49,20 @@
 	    (evil-mode 1)
             (defalias #'forward-evil-word #'forward-evil-symbol)))
 
-(use-package evil-snipe
-  :ensure t
-  :init (setq evil-snipe-scope 'whole-buffer)
-  :config (progn
-            (evil-snipe-mode 1)
-            (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)))
+;; (use-package evil-snipe
+;;   :ensure t
+;;   :init (setq evil-snipe-scope 'whole-buffer)
+;;   :config (progn
+;;             (evil-snipe-mode 1)
+;;             (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)))
 
 (use-package evil-magit
   :ensure t)
 
 (use-package swiper
+  :ensure t)
+
+(use-package smex
   :ensure t)
 
 (use-package ivy
@@ -190,10 +193,15 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(alchemist-test-status-modeline nil)
- '(org-agenda-files (quote ("~/todo.org"))))
+ '(org-agenda-files (quote ("~/todo.org")))
+ '(package-selected-packages
+   (quote
+    (smex yasnippet which-key use-package rainbow-delimiters pandoc-mode markdown-mode ivy-hydra evil-snipe evil-magit doom-themes darkroom counsel company-jedi alchemist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )
+
+(set-default 'truncate-lines t)
