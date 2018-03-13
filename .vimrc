@@ -32,9 +32,11 @@ Plug 'klen/python-mode', {'for': 'python'} " Note: disable rope to avoid conflic
 " Plug 'derekwyatt/vim-scala', {'for': ['scala']}
 
 " Haskell
-Plug 'parsonsmatt/intero-neovim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
 " Plug 'benekastah/neomake', {'for': ['haskell']}
+" Plug 'parsonsmatt/intero-neovim'
+
 Plug 'Shougo/deoplete.nvim', {'for': ['haskell'], 'do': ':UpdateRemotePlugins' }
 Plug 'eagletmt/ghcmod-vim', {'for': ['haskell']}  " error checking
 Plug 'eagletmt/neco-ghc', {'for': ['haskell', 'cabal']}  " completion

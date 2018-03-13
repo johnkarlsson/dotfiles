@@ -16,8 +16,8 @@
 (setq initial-scratch-message nil)
 
 ;; set font
-(add-to-list 'default-frame-alist '(font . "Inconsolata-22"))
-(set-face-attribute 'default nil :font "Inconsolata-22")
+(add-to-list 'default-frame-alist '(font . "Inconsolata-16"))
+(set-face-attribute 'default nil :font "Inconsolata-16")
 
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -38,6 +38,9 @@
             (load-theme 'doom-tomorrow-night t)
             (add-hook 'find-file-hook 'doom-buffer-mode)))
 
+(add-to-list 'default-frame-alist '(background-color . "#050505"))
+(set-background-color "#050505")
+
 (use-package rainbow-delimiters
   :ensure t
   :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
@@ -49,12 +52,33 @@
 	    (evil-mode 1)
             (defalias #'forward-evil-word #'forward-evil-symbol)))
 
+(use-package sentence-navigation
+  :ensure t
+  ;; autoloads will be created for all commands and text objects
+  ;; when installed with package.el
+  :defer t)
+
+(define-key evil-motion-state-map ")" 'sentence-nav-evil-forward)
+(define-key evil-motion-state-map "(" 'sentence-nav-evil-backward)
+
 ;; (use-package evil-snipe
 ;;   :ensure t
 ;;   :init (setq evil-snipe-scope 'whole-buffer)
 ;;   :config (progn
 ;;             (evil-snipe-mode 1)
 ;;             (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)))
+
+(use-package neotree
+  :ensure t)
+(setq neo-smart-open t)
+
+; https://www.emacswiki.org/emacs/NeoTree#toc12
+(add-hook 'neotree-mode-hook
+          (lambda ()
+            (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+            (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
+            (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+            (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
 
 (use-package evil-magit
   :ensure t)
@@ -64,6 +88,18 @@
 
 (use-package smex
   :ensure t)
+
+(use-package idris-mode
+  :mode (("\\.idr$" . idris-mode)
+         ("\\.lidr$" . idris-mode))
+  :defer t
+  ;; :config
+  ;; (defun my/idris-mode-defaults ()
+  ;;   (flycheck-mode -1))
+  ;; (add-hook 'idris-mode-hook 'my/idris-mode-defaults)
+)
+(setq idris-stay-in-current-window-on-compiler-error t)
+
 
 (use-package ivy
   :ensure t
@@ -87,8 +123,15 @@
 (use-package company
   :ensure t
   :init (global-company-mode)
-  :config (setq company-idle-delay 0.2
-                company-minimum-prefix-length 1))
+  :config (setq company-idle-delay 2
+                company-minimum-prefix-length 2))
+; (with-eval-after-load 'company
+;   (define-key company-active-map (kbd "<return>") nil)
+;   (define-key company-active-map (kbd "RET") nil)
+;   (define-key company-active-map (kbd "C-SPC") #'company-complete-selection))
+
+(global-set-key (kbd "C-SPC") 'company-complete)
+(define-key company-active-map (kbd "C-SPC") 'company-complete-common-or-cycle)
 
 (use-package company-jedi
   :ensure t
@@ -133,6 +176,8 @@
 
 (use-package darkroom
   :ensure t)
+
+; (add-hook 'prog-mode-hook 'whitespace-mode)
 
 ;; Enable S-{left, right, up, down} to switch window focus
 (windmove-default-keybindings)
@@ -196,7 +241,7 @@
  '(org-agenda-files (quote ("~/todo.org")))
  '(package-selected-packages
    (quote
-    (smex yasnippet which-key use-package rainbow-delimiters pandoc-mode markdown-mode ivy-hydra evil-snipe evil-magit doom-themes darkroom counsel company-jedi alchemist))))
+    (sentence-navigation fill-column-indicator neotree idris idris-mode smex yasnippet which-key use-package rainbow-delimiters pandoc-mode markdown-mode ivy-hydra evil-snipe evil-magit doom-themes darkroom counsel company-jedi alchemist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -205,3 +250,30 @@
  )
 
 (set-default 'truncate-lines t)
+
+;;; C-c as general purpose escape key sequence.
+(defun my-esc (prompt)
+   ;; "Functionality for escaping generally.  Includes exiting Evil insert state and C-g binding. "
+  (cond
+   ;; If we're in one of the Evil states that defines [escape] key, return [escape] so as
+   ;; Key Lookup will use it.
+   ((or (evil-insert-state-p) (evil-normal-state-p) (evil-replace-state-p) (evil-visual-state-p)) [escape])
+   ;; This is the best way I could infer for now to have C-c work during evil-read-key.
+   ;; Note: As long as I return [escape] in normal-state, I don't need this.
+   ;;((eq overriding-terminal-local-map evil-read-key-map) (keyboard-quit) (kbd ""))
+   (t (kbd "C-g"))))
+(define-key key-translation-map (kbd "C-c") 'my-esc)
+;; Works around the fact that Evil uses read-event directly when in operator state, which
+;; doesn't use the key-translation-map.
+(define-key evil-operator-state-map (kbd "C-c") 'keyboard-quit)
+;; Not sure what behavior this changes, but might as well set it, seeing the Elisp manual's
+;; documentation of it.
+(set-quit-char "C-c")
+
+
+(defun init-file ()
+  ;; "Edit the `user-init-file', in another window."
+  (interactive)
+  (find-file-other-window user-init-file))
+
+(setq vc-follow-symlinks nil)
