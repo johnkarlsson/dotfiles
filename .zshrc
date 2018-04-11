@@ -122,6 +122,7 @@ _g() {
 }
 
 source ~/.zshrc_extras
+em() { emacsclient -c "$@" & }
 alias vi=nvim
 alias vim=nvim
 alias vimdiff='nvim -d -R'
@@ -146,6 +147,8 @@ alias mm='awk "{ if (!min || \$0 < min) { min = \$0; }; if (\$0 > max) { max = \
 alias tree='tree -C'
 
 alias cursorkill='echo "Click on window to kill"; xprop | grep PID | grep -Po "\d+" | xargs kill'
+
+alias vlc='vlc --file-caching=20000'
 
 # Kill all local unused sessions
 tmux ls 2>/dev/null | grep -v '(attached)' | grep -o '^[^:]+' | xargs -I{} tmux kill-session -t {}

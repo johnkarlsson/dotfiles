@@ -152,12 +152,14 @@ let g:pymode_rope_complete_on_dot = 0
 let g:pymode_doc = 0
 let g:pymode_run = 0
 let g:pymode_doc_key = 'K'
-let g:pymode_lint = 1
+let g:pymode_lint = 0
 let g:pymode_lint_checkers = ["pep8","pyflakes"]
 let g:pymode_lint_write = 1 " Auto check on save
 augroup pymode_lint
     au!
-    au BufWriteCmd *.py write || :PymodeLint  " Since the above intermittently stops working
+    if g:pymode_lint
+      au BufWriteCmd *.py write || :PymodeLint  " Since the above intermittently stops working
+    endif
 augroup END
 let g:pymode_virtualenv = 1
 let g:pymode_breakpoint = 0
@@ -580,49 +582,51 @@ function! JumpHaskellFunction(reverse)
 endfunction
 au FileType haskell nnoremap <buffer><silent> ]] :call JumpHaskellFunction(0)<CR>
 au FileType haskell nnoremap <buffer><silent> [[ :call JumpHaskellFunction(1)<CR>
-let g:hindent_on_save = 1
+let g:hindent_on_save = 0
 let g:hindent_line_length = 80
 let g:hindent_indent_size = 2
-" au FileType haskell nnoremap <silent><buffer> gmi :GhcModTypeInsert<CR>
 " au FileType haskell nnoremap <silent><buffer> gmf :GhcModSplitFunCase<CR>
-" au FileType haskell nnoremap <silent><buffer> gmt :GhcModType<CR>
-" au FileType haskell nnoremap <leader><space> :noh<CR>:GhcModTypeClear<CR>
+au FileType haskell nnoremap <silent><buffer> gmi :GhcModTypeInsert<CR>
+au FileType haskell nnoremap <silent><buffer> gmt :GhcModType<CR>
+au FileType haskell nnoremap <leader><space> :noh<CR>:GhcModTypeClear<CR>
 let g:ghcmod_type_highlight = 'InterestingWord8'
 
 augroup interoMaps
   au!
-  " Maps for intero. Restrict to Haskell buffers so the bindings don't collide.
+  if 0
+    " Maps for intero. Restrict to Haskell buffers so the bindings don't collide.
 
-  " Background process and window management
-  au FileType haskell nnoremap <silent> <leader>is :InteroStart<CR>
-  au FileType haskell nnoremap <silent> <leader>ik :InteroKill<CR>
+    " Background process and window management
+    au FileType haskell nnoremap <silent> <leader>is :InteroStart<CR>
+    au FileType haskell nnoremap <silent> <leader>ik :InteroKill<CR>
 
-  " Open intero/GHCi split horizontally
-  au FileType haskell nnoremap <silent> <leader>io :InteroOpen<CR>
-  " Open intero/GHCi split vertically
-  au FileType haskell nnoremap <silent> <leader>iov :InteroOpen<CR><C-W>H
-  au FileType haskell nnoremap <silent> <leader>ih :InteroHide<CR>
+    " Open intero/GHCi split horizontally
+    au FileType haskell nnoremap <silent> <leader>io :InteroOpen<CR>
+    " Open intero/GHCi split vertically
+    au FileType haskell nnoremap <silent> <leader>iov :InteroOpen<CR><C-W>H
+    au FileType haskell nnoremap <silent> <leader>ih :InteroHide<CR>
 
-  " Reloading (pick one)
-  " Automatically reload on save
-  au BufWritePost *.hs InteroReload
-  " Manually save and reload
-  au FileType haskell nnoremap <silent> <leader>wr :w \| :InteroReload<CR>
+    " Reloading (pick one)
+    " Automatically reload on save
+    au BufWritePost *.hs InteroReload
+    " Manually save and reload
+    au FileType haskell nnoremap <silent> <leader>wr :w \| :InteroReload<CR>
 
-  " Load individual modules
-  au FileType haskell nnoremap <silent> <leader>il :InteroLoadCurrentModule<CR>
-  au FileType haskell nnoremap <silent> <leader>if :InteroLoadCurrentFile<CR>
+    " Load individual modules
+    au FileType haskell nnoremap <silent> <leader>il :InteroLoadCurrentModule<CR>
+    au FileType haskell nnoremap <silent> <leader>if :InteroLoadCurrentFile<CR>
 
-  " Type-related information
-  " Heads up! These next two differ from the rest.
-  au FileType haskell map <silent> <leader>t <Plug>InteroGenericType
-  au FileType haskell map <silent> <leader>T <Plug>InteroType
-  au FileType haskell nnoremap <silent> <leader>it :InteroTypeInsert<CR>
+    " Type-related information
+    " Heads up! These next two differ from the rest.
+    au FileType haskell map <silent> <leader>t <Plug>InteroGenericType
+    au FileType haskell map <silent> <leader>T <Plug>InteroType
+    au FileType haskell nnoremap <silent> <leader>it :InteroTypeInsert<CR>
 
-  " Navigation
-  au FileType haskell nnoremap <silent> <leader>jd :InteroGoToDef<CR>
+    " Navigation
+    au FileType haskell nnoremap <silent> <leader>jd :InteroGoToDef<CR>
 
-  " Managing targets
-  " Prompts you to enter targets (no silent):
-  au FileType haskell nnoremap <leader>ist :InteroSetTargets<SPACE>
+    " Managing targets
+    " Prompts you to enter targets (no silent):
+    au FileType haskell nnoremap <leader>ist :InteroSetTargets<SPACE>
+  endif
 augroup END

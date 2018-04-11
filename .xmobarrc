@@ -1,5 +1,5 @@
 -- Config { font = "-*-terminus-28-*-*-*-28-*-*-*-*-*-*-*"
-Config { font = "xft:courier new:size=8:bold:antialias=true"
+Config { font = "xft:awesome:size=13:normal:antialias=true"
        , bgColor = "black"
        , fgColor = "grey"
        , lowerOnStart = False
@@ -17,6 +17,7 @@ Config { font = "xft:courier new:size=8:bold:antialias=true"
                     , Run Com "/bin/bash" ["-c", "~/dotfiles/.xmonad/mail_check.sh tartrate"] "mail_tartrate" 300
                     , Run Com "/bin/bash" ["-c", "~/dotfiles/.xmonad/mail_check.sh kajohn"] "mail_kajohn" 300
                     , Run Com "/bin/bash" ["-c", "~/dotfiles/.xmonad/mail_check.sh t"] "mail_st" 300
+                    , Run Com "/bin/bash" ["-c", "~/dotfiles/.xmonad/charge_check.sh"] "charge" 100
                     , Run Date "%a %b %_d" "date0" 600
                     , Run Date "(w%V)" "date1" 600
                     , Run Date "%H:%M" "date2" 10
@@ -24,5 +25,5 @@ Config { font = "xft:courier new:size=8:bold:antialias=true"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% } <fc=#FFE863>CPU</fc> %multicpu% <fc=#ffffff>%coretemp%</fc> | <fc=#FFE863>Mem</fc> %memory% | <fc=#FFE863>Disk</fc>%disku% | <fc=#FFE863>WLAN</fc> %wlan0wi% { <fc=#FFE863>Mail</fc> %mail_tartrate% %mail_kajohn% %mail_st% | <fc=#FFE863>Batt</fc> %battery% | <fc=#FFE863>Vol</fc> %myVolume% | <fc=#FFE863>%date0%</fc> %date1% <fc=#FFE863>%date2%</fc>"
+       , template = "%StdinReader% }  <fc=#FFE863>CPU</fc> %multicpu% <fc=#ffffff>%coretemp%</fc> | <fc=#FFE863>Mem</fc> %memory% | <fc=#FFE863>Disk</fc>%disku% | <fc=#FFE863>WLAN</fc> %wlan0wi% { <fc=#FFE863>Mail</fc> %mail_tartrate% %mail_kajohn% %mail_st% | <fc=#FFE863>Batt</fc> <fc=#00FF00>%charge%</fc>%battery% | <fc=#FFE863>Vol</fc> %myVolume% | <fc=#FFE863>%date0%</fc> %date1% <fc=#FFE863>%date2%</fc>"
        }

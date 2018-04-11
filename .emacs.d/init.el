@@ -89,6 +89,15 @@
 (use-package smex
   :ensure t)
 
+(use-package haskell-mode
+  :mode (("\\.hs" . haskell-mode)
+         ; ("\\.lidr$" . haskell-mode)
+         )
+  :ensure t)
+
+(custom-set-variables
+ '(haskell-stylish-on-save t))
+
 (use-package idris-mode
   :mode (("\\.idr$" . idris-mode)
          ("\\.lidr$" . idris-mode))
@@ -241,13 +250,14 @@
  '(org-agenda-files (quote ("~/todo.org")))
  '(package-selected-packages
    (quote
-    (sentence-navigation fill-column-indicator neotree idris idris-mode smex yasnippet which-key use-package rainbow-delimiters pandoc-mode markdown-mode ivy-hydra evil-snipe evil-magit doom-themes darkroom counsel company-jedi alchemist))))
+    (haskell-mode dracula-theme sentence-navigation fill-column-indicator neotree idris idris-mode smex yasnippet which-key use-package rainbow-delimiters pandoc-mode markdown-mode ivy-hydra evil-snipe evil-magit doom-themes darkroom counsel company-jedi alchemist))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(region ((t (:background "dark slate gray")))))
 
 (set-default 'truncate-lines t)
 
@@ -262,13 +272,13 @@
    ;; Note: As long as I return [escape] in normal-state, I don't need this.
    ;;((eq overriding-terminal-local-map evil-read-key-map) (keyboard-quit) (kbd ""))
    (t (kbd "C-g"))))
-(define-key key-translation-map (kbd "C-c") 'my-esc)
+(define-key key-translation-map (kbd "C-g") 'my-esc)
 ;; Works around the fact that Evil uses read-event directly when in operator state, which
 ;; doesn't use the key-translation-map.
-(define-key evil-operator-state-map (kbd "C-c") 'keyboard-quit)
+(define-key evil-operator-state-map (kbd "C-g") 'keyboard-quit)
 ;; Not sure what behavior this changes, but might as well set it, seeing the Elisp manual's
 ;; documentation of it.
-(set-quit-char "C-c")
+(set-quit-char "C-g")
 
 
 (defun init-file ()
