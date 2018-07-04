@@ -23,6 +23,7 @@
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("gnu" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
+(package-refresh-contents)
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
@@ -36,8 +37,10 @@
               org-fontify-quote-and-verse-blocks t)
   :config (progn
             (load-theme 'doom-tomorrow-night t)
-            (add-hook 'find-file-hook 'doom-buffer-mode)))
+            ; (add-hook 'find-file-hook 'doom-buffer-mode)
+            ))
 
+; C-u C-x =
 (add-to-list 'default-frame-alist '(background-color . "#050505"))
 (set-background-color "#050505")
 
@@ -47,9 +50,10 @@
 
 (use-package evil
   :ensure t
-  ;:init (setq evil-want-C-u-scroll t)
+  ; :init (setq evil-search-module (quote evil-search))
+  ;; :init (setq evil-want-C-u-scroll t)
   :config (progn
-	    (evil-mode 1)
+            (evil-mode 1)
             (defalias #'forward-evil-word #'forward-evil-symbol)))
 
 (use-package sentence-navigation
@@ -91,12 +95,32 @@
 
 (use-package haskell-mode
   :mode (("\\.hs" . haskell-mode)
-         ; ("\\.lidr$" . haskell-mode)
+         ("\\.yaml" . haskell-mode)
          )
   :ensure t)
 
+(use-package intero
+  :config (add-hook 'haskell-mode-hook 'intero-mode)
+  :ensure t
+  )
+
 (custom-set-variables
- '(haskell-stylish-on-save t))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(alchemist-test-status-modeline nil)
+ '(haskell-stylish-on-save t)
+ '(org-agenda-files (quote ("~/todo.org")))
+ '(package-selected-packages
+   (quote
+    (python-mode elpy hydra intero haskell-mode dracula-theme sentence-navigation fill-column-indicator neotree idris idris-mode smex yasnippet which-key use-package rainbow-delimiters pandoc-mode markdown-mode ivy-hydra evil-snipe evil-magit doom-themes darkroom counsel company-jedi alchemist))))
+
+(use-package elpy
+  :ensure t
+)
+(elpy-enable)
+
 
 (use-package idris-mode
   :mode (("\\.idr$" . idris-mode)
@@ -241,22 +265,15 @@
 (setq split-height-threshold nil)
 (setq split-width-threshold 160)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(alchemist-test-status-modeline nil)
- '(org-agenda-files (quote ("~/todo.org")))
- '(package-selected-packages
-   (quote
-    (haskell-mode dracula-theme sentence-navigation fill-column-indicator neotree idris idris-mode smex yasnippet which-key use-package rainbow-delimiters pandoc-mode markdown-mode ivy-hydra evil-snipe evil-magit doom-themes darkroom counsel company-jedi alchemist))))
 
+
+; C-u C-x =
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(font-lock-doc-face ((t (:inherit font-lock-comment-face :foreground "gray39"))))
  '(region ((t (:background "dark slate gray")))))
 
 (set-default 'truncate-lines t)
@@ -267,7 +284,10 @@
   (cond
    ;; If we're in one of the Evil states that defines [escape] key, return [escape] so as
    ;; Key Lookup will use it.
-   ((or (evil-insert-state-p) (evil-normal-state-p) (evil-replace-state-p) (evil-visual-state-p)) [escape])
+   ((or (evil-insert-state-p)
+        ;; (evil-normal-state-p)
+        (evil-replace-state-p)
+        (evil-visual-state-p)) [escape])
    ;; This is the best way I could infer for now to have C-c work during evil-read-key.
    ;; Note: As long as I return [escape] in normal-state, I don't need this.
    ;;((eq overriding-terminal-local-map evil-read-key-map) (keyboard-quit) (kbd ""))
@@ -287,3 +307,6 @@
   (find-file-other-window user-init-file))
 
 (setq vc-follow-symlinks nil)
+
+(define-key evil-insert-state-map (kbd "C-x C-l") 'hippie-expand)
+; (define-key evil-ex-search-keymap (kbd "<escape>") 'minibuffer-keyboard-quit)

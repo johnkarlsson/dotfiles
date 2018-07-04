@@ -72,23 +72,30 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
   , ((modm .|. controlMask, xK_period), onGroup W.focusUp')
   , ((modm .|. controlMask, xK_comma),  onGroup W.focusDown')
   , ((modm .|. shiftMask, xK_q),        quitWithWarning)
-  , ((modm .|. shiftMask, xK_l),        spawn "xflock4")
+  -- , ((modm .|. shiftMask, xK_l),        spawn "xflock4")
+  , ((modm .|. shiftMask, xK_l),        spawn "xtrlock")
+  , ((modm
+      .|. shiftMask
+      .|. controlMask, xK_l),           spawn "xtrlock -b")
   , ((modm, xK_q),                      restart "xmonad" True)
   , ((modm .|. shiftMask, xK_m),        spawn "urxvt -e mutt")
   , ((modm .|. shiftMask, xK_r),        spawn "urxvt -e sh -c 'id > /home/john/tmp/xmonaduser.tmp'")
-  , ((modm .|. shiftMask, xK_n),        spawn "google-chrome-stable")
-  , ((modm .|. shiftMask, xK_b),        spawn "firefox")
+  , ((modm .|. shiftMask, xK_b),        spawn "google-chrome-stable")
+  , ((modm .|. shiftMask, xK_n),        spawn "firefox")
   , ((modm .|. shiftMask, xK_a),        spawn "emacsclient -c -a ''")
   , ((modm, xK_z),                      toggleWS) -- CycleWS
   , ((mod1Mask, xK_Tab),                cycleRecentWindows [xK_Alt_L] xK_Tab xK_Tab) -- CycleWindows
-  , ((0, 0x1008ff11),                   spawn "amixer -c 0 -q sset Master 3%-")
-  , ((0, 0x1008ff13),                   spawn "amixer -c 0 -q sset Master 3%+")
+  -- , ((0, 0x1008ff11),                   spawn "amixer -c 0 -q sset Master 3%-")
+  -- , ((0, 0x1008ff13),                   spawn "amixer -c 0 -q sset Master 3%+")
+  , ((0, 0x1008ff11),                   spawn "pamixer --decrease 3")
+  , ((0, 0x1008ff13),                   spawn "pamixer --increase 3")
   , ((0, 0x1008ff03),                   spawn "xbacklight -dec 10")
   , ((0, 0x1008ff02),                   spawn "xbacklight -inc 10")
-  , ((0, 0x1008ff12),                   spawn "amixer -c 0 set Master toggle;    \
-                                              \ amixer -c 0 set Headphone unmute; \
-                                              \ amixer -c 0 set 'Bass Speaker' unmute; \
-                                              \ amixer -c 0 set Speaker unmute")
+  , ((0, 0x1008ff12),                   spawn "pamixer -t")
+  -- , ((0, 0x1008ff12),                   spawn "amixer -c 0 set Master toggle;    \
+  --                                             \ amixer -c 0 set Headphone unmute; \
+  --                                             \ amixer -c 0 set 'Bass Speaker' unmute; \
+  --                                             \ amixer -c 0 set Speaker unmute")
   ]
 
 startup =
@@ -96,23 +103,24 @@ startup =
   >> setWMName "LG3D"
   >> spawn "setxkbmap 'se2_qwerty(programmer)'"
   >> spawn "xrdb ~/.Xresources"
-  >> spawn "feh --bg-scale ~/Downloads/photo-1418065460487-3e41a6c84dc5.jpg"
-  >> spawn "xscreensaver -no-splash"
+  -- >> spawn "feh --bg-scale ~/Downloads/photo-1418065460487-3e41a6c84dc5.jpg"
+  >> spawn "feh --bg-scale ~/bg.jpg"
+  -- >> spawn "xscreensaver -no-splash"
   >> spawn "xhost +"
 
 --  setWMName "LG3D"
 main -- do
  =
-  xmonad =<<
-  xmobar
+  xmonad
+  -- =<< xmobar
     (ewmh $
      defaultConfig
      { modMask = mod4Mask
      , terminal = "urxvt"
      -- , layoutHook = avoidStruts myLayout
      -- , layoutHook = spacing 0 $ avoidStruts $ myLayout
-     , layoutHook = smartSpacingWithEdge 5 $ avoidStruts $ myLayout
-     , borderWidth = 5
+     , layoutHook = smartSpacingWithEdge 10 $ avoidStruts $ myLayout
+     , borderWidth = 4
      , focusFollowsMouse = False
      , normalBorderColor = "#000000"
      -- , focusedBorderColor = "#CCBB55"

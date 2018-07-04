@@ -5,8 +5,8 @@ URxvt.scrollBar: false
 
 ! URxvt.font:     xft:courier new:size=12:antialias=false
 ! URxvt.boldFont: xft:courier new:bold:size=12:antialias=false
-URxvt.font:     xft:Inconsolata:size=16:antialias=false
-URxvt.boldFont: xft:Inconsolata:bold:size=16:antialias=false
+URxvt.font:     xft:Inconsolata:size=16:antialias=true
+URxvt.boldFont: xft:Inconsolata:bold:size=16:antialias=true
 
 URxvt.font-size.step: 1
 
@@ -22,8 +22,8 @@ URxvt.iso14755_52: false
 URxvt.perl-ext-common: default,matcher,font-size
 
 URxvt.colorUL: #66AABB
-! URxvt.url-launcher: /usr/bin/google-chrome-stable
-URxvt.url-launcher: firefox
+URxvt.url-launcher: /usr/bin/google-chrome-stable
+! URxvt.url-launcher: firefox
 URxvt.matcher.button: 1
 
 XTerm.VT100.renderFont: true

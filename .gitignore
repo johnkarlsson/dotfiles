@@ -4,3 +4,10 @@ src
 .vim/bundle
 .vim/spell
 .mail/.msmtprc
+\#*
+.emacs.d/.python-environments
+.emacs.d/auto-save-list
+.emacs.d/elpa
+.emacs.d/emacs-backups
+.emacs.d/recentf
+.emacs.d/smex-items

@@ -40,12 +40,12 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-[[ -z "$TMUX" ]] && exec tmux
+[[ -z "$TMUX" ]] && [[ $DISPLAY ]] && exec tmux
 export EDITOR=nvim
 export TERM=screen-256color
 
-export LANG=en_US.utf8
-# export LANG=sv_SE.utf8
+export LANG=en_GB
+export LC_ALL=en_GB.utf8
 
 export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
 
@@ -57,7 +57,8 @@ source $ZSH/oh-my-zsh.sh
 
 bindkey -v
 # source ~/.oh-my-zsh/custom/plugins/zle_vi_visual/zle_vi_visual.zsh
-source /home/john/Projects/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /home/john/Projects/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # bind k and j for VI mode
 bindkey -M vicmd 'k' history-substring-search-up

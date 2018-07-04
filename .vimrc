@@ -3,6 +3,7 @@ filetype off
 set nocompatible
 call plug#begin('~/.vim/plugged')
 " curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " Plug 'scrooloose/syntastic'
 " Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
@@ -203,7 +204,8 @@ highlight GitGutterAdd ctermfg=2
 highlight GitGutterChange ctermfg=4
 highlight GitGutterDelete ctermfg=1
 highlight GitGutterChangeDelete ctermfg=1
-
+nmap <Leader>ha <Plug>GitGutterStageHunk
+nmap <Leader>hr <Plug>GitGutterUndoHunk
 
 augroup filetype_conf_python
     au!
