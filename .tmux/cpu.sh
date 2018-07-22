@@ -1,8 +1,10 @@
 #!/bin/bash
 
+printf "#[fg=blue]"
 awk '/cpu MHz/ {tot += $4; n += 1} END {printf "%1.2fGHz", tot / n / 1000}' /proc/cpuinfo
+printf "#[default]"
 
-printf "@"
+printf "#[fg=colour240]@#[default]"
 
 TEMP_STR=$(grep -Po '(?<=^Core \d: {8}\+)\d+\.\d+..' <(sensors) | sort -h | tail -n 1)
 TEMP=$(grep -Po '^\d+' <<< $TEMP_STR)
