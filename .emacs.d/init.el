@@ -278,7 +278,7 @@
 
 (set-default 'truncate-lines t)
 
-;;; C-c as general purpose escape key sequence.
+;;; C-g as general purpose escape key sequence.
 (defun my-esc (prompt)
    ;; "Functionality for escaping generally.  Includes exiting Evil insert state and C-g binding. "
   (cond
@@ -310,3 +310,12 @@
 
 (define-key evil-insert-state-map (kbd "C-x C-l") 'hippie-expand)
 ; (define-key evil-ex-search-keymap (kbd "<escape>") 'minibuffer-keyboard-quit)
+
+; Propagate done TODO items
+; From https://orgmode.org/manual/Breaking-down-tasks.html#Breaking-down-tasks
+(defun org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+
+(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)

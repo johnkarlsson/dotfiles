@@ -41,7 +41,7 @@ xkb_symbols "programmer" {
     key <AC03> { [         d,          D,    parenleft               ]	};
     key <AC04> { [         f,          F,   parenright               ]	};
     key <AC05> { [         g,          G,          bar               ]	};
-    key <AC06> { [         h,          H,      percent               ]	};
+    key <AC06> { [         h,          H,        grave               ]	};
     key <AC07> { [         j,          J,  asciicircum               ]	};
     key <AC08> { [         k,          K,   numbersign               ]	};
     key <AC09> { [         l,          L,     quotedbl               ]	};

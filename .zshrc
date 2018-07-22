@@ -41,7 +41,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 [[ -z "$TMUX" ]] && [[ $DISPLAY ]] && exec tmux
-export EDITOR=nvim
+export EDITOR=vim
 export TERM=screen-256color
 
 export LANG=en_GB
@@ -124,8 +124,8 @@ _g() {
 
 source ~/.zshrc_extras
 em() { emacsclient -c "$@" & }
-alias vi=nvim
-alias vim=nvim
+alias vi=vim
+# alias vim=nvim
 alias vimdiff='nvim -d -R'
 alias gcal=gcalcli
 alias trim="sed -r -e 's/^\s+//' -e 's/\s+/ /g'"
