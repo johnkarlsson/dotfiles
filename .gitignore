@@ -11,3 +11,4 @@ src
 .emacs.d/emacs-backups
 .emacs.d/recentf
 .emacs.d/smex-items
+.emacs.d/.#smex-items

@@ -71,7 +71,6 @@ zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
-alias redshift='redshift -l 57.708549:11.975098&'
 alias nipython='ipython notebook --pylab inline'
 alias qipython='ipython qtconsole --pylab=inline --colors=linux'
 alias nipython3='ipython3 notebook --pylab inline'
