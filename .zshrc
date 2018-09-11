@@ -125,7 +125,7 @@ source ~/.zshrc_extras
 em() { emacsclient -c "$@" & }
 alias vi=vim
 # alias vim=nvim
-alias vimdiff='nvim -d -R'
+# alias vimdiff='nvim -d -R'
 alias gcal=gcalcli
 alias trim="sed -r -e 's/^\s+//' -e 's/\s+/ /g'"
 alias ggb="git log --graph --oneline --format='%C(yellow)%h%Creset%C(auto)%d%Creset %s %C(cyan)(%an, %ar)%Creset'"

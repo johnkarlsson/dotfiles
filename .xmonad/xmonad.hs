@@ -79,18 +79,20 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       .|. controlMask, xK_l),           spawn "xtrlock -b")
   , ((modm, xK_q),                      restart "xmonad" True)
   , ((modm .|. shiftMask, xK_m),        spawn "urxvt -e mutt")
-  , ((modm .|. shiftMask, xK_r),        spawn "urxvt -e sh -c 'id > /home/john/tmp/xmonaduser.tmp'")
   , ((modm .|. shiftMask, xK_b),        spawn "google-chrome-stable")
   , ((modm .|. shiftMask, xK_n),        spawn "firefox")
-  , ((modm .|. shiftMask, xK_a),        spawn "emacsclient -c -a ''")
+  -- , ((modm .|. shiftMask, xK_a),        spawn "emacsclient -c -a ''")
+  , ((modm .|. shiftMask, xK_a),        spawn "emacs")
+  , ((modm .|. shiftMask, xK_s),        spawn "LIGHT_THEME=1 emacs")
   , ((modm, xK_z),                      toggleWS) -- CycleWS
   , ((mod1Mask, xK_Tab),                cycleRecentWindows [xK_Alt_L] xK_Tab xK_Tab) -- CycleWindows
   -- , ((0, 0x1008ff11),                   spawn "amixer -c 0 -q sset Master 3%-")
   -- , ((0, 0x1008ff13),                   spawn "amixer -c 0 -q sset Master 3%+")
   , ((0, 0x1008ff11),                   spawn "pamixer --decrease 6")
   , ((0, 0x1008ff13),                   spawn "pamixer --increase 6")
-  , ((0, 0x1008ff03),                   spawn "xbacklight -dec 10")
-  , ((0, 0x1008ff02),                   spawn "xbacklight -inc 10")
+  , ((0, 0x1008ff03),                   spawn "/bin/bash -c 'xbacklight -dec 10 -time 75; if [[ $(xbacklight) == \"0.000000\" ]]; then xbacklight -set 0.1; fi'")
+  -- , ((0, 0x1008ff03),                   spawn "xbacklight -dec 10")
+  , ((0, 0x1008ff02),                   spawn "xbacklight -inc 40")
   , ((0, 0x1008ff12),                   spawn "pamixer -t")
   -- , ((0, 0x1008ff12),                   spawn "amixer -c 0 set Master toggle;    \
   --                                             \ amixer -c 0 set Headphone unmute; \
