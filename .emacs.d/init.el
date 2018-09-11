@@ -23,26 +23,52 @@
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("gnu" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
-(package-refresh-contents)
+;; (package-refresh-contents)
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 
+;; (setq doom-theme 'doom-tomorrow-day)
+
+;; Use light/dark theme depending on environment variable
+(if (equal (substitute-in-file-name "$LIGHT_THEME") "1")
+  (setq doom-theme 'doom-tomorrow-day)
+  (setq doom-theme 'doom-tomorrow-night)
+  )
+
+
 (use-package doom-themes
   :ensure t
   :init (setq org-fontify-whole-heading-line t
               org-fontify-done-headline t
-              org-fontify-quote-and-verse-blocks t)
+              org-fontify-quote-and-verse-blocks t
+              doom-themes-enable-bold t
+              doom-themes-enable-italic t
+              )
   :config (progn
-            (load-theme 'doom-tomorrow-night t)
+            (load-theme doom-theme t)
             ; (add-hook 'find-file-hook 'doom-buffer-mode)
             ))
 
-; C-u C-x =
-(add-to-list 'default-frame-alist '(background-color . "#050505"))
-(set-background-color "#050505")
+(doom-themes-neotree-config)  ; run all-the-icons-install-fonts
+
+(when (equal doom-theme 'doom-tomorrow-night)
+    ; C-u C-x =
+    (set-background-color "#050505")
+    (add-to-list 'default-frame-alist '(background-color . "#050505"))
+    (add-to-list 'default-frame-alist '(cursor-color . "#528956"))
+    (custom-set-faces
+     ;; custom-set-faces was added by Custom.
+     ;; If you edit it by hand, you could mess it up, so be careful.
+     ;; Your init file should contain only one such instance.
+     ;; If there is more than one, they won't work right.
+     '(default ((t (:inherit nil :stipple nil :background "#050505" :foreground "#c5c8c6" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 158 :width normal :foundry "CYRE" :family "Inconsolata"))))
+     '(font-lock-doc-face ((t (:inherit font-lock-comment-face :foreground "gray39"))))
+     '(region ((t (:background "#1e382f")))))
+  )
+
 
 (use-package rainbow-delimiters
   :ensure t
@@ -50,11 +76,17 @@
 
 (use-package evil
   :ensure t
-  ; :init (setq evil-search-module (quote evil-search))
+  :init (setq
+         ;; evil-search-module (quote evil-search)
+         evil-symbol-word-search t
+         evil-ex-search-case t
+         evil-want-C-u-scroll t
+         )
   ;; :init (setq evil-want-C-u-scroll t)
   :config (progn
             (evil-mode 1)
-            (defalias #'forward-evil-word #'forward-evil-symbol)))
+            (defalias #'forward-evil-word #'forward-evil-symbol)
+            ))
 
 (use-package sentence-navigation
   :ensure t
@@ -73,8 +105,13 @@
 ;;             (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)))
 
 (use-package neotree
-  :ensure t)
-(setq neo-smart-open t)
+  :ensure t
+  :init (setq neo-window-fixed-size t
+              neo-smart-open t
+              neo-window-width 42
+              )
+  )
+;; (setq neo-smart-open t)
 
 ; https://www.emacswiki.org/emacs/NeoTree#toc12
 (add-hook 'neotree-mode-hook
@@ -104,23 +141,12 @@
   :ensure t
   )
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(alchemist-test-status-modeline nil)
- '(haskell-stylish-on-save t)
- '(org-agenda-files (quote ("~/todo.org")))
- '(package-selected-packages
-   (quote
-    (python-mode elpy hydra intero haskell-mode dracula-theme sentence-navigation fill-column-indicator neotree idris idris-mode smex yasnippet which-key use-package rainbow-delimiters pandoc-mode markdown-mode ivy-hydra evil-snipe evil-magit doom-themes darkroom counsel company-jedi alchemist))))
-
 (use-package elpy
   :ensure t
 )
+(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
+(add-hook 'elpy-mode-hook (lambda () (hs-minor-mode +1)))
 (elpy-enable)
-
 
 (use-package idris-mode
   :mode (("\\.idr$" . idris-mode)
@@ -132,7 +158,6 @@
   ;; (add-hook 'idris-mode-hook 'my/idris-mode-defaults)
 )
 (setq idris-stay-in-current-window-on-compiler-error t)
-
 
 (use-package ivy
   :ensure t
@@ -207,8 +232,20 @@
   :ensure t
   :config (which-key-mode))
 
-(use-package darkroom
-  :ensure t)
+;; (use-package darkroom
+;;   :ensure t)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(alchemist-test-status-modeline nil)
+ '(haskell-stylish-on-save t)
+ '(org-agenda-files (quote ("~/todo.org")))
+ '(package-selected-packages
+   (quote
+    (python-mode elpy hydra intero haskell-mode dracula-theme sentence-navigation fill-column-indicator neotree idris idris-mode smex yasnippet which-key use-package rainbow-delimiters pandoc-mode markdown-mode ivy-hydra evil-snipe evil-magit doom-themes darkroom counsel company-jedi alchemist))))
 
 ; (add-hook 'prog-mode-hook 'whitespace-mode)
 
@@ -229,7 +266,6 @@
 (setq auto-save-file-name-transforms
       `((".*" ,(expand-file-name
                  (concat user-emacs-directory "auto-save")) t)))
-
 
 ;; Use X clipboard
 (setq x-select-enable-clipboard t
@@ -265,16 +301,6 @@
 (setq split-height-threshold nil)
 (setq split-width-threshold 160)
 
-
-
-; C-u C-x =
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(font-lock-doc-face ((t (:inherit font-lock-comment-face :foreground "gray39"))))
- '(region ((t (:background "dark slate gray")))))
 
 (set-default 'truncate-lines t)
 
@@ -319,3 +345,11 @@
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+(global-hl-line-mode +1)
