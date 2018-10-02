@@ -1,10 +1,13 @@
 xterm*locale: true
 xterm*utf8: 1
 
+! URxvt*reverseVideo:         false
+
+
 URxvt.scrollBar: false
 
 ! URxvt.font:     xft:courier new:size=12:antialias=false
-! URxvt.boldFont: xft:courier new:bold:size=12:antialias=false
+! URxvt.boldFont: xft:courier new:bold:size=11:antialias=false
 URxvt.font:     xft:Inconsolata:size=16:antialias=true
 URxvt.boldFont: xft:Inconsolata:bold:size=16:antialias=true
 

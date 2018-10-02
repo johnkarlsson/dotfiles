@@ -79,6 +79,13 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       .|. controlMask, xK_l),           spawn "xtrlock -b")
   , ((modm, xK_q),                      restart "xmonad" True)
   , ((modm .|. shiftMask, xK_m),        spawn "urxvt -e mutt")
+  , ((modm
+      .|. shiftMask
+      .|. controlMask, xK_Return),      spawn "urxvt -e /bin/bash")
+  , ((modm
+      .|. shiftMask
+      .|. controlMask
+      .|. mod1Mask, xK_Return),         spawn "urxvt -e /bin/bash -c su root")
   , ((modm .|. shiftMask, xK_b),        spawn "google-chrome-stable")
   , ((modm .|. shiftMask, xK_n),        spawn "firefox")
   -- , ((modm .|. shiftMask, xK_a),        spawn "emacsclient -c -a ''")
@@ -121,8 +128,8 @@ main -- do
      , terminal = "urxvt"
      -- , layoutHook = avoidStruts myLayout
      -- , layoutHook = spacing 0 $ avoidStruts $ myLayout
-     , layoutHook = smartSpacingWithEdge 10 $ avoidStruts $ myLayout
-     , borderWidth = 4
+     , layoutHook = smartSpacingWithEdge 5 $ avoidStruts $ myLayout
+     , borderWidth = 2
      , focusFollowsMouse = False
      , normalBorderColor = "#000000"
      -- , focusedBorderColor = "#CCBB55"

@@ -82,10 +82,12 @@
          evil-ex-search-case t
          evil-want-C-u-scroll t
          )
+
   ;; :init (setq evil-want-C-u-scroll t)
   :config (progn
             (evil-mode 1)
             (defalias #'forward-evil-word #'forward-evil-symbol)
+            (fset 'evil-visual-update-x-selection 'ignore)
             ))
 
 (use-package sentence-navigation
@@ -247,7 +249,6 @@
    (quote
     (python-mode elpy hydra intero haskell-mode dracula-theme sentence-navigation fill-column-indicator neotree idris idris-mode smex yasnippet which-key use-package rainbow-delimiters pandoc-mode markdown-mode ivy-hydra evil-snipe evil-magit doom-themes darkroom counsel company-jedi alchemist))))
 
-; (add-hook 'prog-mode-hook 'whitespace-mode)
 
 ;; Enable S-{left, right, up, down} to switch window focus
 (windmove-default-keybindings)
@@ -273,6 +274,13 @@
 
 ;; Disable blinking cursor
 (blink-cursor-mode -1)
+
+;; Colorcolumn at 79
+(setq-default
+ whitespace-line-column 79
+ whitespace-style       '(face lines-tail))
+(add-hook 'prog-mode-hook 'whitespace-mode)
+(add-hook 'prog-mode-hook 'column-number-mode)
 
 ;; delete trailing whitespace in all modes
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
@@ -350,6 +358,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:inherit nil :stipple nil :background "#050505" :foreground "#c5c8c6" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 158 :width normal :foundry "CYRE" :family "Inconsolata"))))
+ '(font-lock-doc-face ((t (:inherit font-lock-comment-face :foreground "gray39"))))
+ '(region ((t (:background "#1e382f")))))
 
 (global-hl-line-mode +1)
+
+(setq history-length 100)
+(put 'minibuffer-history 'history-length 50)
+(put 'evil-ex-history 'history-length 50)
+(put 'kill-ring 'history-length 25)
