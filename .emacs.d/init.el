@@ -247,7 +247,7 @@
  '(org-agenda-files (quote ("~/todo.org")))
  '(package-selected-packages
    (quote
-    (python-mode elpy hydra intero haskell-mode dracula-theme sentence-navigation fill-column-indicator neotree idris idris-mode smex yasnippet which-key use-package rainbow-delimiters pandoc-mode markdown-mode ivy-hydra evil-snipe evil-magit doom-themes darkroom counsel company-jedi alchemist))))
+    (which-key pandoc-mode markdown-mode company-jedi ivy-hydra hydra counsel elpy intero haskell-mode smex swiper evil-magit neotree sentence-navigation evil rainbow-delimiters doom-themes use-package))))
 
 
 ;; Enable S-{left, right, up, down} to switch window focus
@@ -353,14 +353,6 @@
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#050505" :foreground "#c5c8c6" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 158 :width normal :foundry "CYRE" :family "Inconsolata"))))
- '(font-lock-doc-face ((t (:inherit font-lock-comment-face :foreground "gray39"))))
- '(region ((t (:background "#1e382f")))))
 
 (global-hl-line-mode +1)
 
