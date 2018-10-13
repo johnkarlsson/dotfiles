@@ -1,0 +1,22 @@
+name:                xmonad-local
+version:             0.1.0.0
+
+library:
+  source-dirs: .
+
+dependencies:
+- base >= 4.7 && < 5
+- xmonad >= 0.15
+- xmonad-contrib >= 0.15
+- containers
+
+executables:
+  xmonad-local-exe:
+    main:                xmonad.hs
+    source-dirs:         .
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - xmonad-local
