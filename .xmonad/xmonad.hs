@@ -129,11 +129,11 @@ main -- do
      -- , layoutHook = avoidStruts myLayout
      -- , layoutHook = spacing 0 $ avoidStruts $ myLayout
      , layoutHook = smartSpacingWithEdge 5 $ avoidStruts $ myLayout
-     , borderWidth = 2
+     , borderWidth = 1
      , focusFollowsMouse = False
      , normalBorderColor = "#000000"
-     -- , focusedBorderColor = "#CCBB55"
-     , focusedBorderColor = "#AA4444"
+     , focusedBorderColor = "#CCFF55"
+     -- , focusedBorderColor = "#AA4444"
      , manageHook = myManageHook <+> manageHook gnomeConfig
      , handleEventHook = evHook
      , keys = myKeys <+> keys gnomeConfig
