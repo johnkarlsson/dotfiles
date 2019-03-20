@@ -145,6 +145,7 @@ alias ccut='cut -d ","'
 alias acut='cut -d ""'
 alias mm='awk "{ if (!min || \$0 < min) { min = \$0; }; if (\$0 > max) { max = \$0; }; } END { print min; print max; }"'
 alias tree='tree -C'
+alias t='tree'
 
 alias cursorkill='echo "Click on window to kill"; xprop | grep PID | grep -Po "\d+" | xargs kill'
 
@@ -153,7 +154,6 @@ alias vlc='vlc --file-caching=20000'
 # Kill all local unused sessions
 tmux ls 2>/dev/null | grep -v '(attached)' | grep -o '^[^:]+' | xargs -I{} tmux kill-session -t {}
 
-alias hoogle='hoogle --color'
 
 function ssh { /usr/bin/ssh -t "$@" "tmux a -t $1 || tmux new -s $1" }
 function scp_tmux_conf {
