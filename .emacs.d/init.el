@@ -16,8 +16,10 @@
 (setq initial-scratch-message nil)
 
 ;; set font
-(add-to-list 'default-frame-alist '(font . "Inconsolata-16"))
-(set-face-attribute 'default nil :font "Inconsolata-16")
+;; (add-to-list 'default-frame-alist '(font . "Inconsolata-16"))
+;; (set-face-attribute 'default nil :font "Inconsolata-16")
+(add-to-list 'default-frame-alist '(font . "Source Code Pro-14"))
+(set-face-attribute 'default nil :font "Source Code Pro-14")
 
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -37,7 +39,6 @@
   (setq doom-theme 'doom-tomorrow-day)
   (setq doom-theme 'doom-tomorrow-night)
   )
-
 
 (use-package doom-themes
   :ensure t
@@ -108,9 +109,9 @@
 
 (use-package neotree
   :ensure t
-  :init (setq neo-window-fixed-size t
+  :init (setq neo-window-fixed-size nil
               neo-smart-open t
-              neo-window-width 42
+              neo-window-width 32
               )
   )
 ;; (setq neo-smart-open t)
@@ -145,7 +146,7 @@
 
 (use-package elpy
   :ensure t
-)
+  )
 (add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
 (add-hook 'elpy-mode-hook (lambda () (hs-minor-mode +1)))
 (elpy-enable)

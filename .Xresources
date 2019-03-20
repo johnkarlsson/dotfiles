@@ -8,8 +8,10 @@ URxvt.scrollBar: false
 
 ! URxvt.font:     xft:courier new:size=12:antialias=false
 ! URxvt.boldFont: xft:courier new:bold:size=11:antialias=false
-URxvt.font:     xft:Inconsolata:size=16:antialias=true
-URxvt.boldFont: xft:Inconsolata:bold:size=16:antialias=true
+! URxvt.font:     xft:Inconsolata:size=16:antialias=true
+! URxvt.boldFont: xft:Inconsolata:bold:size=16:antialias=true
+URxvt.font:     xft:Source Code Pro:size=15:antialias=true
+URxvt.boldFont: xft:Source Code Pro:bold:size=15:antialias=true
 
 URxvt.font-size.step: 1
 
