@@ -89,8 +89,8 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
   , ((modm .|. shiftMask, xK_b),        spawn "google-chrome-stable")
   , ((modm .|. shiftMask, xK_n),        spawn "firefox")
   -- , ((modm .|. shiftMask, xK_a),        spawn "emacsclient -c -a ''")
-  , ((modm .|. shiftMask, xK_a),        spawn "emacs")
-  , ((modm .|. shiftMask, xK_s),        spawn "LIGHT_THEME=1 emacs")
+  , ((modm .|. shiftMask, xK_s),        spawn "emacs")
+  , ((modm .|. shiftMask, xK_a),        spawn "LIGHT_THEME=1 emacs")
   , ((modm, xK_z),                      toggleWS) -- CycleWS
   , ((mod1Mask, xK_Tab),                cycleRecentWindows [xK_Alt_L] xK_Tab xK_Tab) -- CycleWindows
   -- , ((0, 0x1008ff11),                   spawn "amixer -c 0 -q sset Master 3%-")
