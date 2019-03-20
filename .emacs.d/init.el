@@ -137,11 +137,23 @@
   :mode (("\\.hs" . haskell-mode)
          ("\\.yaml" . haskell-mode)
          )
+  ;; :bind (("C-c C-n" . next-error)
+  ;;        ("C-c C-p" . previous-error))
   :ensure t)
+(add-hook 'haskell-mode-hook
+          (lambda ()
+            (define-key haskell-mode-map (kbd "C-c C-n") 'next-error)
+            (define-key haskell-mode-map (kbd "C-c C-p") 'previous-error)))
 
 (use-package intero
   :config (add-hook 'haskell-mode-hook 'intero-mode)
   :ensure t
+  )
+
+(use-package ess
+  :ensure t
+  :init (require 'ess-site)
+        (setq ess-use-auto-complete t)
   )
 
 (use-package elpy
@@ -165,15 +177,18 @@
 (use-package ivy
   :ensure t
   :init (setq ivy-use-virtual-buffers t
-                ivy-height 10
-                ivy-count-format "(%d/%d) ")
+              ivy-height 10
+              ivy-count-format "(%d/%d) "
+              ivy-re-builders-alist '((t . ivy--regex-fuzzy))
+              )
   :bind (("C-c C-r" . ivy-resume)
          :map ivy-minibuffer-map ("RET" . ivy-alt-done))
   :config (ivy-mode 1))
 
 (use-package counsel
   :ensure t
-  :bind ("M-x" . counsel-M-x))
+  :bind ("M-x" . counsel-M-x)
+  )
 
 (use-package hydra
   :ensure t)
@@ -190,6 +205,12 @@
 ;   (define-key company-active-map (kbd "<return>") nil)
 ;   (define-key company-active-map (kbd "RET") nil)
 ;   (define-key company-active-map (kbd "C-SPC") #'company-complete-selection))
+(use-package pos-tip
+  :ensure t)
+(use-package company-quickhelp
+  :ensure t
+  :init (company-quickhelp-mode)
+  )
 
 (global-set-key (kbd "C-SPC") 'company-complete)
 (define-key company-active-map (kbd "C-SPC") 'company-complete-common-or-cycle)
@@ -229,7 +250,12 @@
   :config (add-hook 'markdown-mode-hook 'pandoc-mode))
 
 (use-package project
-  :bind ("C-x f" . project-find-file))
+  :bind ("C-x f" . find-file-in-project)
+  :init (setq-local ffip-ignore-filenames '("*.pyc", "*.bmp", "*.jpg"))
+        (add-to-list 'ffip-prune-patterns "*/env")
+        (add-to-list 'ffip-prune-patterns "*/.ipynb_checkpoints")
+        (add-to-list 'ffip-prune-patterns "*/.stack-work")
+  )
 
 (use-package which-key
   :ensure t
@@ -364,3 +390,9 @@
 (put 'minibuffer-history 'history-length 50)
 (put 'evil-ex-history 'history-length 50)
 (put 'kill-ring 'history-length 25)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
