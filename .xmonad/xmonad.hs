@@ -105,6 +105,20 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
   --                                             \ amixer -c 0 set Headphone unmute; \
   --                                             \ amixer -c 0 set 'Bass Speaker' unmute; \
   --                                             \ amixer -c 0 set Speaker unmute")
+    -- XF86AudioLowerVolume
+  -- , ((0, 0x1008ff11), spawn "")
+    -- XF86AudioRaiseVolume
+  -- , ((0, 0x1008ff13), spawn "")
+    -- XF86AudioMute
+  -- , ((0, 0x1008ff12), spawn "")
+    -- XF86AudioNext
+  -- , ((0, 0x1008ff17), spawn "")
+    -- XF86AudioPrev
+  -- , ((0, 0x1008ff16), spawn "")
+    -- XF86AudioStop
+  -- , ((0, 0x1008ff15), spawn "")
+    -- XF86AudioPlay
+  , ((0, 0x1008ff14), spawn "xdotool key space")
   ]
 
 startup =
@@ -129,7 +143,7 @@ main -- do
      -- , layoutHook = avoidStruts myLayout
      -- , layoutHook = spacing 0 $ avoidStruts $ myLayout
      , layoutHook = smartSpacingWithEdge 5 $ avoidStruts $ myLayout
-     , borderWidth = 1
+     , borderWidth = 2
      , focusFollowsMouse = False
      , normalBorderColor = "#000000"
      , focusedBorderColor = "#CCFF55"

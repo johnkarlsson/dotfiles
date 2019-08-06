@@ -116,6 +116,7 @@
   )
 ;; (setq neo-smart-open t)
 
+
 ; https://www.emacswiki.org/emacs/NeoTree#toc12
 (add-hook 'neotree-mode-hook
           (lambda ()

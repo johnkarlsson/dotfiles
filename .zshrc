@@ -40,7 +40,8 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-[[ -z "$TMUX" ]] && [[ $DISPLAY ]] && exec tmux
+[[ -z "$TMUX" && $DISPLAY && $TERM != 'dumb' ]] && exec tmux
+[[ $TERM == 'dumb' ]] && unsetopt zle
 export EDITOR=vim
 export TERM=screen-256color
 
@@ -155,7 +156,7 @@ alias vlc='vlc --file-caching=20000'
 tmux ls 2>/dev/null | grep -v '(attached)' | grep -o '^[^:]+' | xargs -I{} tmux kill-session -t {}
 
 
-function ssh { /usr/bin/ssh -t "$@" "tmux a -t $1 || tmux new -s $1" }
+function ssht { /usr/bin/ssh -t "$@" "tmux a -t sess || tmux new -s sess" }
 function scp_tmux_conf {
     host=$1
     shift
