@@ -252,10 +252,7 @@
 
 (use-package project
   :bind ("C-x f" . find-file-in-project)
-  :init (setq-local ffip-ignore-filenames '("*.pyc", "*.bmp", "*.jpg"))
-        (add-to-list 'ffip-prune-patterns "*/env")
-        (add-to-list 'ffip-prune-patterns "*/.ipynb_checkpoints")
-        (add-to-list 'ffip-prune-patterns "*/.stack-work")
+  :init (setq-local ffip-ignore-filenames '("*.pyc", "*.bmp","*.jpg""*/env", "*/.ipynb_checkpoints", "*/.stack-work"))
   )
 
 (use-package which-key
