@@ -95,6 +95,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
   , ((mod1Mask, xK_Tab),                cycleRecentWindows [xK_Alt_L] xK_Tab xK_Tab) -- CycleWindows
   -- , ((0, 0x1008ff11),                   spawn "amixer -c 0 -q sset Master 3%-")
   -- , ((0, 0x1008ff13),                   spawn "amixer -c 0 -q sset Master 3%+")
+  , ((0, xK_Print),                     spawn "xdotool keyup 0xff61 && scrot -s /tmp/scrot.png -e 'xclip -sel clip -t image/png /tmp/scrot.png && rm /tmp/scrot.png'")
   , ((0, 0x1008ff11),                   spawn "pamixer --decrease 6")
   , ((0, 0x1008ff13),                   spawn "pamixer --increase 6")
   , ((0, 0x1008ff03),                   spawn "/bin/bash -c 'xbacklight -dec 10 -time 75; if [[ $(xbacklight) == \"0.000000\" ]]; then xbacklight -set 0.1; fi'")
@@ -118,7 +119,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
     -- XF86AudioStop
   -- , ((0, 0x1008ff15), spawn "")
     -- XF86AudioPlay
-  , ((0, 0x1008ff14), spawn "xdotool key space")
+  -- , ((0, 0x1008ff14), spawn "xdotool key space")
   ]
 
 startup =
