@@ -15,7 +15,7 @@ ZSH_THEME="juanghurtado"
 CASE_SENSITIVE="true"
 
 # Uncomment this to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment to change how often before auto-updates occur? (in days)
 # export UPDATE_ZSH_DAYS=13
@@ -40,7 +40,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-[[ -z "$TMUX" && $DISPLAY && $TERM != 'dumb' ]] && exec tmux
+[[ -z "$TMUX" && $TERM != 'dumb' ]] && exec tmux
 [[ $TERM == 'dumb' ]] && unsetopt zle
 export EDITOR=vim
 export TERM=screen-256color
@@ -59,7 +59,7 @@ source $ZSH/oh-my-zsh.sh
 bindkey -v
 # source ~/.oh-my-zsh/custom/plugins/zle_vi_visual/zle_vi_visual.zsh
 # source /home/john/Projects/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # bind k and j for VI mode
 bindkey -M vicmd 'k' history-substring-search-up
@@ -76,11 +76,11 @@ alias nipython='ipython notebook --pylab inline'
 alias qipython='ipython qtconsole --pylab=inline --colors=linux'
 alias nipython3='ipython3 notebook --pylab inline'
 alias qipython3='ipython3 qtconsole --pylab=inline --colors=linux'
-alias ls='ls --color=tty --group-directories-first'
+alias ls='ls --color=tty'
 setopt nohup
 alias g++='g++ -std=c++11'
 # alias netris='netris -i 0.122 -k "hkl jspf^ln"'
-alias grep='grep -P --color=auto'
+alias grep='grep -E --color=auto'
 alias cls='for i in `seq 1 1000`; do echo ""; done'
 
 alias ack='ack-grep'
@@ -124,9 +124,11 @@ _g() {
 
 source ~/.zshrc_extras
 em() { emacsclient -c "$@" & }
-alias vi=vim
-# alias vim=nvim
-# alias vimdiff='nvim -d -R'
+alias vi=nvim
+alias vim=nvim
+alias python=python3
+alias pip=pip3
+alias vimdiff='nvim -d -R'
 alias gcal=gcalcli
 alias trim="sed -r -e 's/^\s+//' -e 's/\s+/ /g'"
 alias ggb="git log --graph --oneline --format='%C(yellow)%h%Creset%C(auto)%d%Creset %s %C(cyan)(%an, %ar)%Creset'"
@@ -168,3 +170,4 @@ function scp_tmux_conf {
 alias ghc='ghc -Wall -fforce-recomp'
 
 source ~/.zshenv
+source ~/.profile
