@@ -186,7 +186,7 @@ autoload -Uz compinit && compinit
 
 [ -f "/Users/john/.ghcup/env" ] && source "/Users/john/.ghcup/env" # ghcup-env
 
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh  # brew install zsh-autosuggestions
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh  # brew install zsh-autosuggestions
 bindkey '^ ' autosuggest-accept
 
 HISTFILE=$HOME/.zhistory
@@ -197,6 +197,6 @@ setopt hist_expire_dups_first
 setopt hist_ignore_dups
 setopt hist_verify
 
-source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme # brew install powerlevel10k
+source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme # brew install powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

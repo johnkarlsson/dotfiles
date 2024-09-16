@@ -1,3 +1,5 @@
+# git clone https://github.com/alacritty/alacritty-theme.git ~/.config/alacritty/themes
+# curl https://raw.githubusercontent.com/josean-dev/dev-environment-files/main/.config/alacritty/themes/themes/coolnight.toml --output ~/.config/alacritty/themes/themes/coolnight.toml
 import = [
   "~/.config/alacritty/themes/themes/coolnight.toml"
 ]
@@ -21,4 +23,5 @@ option_as_alt = "Both"
 family = "MesloLGS Nerd Font Mono"
 
 [font]
-size = 18
+size = 22
+
