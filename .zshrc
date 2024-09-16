@@ -47,7 +47,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-[[ -z "$TMUX" && $TERM != 'dumb' ]] && exec tmux
+[[ $TERM_PROGRAM == 'vscode' || (-z "$TMUX" && $TERM != 'dumb') ]] && exec tmux
 [[ $TERM == 'dumb' ]] && unsetopt zle
 export EDITOR=vim
 export TERM=screen-256color
@@ -57,7 +57,7 @@ export LC_ALL=en_GB.utf8
 
 # export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
 
-plugins=(git zsh-syntax-highlighting history-substring-search)
+plugins=(git history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -67,6 +67,7 @@ bindkey -v
 # source ~/.oh-my-zsh/custom/plugins/zle_vi_visual/zle_vi_visual.zsh
 # source /home/john/Projects/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # bind k and j for VI mode
 bindkey -M vicmd 'k' history-substring-search-up
@@ -178,6 +179,10 @@ alias ghc='ghc -Wall -fforce-recomp'
 
 source ~/.zshenv
 source ~/.profile
+
+# For Databricks CLI autocompletion in zsh?
+fpath+=/opt/homebrew/share/zsh/site-functions
+autoload -Uz compinit && compinit
 
 [ -f "/Users/john/.ghcup/env" ] && source "/Users/john/.ghcup/env" # ghcup-env
 
