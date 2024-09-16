@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -48,7 +55,7 @@ export TERM=screen-256color
 export LANG=en_GB
 export LC_ALL=en_GB.utf8
 
-export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
+# export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
 
 plugins=(git zsh-syntax-highlighting history-substring-search)
 
@@ -76,12 +83,12 @@ alias nipython='ipython notebook --pylab inline'
 alias qipython='ipython qtconsole --pylab=inline --colors=linux'
 alias nipython3='ipython3 notebook --pylab inline'
 alias qipython3='ipython3 qtconsole --pylab=inline --colors=linux'
-alias ls='ls --color=tty'
+# alias ls='ls --color=tty'
+# alias ls='eza --color=always --long --no-filesize --icons=always --no-time --no-user --no-permissions'
+alias ls='eza --color=always --icons=always'
 setopt nohup
-alias g++='g++ -std=c++11'
 # alias netris='netris -i 0.122 -k "hkl jspf^ln"'
 alias grep='grep -E --color=auto'
-alias cls='for i in `seq 1 1000`; do echo ""; done'
 
 alias ack='ack-grep'
 
@@ -171,3 +178,20 @@ alias ghc='ghc -Wall -fforce-recomp'
 
 source ~/.zshenv
 source ~/.profile
+
+[ -f "/Users/john/.ghcup/env" ] && source "/Users/john/.ghcup/env" # ghcup-env
+
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh  # brew install zsh-autosuggestions
+bindkey '^ ' autosuggest-accept
+
+HISTFILE=$HOME/.zhistory
+SAVEHIST=1000
+HISTSIZE=999
+setopt share_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_verify
+
+source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme # brew install powerlevel10k
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
