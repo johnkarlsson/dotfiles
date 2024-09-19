@@ -52,8 +52,8 @@ COMPLETION_WAITING_DOTS="true"
 export EDITOR=vim
 export TERM=screen-256color
 
-export LANG=en_GB
-export LC_ALL=en_GB.utf8
+export LANG=en_US
+export LC_ALL=en_US.utf8
 
 # export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
 
