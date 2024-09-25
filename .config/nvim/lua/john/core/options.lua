@@ -23,4 +23,3 @@ opt.signcolumn = "yes"
 opt.backspace = "indent,eol,start"
 
 opt.clipboard:append("unnamedplus")  -- use system clipboard as default register
-
