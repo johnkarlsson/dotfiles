@@ -38,6 +38,7 @@ return {
 
         vim.cmd("colorscheme tokyonight")
 
-        vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#192838" } )
+        vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#192838" })
+        vim.api.nvim_set_hl(0, "Visual", { bg = "#FFEE8C", fg=000000, })
     end
 }
