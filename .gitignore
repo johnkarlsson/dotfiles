@@ -1,6 +1,7 @@
 *.pyc
 src
 .netrwhist
+.lazy_lock
 .vim/bundle
 .vim/spell
 .mail/.msmtprc

@@ -1,9 +1,11 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPre", "BufNewFile", "VimEnter" },
     build = ":TSUpdate",
+    -- https://github.com/vscode-neovim/vscode-neovim/issues/715#issuecomment-1831010197
     dependencies = {
         "windwp/nvim-ts-autotag",
+        "nvim-treesitter/nvim-treesitter-textobjects",
     },
     config = function()
         local treesitter = require("nvim-treesitter.configs")
@@ -37,9 +39,6 @@ return {
                 enable = true,
                 keymaps = {
                     init_selection = "<CR>",
-                    -- node_incremental = "<leader>s",
-                    -- scope_incremental = false,
-                    -- node_decremental = "<leader><bs>",
                     -- init_selection = "<C-n>",
                     node_incremental = "<CR>",
                     scope_incremental = false,
@@ -49,5 +48,3 @@ return {
         })
     end,
 }
-
--- lua require('nvim-treesitter.incremental_selection').init_selection()
