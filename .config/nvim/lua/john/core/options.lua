@@ -23,3 +23,9 @@ opt.signcolumn = "yes"
 opt.backspace = "indent,eol,start"
 
 opt.clipboard:append("unnamedplus")  -- use system clipboard as default register
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 999
+vim.opt.foldnestmax = 5
+vim.opt.foldminlines = 5
