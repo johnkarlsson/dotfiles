@@ -11,7 +11,7 @@ return {
     config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
-        local utils = require("telescope.utils")
+        -- local utils = require("telescope.utils")
 
         telescope.setup({
             pickers = {
@@ -21,6 +21,11 @@ return {
                 }
             },
             defaults = {
+                layout_strategy = "vertical",
+                layout_config = {
+                    preview_height = 0.7,
+                    vertical = { size = { width = "95%", height = "95%" } }
+                },
                 path_display = { "smart" },
                 mappings = {
                     i = {
@@ -44,5 +49,5 @@ return {
         keymap.set("n", "<leader>fc", "<cmd>Telescope command_history<cr>", { desc = "Find command history" })
         keymap.set("n", "<leader>fw", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
         keymap.set("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Find normal mode keymappings" })
-    end, 
+    end,
 }
