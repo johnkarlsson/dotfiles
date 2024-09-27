@@ -34,14 +34,14 @@ return {
                 ["<C-j>"] = cmp.mapping.select_next_item(),
                 ["<C-b>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                ["<C-Space>"] = cmp.mapping.complete_common_string(),
-                -- ["<C-Space>"] = cmp.mapping(function()
-                --     if cmp.visible() then
-                --         cmp.complete_common_string()
-                --     else
-                --         cmp.complete()
-                --     end
-                -- end, { 'i', 'c' }),
+                -- ["<C-Space>"] = cmp.mapping.complete_common_string(),
+                ["<C-Space>"] = cmp.mapping(function()
+                    if cmp.visible() then
+                        cmp.complete_common_string()
+                    else
+                        cmp.complete()
+                    end
+                end, { 'i', 'c' }),
                 ["<C-e>"] = cmp.mapping.abort(),
                 ["<CR>"] = cmp.mapping.confirm({ select = false }),
             }),
@@ -55,6 +55,9 @@ return {
                 format = lspkind.cmp_format({
                     maxwidth = 50,
                     ellipsis_char = "...",
+                    mode = "symbol",
+                    max_width = 50,
+                    -- symbol_map = { Copilot = "C" },
                 }),
             },
         })
