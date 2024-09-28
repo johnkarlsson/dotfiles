@@ -87,7 +87,6 @@ alias qipython3='ipython3 qtconsole --pylab=inline --colors=linux'
 # alias ls='ls --color=tty'
 # alias ls='eza --color=always --long --no-filesize --icons=always --no-time --no-user --no-permissions'
 alias ls='eza -a --color=always --no-filesize --icons=always --no-time'
-# alias ls='eza -a --color=always --icons=always'
 setopt nohup
 # alias netris='netris -i 0.122 -k "hkl jspf^ln"'
 alias grep='grep -E --color=auto'
@@ -156,8 +155,8 @@ alias scut='cut -d " "'
 alias ccut='cut -d ","'
 alias acut='cut -d ""'
 alias mm='awk "{ if (!min || \$0 < min) { min = \$0; }; if (\$0 > max) { max = \$0; }; } END { print min; print max; }"'
-alias tree='tree -CA'
-alias t='tree'
+alias tree='eza --tree -a --icons=always'
+alias t='tree --level=2'
 
 alias cursorkill='echo "Click on window to kill"; xprop | grep PID | grep -Po "\d+" | xargs kill'
 
