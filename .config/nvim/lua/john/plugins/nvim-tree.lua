@@ -51,6 +51,5 @@ return {
         keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
         -- keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR><cmd>lua require('nvim-tree.api').tree.expand_all()<CR>", { desc = "Toggle file explorer" })
         keymap.set("n", "<leader>eb", "<cmd>NvimTreeFindFile<CR>", { desc = "Toggle file explorer on current file" })
-        
     end
 }
