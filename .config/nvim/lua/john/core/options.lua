@@ -4,6 +4,18 @@ local opt = vim.opt
 
 opt.number = true
 
+opt.autoread = true
+-- Set up autocommands to trigger checktime
+local augroup = vim.api.nvim_create_augroup('AutoReload', {})
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI", "FocusGained" }, {
+  group = augroup,
+  pattern = "*",
+  callback = function()
+    if vim.fn.mode() ~= 'c' then
+      vim.cmd('checktime')
+    end
+  end
+})
 opt.tabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
