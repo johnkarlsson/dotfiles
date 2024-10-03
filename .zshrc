@@ -108,7 +108,8 @@ dt() {
     fi
 }
 
-alias g='_g'
+alias g='lazygit'
+# alias g='_g'
 _g() {
     if [ -d .git ]; then
         git status
