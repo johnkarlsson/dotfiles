@@ -47,7 +47,11 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-[[ $TERM_PROGRAM == 'vscode' || (-z "$TMUX" && $TERM != 'dumb') ]] && exec tmux
+if [[ -z "$TMUX" && $TERM != 'dumb' && $- == *i* ]]; then
+    session_name=${TERM_PROGRAM:-default}
+    tmux attach -t $session_name || tmux new -s $session_name
+fi
+
 [[ $TERM == 'dumb' ]] && unsetopt zle
 export EDITOR=vim
 export TERM=screen-256color
@@ -164,7 +168,7 @@ alias cursorkill='echo "Click on window to kill"; xprop | grep PID | grep -Po "\
 alias vlc='vlc --file-caching=20000'
 
 # Kill all local unused sessions
-tmux ls 2>/dev/null | grep -v '(attached)' | grep -o '^[^:]+' | xargs -I{} tmux kill-session -t {}
+# tmux ls 2>/dev/null | grep -v '(attached)' | grep -o '^[^:]+' | xargs -I{} tmux kill-session -t {}
 
 
 function ssht { /usr/bin/ssh -t "$@" "tmux a -t sess || tmux new -s sess" }
