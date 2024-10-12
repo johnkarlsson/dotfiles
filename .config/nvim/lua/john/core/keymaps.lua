@@ -3,6 +3,7 @@ vim.g.mapleader = ","
 local keymap = vim.keymap
 
 keymap.set("n", "<leader> ", ":nohl<CR>:checktime<CR>", { desc = "Clear search highlights. Also checktime" })
+keymap.set("n", "<leader>cc", ":!cursor %<CR><CR>", { desc = "Open current file in Cursor IDE" })
 
 keymap.set('n', '<M-h>', '<C-w>h', { noremap = true, silent = true })
 keymap.set('n', '<M-j>', '<C-w>j', { noremap = true, silent = true })

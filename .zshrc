@@ -47,9 +47,9 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-if [[ -z "$TMUX" && $TERM != 'dumb' && $- == *i* ]]; then
-    session_name=${TERM_PROGRAM:-default}
-    tmux attach -t $session_name || tmux new -s $session_name
+if [[ $TERM_PROGRAM == 'vscode' || (-z "$TMUX" && $TERM != 'dumb' && $- == *i*) ]]; then
+    session_name=${TERM_PROGRAM:-default}${TERM_PROGRAM:+\-$(basename "$PWD")}
+    tmux new-session -A -s "$session_name"
 fi
 
 [[ $TERM == 'dumb' ]] && unsetopt zle
