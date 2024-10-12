@@ -52,5 +52,6 @@ return {
         keymap.set("n", "<leader>fw", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
         keymap.set("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Find normal mode keymappings" })
         keymap.set("v", "<leader>fc", builtin.git_bcommits_range, { noremap = true, silent = true, desc = "Find file commits in visual range" })
+        keymap.set("n", "<leader>fc", builtin.git_bcommits, { noremap = true, silent = true, desc = "Find file commits in visual range" })
     end,
 }
