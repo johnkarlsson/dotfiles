@@ -2,7 +2,8 @@
 return {
     "nvim-telescope/telescope.nvim",
     cond = function() return not vim.g.vscode end,
-    branch = "0.1.x",
+    -- branch = "0.1.x",
+    branch = "master",
     dependencies = {
         "nvim-lua/plenary.nvim",
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -40,14 +41,16 @@ return {
         telescope.load_extension("fzf")
 
         local keymap = vim.keymap
+        local builtin = require('telescope.builtin')
 
         keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
         keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Fuzzy find open buffers" })
         keymap.set("n", "<leader>fh", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
         keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
         keymap.set("n", "<leader>fs", "<cmd>Telescope git_status<cr>", { desc = "Find git status" })
-        keymap.set("n", "<leader>fc", "<cmd>Telescope command_history<cr>", { desc = "Find command history" })
+        -- keymap.set("n", "<leader>fc", "<cmd>Telescope command_history<cr>", { desc = "Find command history" })
         keymap.set("n", "<leader>fw", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
         keymap.set("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Find normal mode keymappings" })
+        keymap.set("v", "<leader>fc", builtin.git_bcommits_range, { noremap = true, silent = true, desc = "Find file commits in visual range" })
     end,
 }
