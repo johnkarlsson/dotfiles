@@ -17,9 +17,15 @@ return {
             },
             -- change folder arrow icons
             renderer = {
+                highlight_git = true,
                 indent_markers = {
                     enable = true,
                 },
+                icons = {
+                    show = {
+                        git = true,
+                    }
+                }
                 -- icons = {
                 --     glyphs = {
                 --         folder = {
@@ -42,6 +48,7 @@ return {
                 custom = { ".DS_Store", ".git" },
             },
             git = {
+                enable = true,
                 ignore = true,
             },
         })
