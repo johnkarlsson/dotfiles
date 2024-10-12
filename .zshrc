@@ -57,7 +57,7 @@ export EDITOR=vim
 export TERM=screen-256color
 
 export LANG=en_US
-export LC_ALL=en_US.utf8
+export LC_ALL=en_US.utf-8
 
 # export SSH_AUTH_SOCK="$GNOME_KEYRING_CONTROL/ssh"
 
