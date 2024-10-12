@@ -1,0 +1,4 @@
+quitOnTopLevelReturn: false
+git:
+  branchLogCmd: "git log --stat --graph --color=always --format='%C(yellow)%h%Creset%C(auto)%d%Creset %s %C(cyan)(%an, %ar)%Creset' --abbrev-commit --decorate --date=relative --pretty=medium --oneline {{branchName}} --"
+  allBranchesLogCmd: "git log --all --graph --color=always --format='%C(yellow)%h%Creset%C(auto)%d%Creset %s %C(cyan)(%an, %ar)%Creset' --abbrev-commit --decorate --date=relative --pretty=medium --oneline --"

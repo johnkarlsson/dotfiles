@@ -112,7 +112,8 @@ dt() {
     fi
 }
 
-alias g='lazygit'
+alias g='lazygit --use-config-file ~/src/dotfiles/.config/lazygit/config.yml'
+
 # alias g='_g'
 _g() {
     if [ -d .git ]; then
