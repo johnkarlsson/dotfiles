@@ -140,6 +140,7 @@ source ~/.zshrc_extras
 em() { emacsclient -c "$@" & }
 alias vi=nvim
 alias vim=nvim
+export GIT_EDITOR='nvim'
 alias python=python3
 alias pip=pip3
 alias vimdiff='nvim -d -R'
