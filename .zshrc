@@ -90,7 +90,10 @@ alias nipython3='ipython3 notebook --pylab inline'
 alias qipython3='ipython3 qtconsole --pylab=inline --colors=linux'
 # alias ls='ls --color=tty'
 # alias ls='eza --color=always --long --no-filesize --icons=always --no-time --no-user --no-permissions'
-alias ls='eza -a --color=always --no-filesize --icons=always'
+alias ls='eza -a --color=always --sort=type --no-filesize --icons=always'
+alias ll='eza -a --sort=time --no-user --reverse -l --color=always --icons=always'
+alias lls='ll --total-size --sort=size --reverse'
+alias l=ll
 setopt nohup
 # alias netris='netris -i 0.122 -k "hkl jspf^ln"'
 alias grep='grep -E --color=auto'
