@@ -83,6 +83,21 @@ return {
                     },
                 })
             end,
+            ["rust_analyzer"] = function()
+                lspconfig["rust_analyzer"].setup({
+                    capabilities = capabilities,
+                    settings = {
+                        ["rust-analyzer"] = {
+                            checkOnSave = {
+                                command = "clippy",
+                            },
+                            cargo = {
+                                allFeatures = true,
+                            },
+                        },
+                    },
+                })
+            end,
         })
     end,
 }

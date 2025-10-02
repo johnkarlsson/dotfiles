@@ -14,6 +14,9 @@ keymap.set('n', '<M-J>', '<C-w>J', { noremap = true, silent = true })
 keymap.set('n', '<M-K>', '<C-w>K', { noremap = true, silent = true })
 keymap.set('n', '<M-L>', '<C-w>L', { noremap = true, silent = true })
 
+keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { noremap = true, silent = true })
+
+
 vim.api.nvim_set_keymap('i', '<C-c>', '<Esc>', { noremap = true })
 vim.api.nvim_set_keymap('v', '<C-c>', '<Esc>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-c>', '<Esc>', { noremap = true })
