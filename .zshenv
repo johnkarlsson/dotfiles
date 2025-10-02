@@ -5,3 +5,4 @@ PATH="$PATH:~/.local/bin"
 # PATH="$PATH:/Users/john/Library/Python/3.8/bin"
 # PATH="$PATH:/Users/john/Library/Python/3.9/bin"
 . "$HOME/.cargo/env"
+PATH='/Users/john/.duckdb/cli/latest':$PATH

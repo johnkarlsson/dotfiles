@@ -23,8 +23,13 @@ return {
                 "pyright",
                 "yamlls",
                 "jsonls",
-                "lua_ls"
+                "lua_ls",
+                "rust_analyzer",
+                "hls"
             },
         })
+
+        local lspconfig = require("lspconfig")
+        lspconfig.hls.setup {}
     end,
 }

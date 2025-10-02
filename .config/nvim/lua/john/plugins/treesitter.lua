@@ -29,6 +29,8 @@ return {
                 "gitignore",
                 "python",
                 "html",
+                "rust",
+                "haskell",
             },
             incremental_selection = {
                 enable = true,
