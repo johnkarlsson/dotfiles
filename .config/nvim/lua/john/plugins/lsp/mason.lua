@@ -4,27 +4,28 @@ return {
         "williamboman/mason-lspconfig.nvim",
     },
     config = function()
-        local mason = require("mason")
+        if not vim.g.vscode then
+            local mason = require("mason")
+            local mason_lspconfig = require("mason-lspconfig")
 
-        local mason_lspconfig = require("mason-lspconfig")
+            mason.setup({})
+            -- mason.setup({
+            --     ui = {
+            --         icons = {
+            --         },
+            --     },
+            -- })
 
-        mason.setup({})
-        -- mason.setup({
-        --     ui = {
-        --         icons = {
-        --         },
-        --     },
-        -- })
-
-        mason_lspconfig.setup({
-            -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
-            ensure_installed = {
-                "html",
-                "pyright",
-                "yamlls",
-                "jsonls",
-                "lua_ls"
-            },
-        })
+            mason_lspconfig.setup({
+                -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
+                ensure_installed = {
+                    "html",
+                    "pyright",
+                    "yamlls",
+                    "jsonls",
+                    "lua_ls"
+                },
+            })
+        end
     end,
 }

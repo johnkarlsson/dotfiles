@@ -115,7 +115,8 @@ dt() {
     fi
 }
 
-alias g='lazygit --use-config-file ~/src/dotfiles/.config/lazygit/config.yml'
+alias g='git status'
+alias lg='lazygit --use-config-file ~/src/dotfiles/.config/lazygit/config.yml'
 
 # alias g='_g'
 _g() {
@@ -191,7 +192,7 @@ alias ghc='ghc -Wall -fforce-recomp'
 source ~/.zshenv
 source ~/.profile
 
-# For Databricks CLI autocompletion in zsh?
+# For autocompletion
 fpath+=/opt/homebrew/share/zsh/site-functions
 autoload -Uz compinit && compinit
 
@@ -211,3 +212,5 @@ setopt hist_verify
 source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme # brew install powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export PATH="$PATH:/Users/john.karlsson/.lmstudio/bin"
