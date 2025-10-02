@@ -197,7 +197,6 @@ source ~/.profile
 fpath+=/opt/homebrew/share/zsh/site-functions
 autoload -Uz compinit && compinit
 
-[ -f "/Users/john/.ghcup/env" ] && source "/Users/john/.ghcup/env" # ghcup-env
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh  # brew install zsh-autosuggestions
 bindkey '^ ' autosuggest-accept
@@ -215,3 +214,5 @@ source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme # brew insta
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export PATH="$PATH:/Users/john.karlsson/.lmstudio/bin"
+
+[ -f "/Users/john/.ghcup/env" ] && . "/Users/john/.ghcup/env" # ghcup-env
