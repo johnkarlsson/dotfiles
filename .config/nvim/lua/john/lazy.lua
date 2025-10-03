@@ -14,7 +14,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup(
     { { import = "john.plugins" },
-      { import = "john.plugins.lsp" } },
+      { import = "john.plugins.lsp" }
+    },
     {
         change_detection = {
             notify = false,

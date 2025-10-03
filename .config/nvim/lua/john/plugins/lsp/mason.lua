@@ -8,13 +8,15 @@ return {
             local mason = require("mason")
             local mason_lspconfig = require("mason-lspconfig")
 
-            mason.setup({})
-            -- mason.setup({
-            --     ui = {
-            --         icons = {
-            --         },
-            --     },
-            -- })
+            mason.setup({
+                ui = {
+                    icons = {
+                        package_installed = "✓",
+                        package_pending = "➜",
+                        package_uninstalled = "✗",
+                    },
+                },
+            })
 
             mason_lspconfig.setup({
                 -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
