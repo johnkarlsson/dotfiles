@@ -16,12 +16,18 @@ return {
 
         telescope.setup({
             pickers = {
+                live_grep = {
+                    additional_args = function(_)
+                        return {"--hidden"}
+                    end
+                },
                 find_files = {
                     hidden = true,
                     --cwd = vim.loop.cwd,
                 }
             },
             defaults = {
+                file_ignore_patterns = { "%.git/", "%.venv", "node_modules/" },
                 layout_strategy = "vertical",
                 layout_config = {
                     preview_height = 0.7,
@@ -32,7 +38,7 @@ return {
                     i = {
                         ["<C-k>"] = actions.move_selection_previous,
                         ["<C-j>"] = actions.move_selection_next,
-                        ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                        ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
                     },
                 },
             },
@@ -43,10 +49,8 @@ return {
         local keymap = vim.keymap
         local builtin = require('telescope.builtin')
 
-        vim.keymap.set("n", "<leader>ft", function()
-          builtin.live_grep { default_text = "- \\[ \\]" }
-        end, { desc = "Search unchecked todos" })
-
+        keymap.set("n", "<leader>ft", function() builtin.live_grep { default_text = "- \\[ \\]" } end, { desc = "Search unchecked todos" })
+        keymap.set("n", "<leader>fq", "<cmd>Telescope quickfix<cr>", { desc = "Fuzzy find files in quickfix list" })
         keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
         keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Fuzzy find open buffers" })
         keymap.set("n", "<leader>fh", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
