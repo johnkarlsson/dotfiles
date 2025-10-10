@@ -7,12 +7,39 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+        "nvim-telescope/telescope-live-grep-args.nvim",
         "nvim-tree/nvim-web-devicons",
     },
     config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
+        local builtin = require('telescope.builtin')
         -- local utils = require("telescope.utils")
+        -- local config = require('telescope.config')
+        telescope.load_extension("live_grep_args")
+
+        -- Return a list of unique files from the quickfix list
+        local quickfix_files = function()
+            local qflist = vim.fn.getqflist()
+            local files = {}
+            local seen = {}
+            for k in pairs(qflist) do
+                local path = vim.fn.bufname(qflist[k]["bufnr"])
+                if not seen[path] then
+                    files[#files + 1] = path
+                    seen[path] = true
+                end
+            end
+            table.sort(files)
+            return files
+        end
+
+        -- Invoke live_grep on all files in quickfix
+        local grep_on_quickfix = function()
+            local paths = quickfix_files()
+            require('telescope').extensions.live_grep_args.live_grep_args({ search_dirs = paths })
+        end
+
 
         telescope.setup({
             pickers = {
@@ -47,8 +74,8 @@ return {
         telescope.load_extension("fzf")
 
         local keymap = vim.keymap
-        local builtin = require('telescope.builtin')
 
+        keymap.set('n', '<leader>fG', grep_on_quickfix, {})
         keymap.set("n", "<leader>ft", function() builtin.live_grep { default_text = "- \\[ \\]" } end, { desc = "Search unchecked todos" })
         keymap.set("n", "<leader>fq", "<cmd>Telescope quickfix<cr>", { desc = "Fuzzy find files in quickfix list" })
         keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
