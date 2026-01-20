@@ -10,7 +10,7 @@ local function autosave_if_git()
 end
 
 -- Autosave when leaving insert mode - if in a git repo
-vim.api.nvim_create_autocmd("TextChanged", {
+vim.api.nvim_create_autocmd({"InsertLeave", "TextChanged"}, {
     pattern = "*",
     callback = autosave_if_git,
 })
