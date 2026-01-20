@@ -22,6 +22,7 @@ return {
                 -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
                 ensure_installed = {
                     "html",
+                    "sqlls",
                     "pyright",
                     "yamlls",
                     "jsonls",

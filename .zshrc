@@ -216,3 +216,10 @@ source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme # brew insta
 export PATH="$PATH:/Users/john.karlsson/.lmstudio/bin"
 
 [ -f "/Users/john/.ghcup/env" ] && . "/Users/john/.ghcup/env" # ghcup-env
+
+. "$HOME/.local/bin/env"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/john/.cache/lm-studio/bin"
+# End of LM Studio CLI section
+

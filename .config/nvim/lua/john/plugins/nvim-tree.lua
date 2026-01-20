@@ -50,6 +50,7 @@ return {
                 },
             },
             filters = {
+                dotfiles = false, -- Show hidden files (dotfiles)
                 custom = { ".DS_Store", ".git$" },
             },
             git = {

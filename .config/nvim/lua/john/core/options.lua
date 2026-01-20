@@ -77,8 +77,21 @@ opt.backspace = "indent,eol,start"
 opt.clipboard:append("unnamedplus")  -- use system clipboard as default register
 
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
--- vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.opt.foldlevel = 999
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 5
-vim.opt.foldminlines = 5
+vim.opt.foldminlines = 1
+
+-- Use LSP folding when available, otherwise keep treesitter
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client and client.server_capabilities.foldingRangeProvider then
+            vim.wo.foldexpr = "v:lua.vim.lsp.foldexpr()"
+        end
+    end,
+})
+
+vim.g.omni_sql_default_compl_type  = 'syntax'
+vim.g.ftplugin_sql_omni_key = '<nop>'
