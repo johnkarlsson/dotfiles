@@ -51,6 +51,11 @@ return {
         lualine.setup({
             options = {
                 theme = my_lualine_theme,
+            },
+            sections = {
+                lualine_c = {
+                    { "filename", path = 1 }
+                },
             }
         })
     end,
