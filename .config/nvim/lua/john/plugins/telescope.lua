@@ -75,7 +75,7 @@ return {
 
         local keymap = vim.keymap
 
-        keymap.set('n', '<leader>fG', grep_on_quickfix, {})
+        keymap.set('n', '<leader>fQ', grep_on_quickfix, {})
         keymap.set("n", "<leader>ft", function() builtin.live_grep { default_text = "- \\[ \\]" } end, { desc = "Search unchecked todos" })
         keymap.set("n", "<leader>fq", "<cmd>Telescope quickfix<cr>", { desc = "Fuzzy find files in quickfix list" })
         keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
@@ -83,7 +83,8 @@ return {
         keymap.set("n", "<leader>fh", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
         keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
         keymap.set("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", { desc = "Find symbols" })
-        keymap.set("n", "<leader>fS", "<cmd>Telescope git_status<cr>", { desc = "Find git status" })
+        keymap.set("n", "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace_symbols symbols=class,function,method<cr>", { desc = "Find symbols" })
+        keymap.set("n", "<leader>fG", "<cmd>Telescope git_status<cr>", { desc = "Find git status" })
         -- keymap.set("n", "<leader>fc", "<cmd>Telescope command_history<cr>", { desc = "Find command history" })
         keymap.set("n", "<leader>fw", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
         keymap.set("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Find normal mode keymappings" })
