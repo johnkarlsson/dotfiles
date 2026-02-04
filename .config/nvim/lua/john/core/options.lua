@@ -1,5 +1,12 @@
 vim.cmd("let g:netrw_liststyle = 3")
 
+-- Map MDX files to markdown filetype
+vim.filetype.add({
+  extension = {
+    mdx = "markdown",
+  },
+})
+
 local opt = vim.opt
 
 opt.number = true
