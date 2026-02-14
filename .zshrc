@@ -84,6 +84,7 @@ zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
+function mkdircd { mkdir $@ && cd $@ }
 alias nipython='ipython notebook --pylab inline'
 alias qipython='ipython qtconsole --pylab=inline --colors=linux'
 alias nipython3='ipython3 notebook --pylab inline'
@@ -166,7 +167,7 @@ alias scut='cut -d " "'
 alias ccut='cut -d ","'
 alias acut='cut -d ""'
 alias mm='awk "{ if (!min || \$0 < min) { min = \$0; }; if (\$0 > max) { max = \$0; }; } END { print min; print max; }"'
-alias tree='eza --tree -a --icons=always'
+alias tree='eza --tree -a --icons=always --git-ignore'
 alias t='tree --level=2'
 
 alias cursorkill='echo "Click on window to kill"; xprop | grep PID | grep -Po "\d+" | xargs kill'
