@@ -100,9 +100,12 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 5
 vim.opt.foldminlines = 1
 
--- Use LSP folding when available, otherwise keep treesitter
+-- Use LSP folding when available, but not for markdown (treesitter folds are better)
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
+        if vim.bo[args.buf].filetype == "markdown" then
+            return
+        end
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         if client and client.server_capabilities.foldingRangeProvider then
             vim.wo.foldexpr = "v:lua.vim.lsp.foldexpr()"
