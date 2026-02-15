@@ -40,5 +40,6 @@ return {
 
         vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#192838" })
         vim.api.nvim_set_hl(0, "Visual", { bg = "#FFEE8C", fg=000000, })
+        vim.api.nvim_set_hl(0, "Folded", { fg = "#441231", bg = "#7AA2F7" })
     end
 }
