@@ -1,0 +1,21 @@
+theme = dark:Ayu,light:3024 Day
+theme = dark:Ayu Mirage,light:Ayu light
+theme = dark:Ayu,light:Ayu light
+theme = dark:Adventure,light:Adventure
+theme = dark:Jellybeans,light:Jellybeans
+theme = dark:Melange light,light:Ayu light
+theme = dark:Ayu,light:Ayu light
+theme = dark:Adventure,light:Adventure
+# light: Breadog
+# light: Dawnfox
+theme = Gitlab Dark Grey
+theme = iTerm2 Pastel Dark Background
+theme = Xcode Dark hc
+theme = Espresso
+theme = Catppuccin Mocha
+theme = Embark
+
+# font-family = "MesloLGS Nerd Font Mono"
+# /Applications/Ghostty.app/Contents/MacOS/ghostty +list-themes
+
+macos-option-as-alt = left
