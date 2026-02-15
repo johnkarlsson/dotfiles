@@ -53,7 +53,7 @@ if [[ $TERM_PROGRAM == 'vscode' || (-z "$TMUX" && $TERM != 'dumb' && $- == *i*) 
 fi
 
 [[ $TERM == 'dumb' ]] && unsetopt zle
-export EDITOR=vim
+export EDITOR=nvim
 export TERM=screen-256color
 
 export LANG=en_US
@@ -85,6 +85,7 @@ bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
 function mkdircd { mkdir $@ && cd $@ }
+alias cd='z'
 alias nipython='ipython notebook --pylab inline'
 alias qipython='ipython qtconsole --pylab=inline --colors=linux'
 alias nipython3='ipython3 notebook --pylab inline'
@@ -224,3 +225,4 @@ export PATH="$PATH:/Users/john.karlsson/.lmstudio/bin"
 export PATH="$PATH:/Users/john/.cache/lm-studio/bin"
 # End of LM Studio CLI section
 
+eval "$(zoxide init zsh)"  # `z keyword` or `zi [keyword]` needs fzf
