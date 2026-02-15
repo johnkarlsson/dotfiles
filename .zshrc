@@ -154,6 +154,12 @@ _g() {
 
 source ~/.zshrc_extras
 em() { emacsclient -c "$@" & }
+nvim() {
+  if [[ -f .venv/bin/activate ]]; then
+    source .venv/bin/activate
+  fi
+  command nvim "$@"
+}
 alias vi=nvim
 alias vim=nvim
 export GIT_EDITOR='nvim'
