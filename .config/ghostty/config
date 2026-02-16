@@ -1,14 +1,12 @@
-theme = dark:Ayu,light:3024 Day
-theme = dark:Adventure,light:Adventure
-theme = dark:Melange light,light:Ayu light
-theme = dark:Ayu,light:Ayu light
-# light: Breadog
-# light: Dawnfox
-theme = Embark
-theme = dark:Adventure,light:Adventure
-theme = dark:Ayu,light:Ayu light
-theme = Catppuccin Mocha
-theme = Xcode Dark hc
+# theme = One Half Dark
+# theme = Tomorrow Night Eighties
+# theme = Nord Wave
+# theme = TokyoNight Night
+# theme = Overnight Slumber
+theme = Vague
+theme = Sea Shells
+theme = Rose Pine
+theme = Material Ocean
 
 # font-family = "MesloLGS Nerd Font Mono"
 # /Applications/Ghostty.app/Contents/MacOS/ghostty +list-themes
