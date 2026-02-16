@@ -14,3 +14,4 @@ lazy-lock.json
 .emacs.d/smex-items
 .emacs.d/abbrev_defs
 .emacs.d/.#smex-items
+.config/yazi/plugins

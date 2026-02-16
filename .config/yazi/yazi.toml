@@ -1,3 +1,12 @@
 # https://yazi-rs.github.io/docs/configuration/yazi/
 [mgr]
 show_hidden = true
+ratio = [2, 4, 6]  # [parent, current, preview]
+[preview]
+max_width  = 1980   # default is lower
+max_height = 1024
+# image_quality = 50   # 50-90, affects cache size
+
+[[plugin.prepend_previewers]]
+mime = "image/{jpeg,png,webp,gif,bmp,tiff,svg+xml}"
+run  = "zoom 1"
