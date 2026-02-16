@@ -6,12 +6,21 @@
     "terminal.integrated.fontFamily": "MesloLGS Nerd Font Mono",
     "editor.fontFamily": "MesloLGS Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace",
     "#cursorpyright.analysis.typeCheckingMode": "standard",
-    "workbench.colorTheme": "Default Dark Modern",
     "outline.collapseItems": "alwaysCollapse",
     "redhat.telemetry.enabled": false,
     "files.autoSave": "afterDelay",
     "git.blame.editorDecoration.enabled": false,
     "git.blame.statusBarItem.enabled": false,
     "search.collapseResults": "alwaysCollapse",
-    "search.defaultViewMode": "tree"
+    "search.defaultViewMode": "tree",
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "workbench.colorTheme": "Default Dark+"
 }

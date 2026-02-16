@@ -5,12 +5,12 @@ theme = dark:Ayu,light:Ayu light
 # light: Breadog
 # light: Dawnfox
 theme = Embark
-theme = Xcode Dark hc
 theme = dark:Adventure,light:Adventure
 theme = dark:Ayu,light:Ayu light
 theme = Catppuccin Mocha
+theme = Xcode Dark hc
 
 # font-family = "MesloLGS Nerd Font Mono"
 # /Applications/Ghostty.app/Contents/MacOS/ghostty +list-themes
 
-macos-option-as-alt = true
+macos-option-as-alt = left
