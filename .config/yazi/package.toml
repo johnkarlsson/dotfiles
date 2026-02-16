@@ -1,6 +1,6 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:zoom"
-rev = "88990a6"
+rev = "25918dc"
 hash = "6ce49cf5b4c7c0d9cce8a1062ed478d3"
 
 [flavor]

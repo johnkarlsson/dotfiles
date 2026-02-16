@@ -3,10 +3,10 @@
 # theme = Nord Wave
 # theme = TokyoNight Night
 # theme = Overnight Slumber
-theme = Vague
-theme = Sea Shells
 theme = Rose Pine
+theme = Sea Shells
 theme = Material Ocean
+theme = Vague
 
 # font-family = "MesloLGS Nerd Font Mono"
 # /Applications/Ghostty.app/Contents/MacOS/ghostty +list-themes
