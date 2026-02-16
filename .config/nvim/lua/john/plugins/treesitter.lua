@@ -15,7 +15,10 @@ return {
             sync_install = false,
             ignore_install = {},
             auto_install = true,
-            highlight = { enable = true, },
+            highlight = {
+                enable = true,
+                disable = { "mermaid" },
+            },
             indent = { enable = true },
             autotag = { enable = true, }, -- enable autotagging (w/ nvim-ts-autotag plugin)
             ensure_installed = {
@@ -31,6 +34,7 @@ return {
                 "html",
                 "rust",
                 "haskell",
+                "mermaid",
             },
             incremental_selection = {
                 enable = true,

@@ -60,7 +60,7 @@ return {
                     preview_height = 0.7,
                     vertical = { size = { width = "95%", height = "95%" } }
                 },
-                path_display = { "smart" },
+                path_display = { "truncate" },
                 mappings = {
                     i = {
                         ["<C-k>"] = actions.move_selection_previous,
