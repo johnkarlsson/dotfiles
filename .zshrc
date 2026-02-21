@@ -184,6 +184,8 @@ alias acut='cut -d ""'
 alias mm='awk "{ if (!min || \$0 < min) { min = \$0; }; if (\$0 > max) { max = \$0; }; } END { print min; print max; }"'
 alias tree='eza --tree -a --icons=always --git-ignore'
 alias t='tree --level=2'
+alias tt='tree --level=3'
+alias ttt='tree --level=4'
 
 alias cursorkill='echo "Click on window to kill"; xprop | grep PID | grep -Po "\d+" | xargs kill'
 
