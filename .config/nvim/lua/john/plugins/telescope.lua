@@ -87,6 +87,12 @@ return {
         keymap.set("n", "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace_symbols symbols=class,function,method<cr>", { desc = "Find symbols" })
         keymap.set("n", "<leader>fG", "<cmd>Telescope git_status<cr>", { desc = "Find git status" })
         -- keymap.set("n", "<leader>fc", "<cmd>Telescope command_history<cr>", { desc = "Find command history" })
+        keymap.set("n", "<leader>fl", function()
+            builtin.live_grep({
+                additional_args = { "--files-with-matches" },
+                entry_maker = require("telescope.make_entry").gen_from_file(),
+            })
+        end, { desc = "Find files matching grep (grep -l)" })
         keymap.set("n", "<leader>fw", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
         keymap.set("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Find normal mode keymappings" })
         keymap.set("v", "<leader>fc", builtin.git_bcommits_range, { noremap = true, silent = true, desc = "Find file commits in visual range" })
