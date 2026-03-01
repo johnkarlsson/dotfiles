@@ -100,6 +100,57 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 5
 vim.opt.foldminlines = 1
 
+-- Custom foldtext: prefix in FoldedPrefix highlight, content retains treesitter syntax colors
+function _G.custom_foldtext()
+    local start = vim.v.foldstart
+    local line_count = vim.v.foldend - start + 1
+    local line = vim.fn.getline(start)
+    local prefix = vim.v.folddashes .. " " .. line_count .. " lines: "
+
+    local result = { { prefix, "FoldedPrefix" } }
+
+    if #line == 0 then
+        return result
+    end
+
+    local bufnr = vim.api.nvim_get_current_buf()
+    local row = start - 1
+    local prev_hl = nil
+    local chunk = ""
+
+    for i = 0, #line - 1 do
+        local hl = nil
+        local best_priority = -1
+        local ok, info = pcall(vim.inspect_pos, bufnr, row, i)
+        if ok then
+            for _, ts in ipairs(info.treesitter) do
+                local pri = ts.priority or 100
+                if pri > best_priority then
+                    best_priority = pri
+                    hl = ts.hl_group
+                end
+            end
+        end
+
+        if hl ~= prev_hl then
+            if chunk ~= "" then
+                table.insert(result, { chunk, prev_hl })
+            end
+            chunk = line:sub(i + 1, i + 1)
+            prev_hl = hl
+        else
+            chunk = chunk .. line:sub(i + 1, i + 1)
+        end
+    end
+
+    if chunk ~= "" then
+        table.insert(result, { chunk, prev_hl })
+    end
+
+    return result
+end
+vim.opt.foldtext = "v:lua.custom_foldtext()"
+
 -- Use LSP folding when available, but not for markdown (treesitter folds are better)
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
