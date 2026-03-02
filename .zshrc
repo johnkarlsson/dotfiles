@@ -186,6 +186,8 @@ alias tree='eza --tree -a --icons=always --git-ignore'
 alias t='tree --level=2'
 alias tt='tree --level=3'
 alias ttt='tree --level=4'
+alias tl='eza -a --color=always --sort=time --no-user -l --icons=always --tree --level=2'
+alias ttl='eza -a --color=always --sort=time --no-user -l --icons=always --tree --level=3'
 
 alias cursorkill='echo "Click on window to kill"; xprop | grep PID | grep -Po "\d+" | xargs kill'
 
