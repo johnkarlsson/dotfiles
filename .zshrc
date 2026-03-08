@@ -182,12 +182,29 @@ alias scut='cut -d " "'
 alias ccut='cut -d ","'
 alias acut='cut -d ""'
 alias mm='awk "{ if (!min || \$0 < min) { min = \$0; }; if (\$0 > max) { max = \$0; }; } END { print min; print max; }"'
-alias tree='eza --tree -a --icons=always --git-ignore'
-alias t='tree --level=2'
-alias tt='tree --level=3'
-alias ttt='tree --level=4'
-alias tl='eza -a --color=always --sort=time --no-user -l --icons=always --tree --level=2'
-alias ttl='eza -a --color=always --sort=time --no-user -l --icons=always --tree --level=3'
+_tree() {
+  local long=false
+  [[ "$1" == -l ]] && long=true && shift
+  local level="$1"; shift
+  local args=("$@")
+  local gitflag=()
+  local has_path=false
+  for arg in "${args[@]}"; do
+    [[ "$arg" != -* ]] && has_path=true && break
+  done
+  $has_path || gitflag=(--git-ignore)
+  local longflag=()
+  $long && longflag=(--color=always --sort=time --no-user -l)
+  eza --tree -a --icons=always "${gitflag[@]}" "${longflag[@]}" ${level:+--level=$level} "${args[@]}"
+}
+alias tree='_tree ""'
+alias t='_tree 2'
+alias tt='_tree 3'
+alias ttt='_tree 4'
+alias tl='_tree -l 2'
+alias ttl='_tree -l 3'
+alias lt='tl'
+alias ltt='ttl'
 
 alias cursorkill='echo "Click on window to kill"; xprop | grep PID | grep -Po "\d+" | xargs kill'
 
@@ -244,3 +261,10 @@ export PATH="$PATH:/Users/john/.cache/lm-studio/bin"
 # End of LM Studio CLI section
 
 eval "$(zoxide init zsh)"  # `z keyword` or `zi [keyword]` needs fzf
+
+# bun completions
+[ -s "/Users/john/.bun/_bun" ] && source "/Users/john/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
