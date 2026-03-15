@@ -11,7 +11,7 @@ SELECTED=$(
   nl -ba "$SCROLL" |
   fzf --tac --no-sort --exact --query "❯" \
     --nth=2.. \
-    --preview="awk 'NR>=({1}-5) && NR<=({1}+30)' \"$SCROLL\" | grep --color=always -e {q} -e '^'" \
+    --preview="awk -v q={q} 'NR>=({1}-5) && NR<=({1}+30) { if (q != \"\" && index(\$0,q)) printf \"\\033[43;30m%s\\033[0m\\n\", \$0; else print }' \"$SCROLL\"" \
     --preview-window=right:60%:wrap
 ) || exit 0
 
