@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PANE="$1"
+SCROLL=$(mktemp)
+trap 'rm -f "$SCROLL"' EXIT
+
+tmux capture-pane -pS - -t "$PANE" > "$SCROLL"
+
+SELECTED=$(
+  nl -ba "$SCROLL" |
+  fzf --tac --no-sort --exact --query "❯" \
+    --nth=2.. \
+    --preview="awk 'NR>=({1}-5) && NR<=({1}+30)' \"$SCROLL\" | grep --color=always -e {q} -e '^'" \
+    --preview-window=right:60%:wrap
+) || exit 0
+
+LINE_NUM=$(echo "$SELECTED" | awk '{print $1}')
+TOTAL=$(wc -l < "$SCROLL")
+FROM_BOTTOM=$((TOTAL - LINE_NUM))
+
+tmux copy-mode -t "$PANE"
+tmux send-keys -t "$PANE" -X goto-line "$FROM_BOTTOM"
