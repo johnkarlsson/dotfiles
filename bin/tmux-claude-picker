@@ -23,6 +23,7 @@ tmux list-panes -s -t "$SESSION" -F '#{pane_pid} #I.#P' > "$DIR/pane_pids.txt"
             if ! grep -qx "$pane" "$DIR/${win}.panes" 2>/dev/null; then
                 echo "$pane" >> "$DIR/${win}.panes"
                 tmux capture-pane -pS - -t "${SESSION}:${wp}" > "$DIR/${wp}.scroll" 2>/dev/null || true
+                tmux capture-pane -pS - -e -t "${SESSION}:${wp}" > "$DIR/${wp}.colored" 2>/dev/null || true
             fi
             break
         fi
@@ -81,25 +82,39 @@ DIR="$1"; ENTRY="$2"; Q="$3"
 win="${ENTRY%%:*}"
 win="${win// /}"
 
-best_scroll=""
+best_pane=""
 if [ -n "$Q" ] && [ -f "$DIR/${win}.panes" ]; then
     while read -r pane; do
         scroll="$DIR/${win}.${pane}.scroll"
         [ ! -f "$scroll" ] && continue
         if grep -qi -F -- "$Q" "$scroll" 2>/dev/null; then
-            best_scroll="$scroll"
+            best_pane="$pane"
             break
         fi
     done < "$DIR/${win}.panes"
 fi
 
-if [ -n "$best_scroll" ]; then
-    grep -in --color=always -F -C 3 -- "$Q" "$best_scroll" | tail -40
+if [ -n "$best_pane" ]; then
+    # Collect all matching line numbers from the plain text version
+    match_lines=$(grep -in -F -- "$Q" "$DIR/${win}.${best_pane}.scroll" | cut -d: -f1 | paste -sd, -)
+    last_num=$(echo "$match_lines" | tr ',' '\n' | tail -1)
+    colored="$DIR/${win}.${best_pane}.colored"
+    if [ -n "$last_num" ] && [ -f "$colored" ]; then
+        start=$((last_num - 15))
+        [ "$start" -lt 1 ] && start=1
+        end=$((last_num + 25))
+        awk -v s="$start" -v e="$end" -v ml="$match_lines" '
+            BEGIN { split(ml, a, ","); for (i in a) hl[a[i]]=1 }
+            NR >= s && NR <= e {
+                if (NR in hl) { gsub(/\033\[[0-9;]*m/, ""); printf "\033[43;30m%s\033[0m\n", $0 }
+                else print
+            }' "$colored"
+    fi
 else
     first_pane=""
     [ -f "$DIR/${win}.panes" ] && read -r first_pane < "$DIR/${win}.panes"
-    scroll="$DIR/${win}.${first_pane:-1}.scroll"
-    [ -f "$scroll" ] && tail -30 "$scroll"
+    colored="$DIR/${win}.${first_pane:-1}.colored"
+    [ -f "$colored" ] && tail -30 "$colored"
 fi
 HEREDOC
 
@@ -127,7 +142,7 @@ SELECTED=$(
         --print-query \
         --bind "change:reload:bash $DIR/search.sh $DIR {q}" \
         --preview "bash $DIR/preview.sh $DIR {} {q}" \
-        --preview-window=right:50%:wrap
+        --preview-window=up:80%:wrap
 ) || exit 0
 
 QUERY=$(echo "$SELECTED" | head -1)
