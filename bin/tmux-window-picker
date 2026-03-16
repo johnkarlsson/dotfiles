@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# fzf window picker — searches window names and all panes' scrollback content.
+
+DIR=$(mktemp -d)
+trap 'rm -rf "$DIR"' EXIT
+
+# Capture scrollback for every pane, keyed by window.pane
+tmux list-panes -a -F '#I.#P #I' | while read -r wp win; do
+    tmux capture-pane -pS - -t ":${wp}" > "$DIR/${wp}.scroll" 2>/dev/null || true
+done
+
+# Store pane list per window (just the pane indices)
+tmux list-panes -a -F '#I #P' | while read -r win pane; do
+    echo "$pane" >> "$DIR/${win}.panes"
+done
+
+# Window list with pane commands: "1: mywindow [vim, zsh]"
+tmux list-windows -F '#I' | while read -r win; do
+    name=$(tmux display-message -t ":$win" -p '#W')
+    panes=$(tmux list-panes -t ":$win" -F '#{pane_current_command}' | paste -sd, - | sed 's/,/, /g')
+    echo "$win: $name [$panes]"
+done > "$DIR/windows.list"
+
+# --- search helper: returns windows matching query in name or scrollback ---
+cat > "$DIR/search.sh" << 'HEREDOC'
+#!/usr/bin/env bash
+DIR="$1"; Q="$2"
+if [ -z "$Q" ]; then
+    cat "$DIR/windows.list"
+    exit 0
+fi
+while IFS= read -r line; do
+    win="${line%%:*}"
+    win="${win// /}"
+    # Name match — highlight inline
+    if echo "$line" | grep -qi -F -- "$Q" 2>/dev/null; then
+        echo "$line" | GREP_COLORS='ms=01;33' grep -i --color=always -F -- "$Q"
+        continue
+    fi
+    # Scrollback match — search all panes, use first match
+    [ ! -f "$DIR/${win}.panes" ] && continue
+    while read -r pane; do
+        scroll="$DIR/${win}.${pane}.scroll"
+        [ ! -f "$scroll" ] && continue
+        if match=$(grep -i -F -- "$Q" "$scroll" | tail -1 | sed 's/^[[:space:]]*//' | cut -c1-50) && [ -n "$match" ]; then
+            printf '%s \033[2m│ %s\033[0m\n' "$line" "$match"
+            break
+        fi
+    done < "$DIR/${win}.panes"
+done < "$DIR/windows.list"
+HEREDOC
+
+# --- preview helper: show scrollback, highlighting matches ---
+cat > "$DIR/preview.sh" << 'HEREDOC'
+#!/usr/bin/env bash
+DIR="$1"; ENTRY="$2"; Q="$3"
+win="${ENTRY%%:*}"
+win="${win// /}"
+
+# Find the best pane to preview
+best_scroll=""
+if [ -n "$Q" ] && [ -f "$DIR/${win}.panes" ]; then
+    while read -r pane; do
+        scroll="$DIR/${win}.${pane}.scroll"
+        [ ! -f "$scroll" ] && continue
+        if grep -qi -F -- "$Q" "$scroll" 2>/dev/null; then
+            best_scroll="$scroll"
+            break
+        fi
+    done < "$DIR/${win}.panes"
+fi
+
+if [ -n "$best_scroll" ]; then
+    grep -in --color=always -F -C 3 -- "$Q" "$best_scroll" | tail -40
+else
+    # No scrollback match — show active pane's tail
+    first_pane=""
+    [ -f "$DIR/${win}.panes" ] && read -r first_pane < "$DIR/${win}.panes"
+    scroll="$DIR/${win}.${first_pane:-1}.scroll"
+    [ -f "$scroll" ] && tail -30 "$scroll"
+fi
+HEREDOC
+
+# --- match helper: find which pane matched for select-pane ---
+cat > "$DIR/match.sh" << 'HEREDOC'
+#!/usr/bin/env bash
+DIR="$1"; WIN="$2"; Q="$3"
+[ -z "$Q" ] && exit 0
+[ ! -f "$DIR/${WIN}.panes" ] && exit 0
+while read -r pane; do
+    scroll="$DIR/${WIN}.${pane}.scroll"
+    [ ! -f "$scroll" ] && continue
+    if grep -qi -F -- "$Q" "$scroll" 2>/dev/null; then
+        echo "$pane"
+        exit 0
+    fi
+done < "$DIR/${WIN}.panes"
+HEREDOC
+
+# Store the query so we can find the matching pane after selection
+SELECTED=$(
+    cat "$DIR/windows.list" |
+    fzf --prompt="window> " \
+        --ansi \
+        --disabled \
+        --print-query \
+        --bind "change:reload:bash $DIR/search.sh $DIR {q}" \
+        --preview "bash $DIR/preview.sh $DIR {} {q}" \
+        --preview-window=right:50%:wrap
+) || exit 0
+
+QUERY=$(echo "$SELECTED" | head -1)
+ENTRY=$(echo "$SELECTED" | tail -1)
+WIN="${ENTRY%%:*}"
+WIN="${WIN// /}"
+
+tmux select-window -t ":$WIN"
+
+# If there's a query, try to focus the matching pane
+if [ -n "$QUERY" ]; then
+    PANE=$(bash "$DIR/match.sh" "$DIR" "$WIN" "$QUERY")
+    if [ -n "$PANE" ]; then
+        tmux select-pane -t ":${WIN}.${PANE}"
+    fi
+fi

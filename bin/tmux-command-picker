@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# fzf picker for tmux commands — select a command, then fill it into the tmux command prompt.
+
+SELECTED=$(
+  tmux list-commands |
+    fzf --prompt="tmux> " \
+        --preview-window=down:3:wrap \
+        --preview='echo {}' \
+        --with-nth=1
+) || exit 0
+
+CMD=$(echo "$SELECTED" | awk '{print $1}')
+
+tmux set-buffer "$CMD "
