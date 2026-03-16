@@ -182,7 +182,6 @@ alias scut='cut -d " "'
 alias ccut='cut -d ","'
 alias acut='cut -d ""'
 alias mm='awk "{ if (!min || \$0 < min) { min = \$0; }; if (\$0 > max) { max = \$0; }; } END { print min; print max; }"'
-<<<<<<< Updated upstream
 _tree() {
   local long=false
   [[ "$1" == -l ]] && long=true && shift
