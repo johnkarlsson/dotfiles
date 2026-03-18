@@ -158,6 +158,7 @@ nvim() {
   fi
   command nvim "$@"
 }
+alias clear='clear && [ -n "$TMUX" ] && tmux clear-history'
 alias vi=nvim
 alias vim=nvim
 export GIT_EDITOR='nvim'
