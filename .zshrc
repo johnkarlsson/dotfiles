@@ -64,7 +64,7 @@ fi
 
 [[ $TERM == 'dumb' ]] && unsetopt zle
 export EDITOR=nvim
-export TERM=screen-256color
+# export TERM=screen-256color
 
 export LANG=en_US
 export LC_ALL=en_US.utf-8
@@ -82,6 +82,9 @@ bindkey -v
 # source /home/john/Projects/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+zle_highlight+=(isearch:bg=1,fg=white,bold)
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=1,fg=white,bold'
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=1,fg=white,bold'
 
 # bind k and j for VI mode
 bindkey -M vicmd 'k' history-substring-search-up

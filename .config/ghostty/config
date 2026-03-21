@@ -1,11 +1,17 @@
+#############################
+#                           #
+#  Reload with Cmd+Shift+,  #
+#                           #
+#############################
+
 # theme = One Half Dark
 # theme = Tomorrow Night Eighties
 # theme = Nord Wave
 # theme = TokyoNight Night
 # theme = Overnight Slumber
-theme = Rose Pine
-theme = Sea Shells
-theme = Material Ocean
+# theme = Rose Pine
+# theme = Sea Shells
+# theme = Material Ocean
 theme = Vague
 
 # font-family = "MesloLGS Nerd Font Mono"
