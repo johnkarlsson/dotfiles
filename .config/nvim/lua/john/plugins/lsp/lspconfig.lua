@@ -95,5 +95,11 @@ return {
                 },
             },
         })
+
+        -- Requires: ghcup install hls
+        vim.lsp.config('hls', {
+            capabilities = capabilities,
+            filetypes = { 'haskell', 'lhaskell', 'cabal' },
+        })
     end,
 }
