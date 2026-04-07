@@ -4,7 +4,7 @@ return {
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         { "antosha417/nvim-lsp-file-operations", config = true },
-        { "folke/neodev.nvim", opts = {} },
+        { "folke/lazydev.nvim", opts = {} },
     },
     config = function()
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -30,7 +30,7 @@ return {
                 keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 
                 opts.desc = "Show LSP type definitions"
-                keymap.set("n", "gi", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+                keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
                 opts.desc = "See available code actions"
                 keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
@@ -82,24 +82,37 @@ return {
             },
         })
 
+        -- rust-analyzer is installed via rustup, not Mason:
+        --   rustup component add rust-analyzer
         vim.lsp.config('rust_analyzer', {
             capabilities = capabilities,
             settings = {
                 ["rust-analyzer"] = {
-                    checkOnSave = {
+                    check = {
                         command = "clippy",
                     },
                     cargo = {
                         allFeatures = true,
                     },
+                    inlayHints = {
+                        typeHints = { enable = true },
+                        parameterHints = { enable = true },
+                        chainingHints = { enable = true },
+                    },
                 },
             },
         })
+
+        vim.lsp.inlay_hint.enable(true)
 
         -- Requires: ghcup install hls
         vim.lsp.config('hls', {
             capabilities = capabilities,
             filetypes = { 'haskell', 'lhaskell', 'cabal' },
         })
+
+        vim.lsp.enable('lua_ls')
+        vim.lsp.enable('rust_analyzer')
+        vim.lsp.enable('hls')
     end,
 }
