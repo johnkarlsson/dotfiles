@@ -47,7 +47,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-if [[ -z "$TMUX" && $TERM != 'dumb' && $- == *i* ]]; then
+if [[ -z "$TMUX" && $TERM != 'dumb' && $- == *i* && -t 1 ]]; then
     if [[ "$TERM_PROGRAM" == 'ghostty' ]]; then
         # Attach to an existing detached session, or create a new one
         detached_session=$(tmux ls 2>/dev/null | grep -v '(attached)' | head -1 | cut -d: -f1)
