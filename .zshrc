@@ -186,7 +186,7 @@ alias scut='cut -d " "'
 alias ccut='cut -d ","'
 alias acut='cut -d ""'
 alias mm='awk "{ if (!min || \$0 < min) { min = \$0; }; if (\$0 > max) { max = \$0; }; } END { print min; print max; }"'
-_tree() {
+ezatree() {
   local long=false
   [[ "$1" == -l ]] && long=true && shift
   local level="$1"; shift
@@ -201,10 +201,10 @@ _tree() {
   $long && longflag=(--color=always --sort=time --no-user -l)
   eza --tree -a --icons=always "${gitflag[@]}" "${longflag[@]}" ${level:+--level=$level} "${args[@]}"
 }
-alias tree='_tree ""'
-alias t='_tree 2'
-alias tt='_tree 3'
-alias ttt='_tree 4'
+alias tree='ezatree ""'
+alias t='ezatree 2'
+alias tt='ezatree 3'
+alias ttt='ezatree 4'
 alias lt='tl'
 alias ltt='ttl'
 # alias tree='eza --tree -a --icons=always --git-ignore'

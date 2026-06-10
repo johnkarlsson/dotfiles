@@ -111,8 +111,34 @@ return {
             filetypes = { 'haskell', 'lhaskell', 'cabal' },
         })
 
+        -- Python: prefer the project venv's pyright-langserver over Mason's.
+        -- Mason prepends its bin to PATH, so its pyright-langserver shadows the
+        -- venv's and can lag the project's uv-locked pyright (e.g. Mason 1.1.406
+        -- vs locked 1.1.409 disagree on TF 2.19's lazy `keras` export). Using the
+        -- venv binary keeps the editor, `uv run pyright`, and CI in lockstep and
+        -- binds the right site-packages; falls back to Mason's when there's no venv.
+        local function pyright_cmd()
+            local candidates = {}
+            if vim.env.VIRTUAL_ENV then
+                table.insert(candidates, vim.env.VIRTUAL_ENV .. "/bin/pyright-langserver")
+            end
+            table.insert(candidates, vim.fn.getcwd() .. "/.venv/bin/pyright-langserver")
+            for _, bin in ipairs(candidates) do
+                if vim.fn.executable(bin) == 1 then
+                    return { bin, "--stdio" }
+                end
+            end
+            return { "pyright-langserver", "--stdio" }
+        end
+
+        vim.lsp.config('pyright', {
+            capabilities = capabilities,
+            cmd = pyright_cmd(),
+        })
+
         vim.lsp.enable('lua_ls')
         vim.lsp.enable('rust_analyzer')
         vim.lsp.enable('hls')
+        vim.lsp.enable('pyright')
     end,
 }
