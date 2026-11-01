@@ -170,7 +170,7 @@ alias pip=pip3
 alias vimdiff='nvim -d -R'
 alias gcal=gcalcli
 alias trim="sed -r -e 's/^\s+//' -e 's/\s+/ /g'"
-alias ggb="git log --graph --oneline --format='%C(yellow)%h%Creset%C(auto)%d%Creset %s %C(cyan)(%an, %ar)%Creset'"
+alias ggb="git log --graph --oneline --format='%C(yellow)%h%Creset%C(auto)%d%Creset %s %C(cyan)(%an, %ar)%Creset' --exclude='refs/t3/*'"
 alias gg="ggb --all"
 alias ggm="git log --graph --format='%C(yellow)%h%Creset%C(auto)%d%Creset %C(cyan)%ar%Creset %b' --first-parent origin/master"
 alias gn="ggb origin/master --no-merges"
